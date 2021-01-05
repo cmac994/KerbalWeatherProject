@@ -11,7 +11,7 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 
 1. Download the repository as a zip or clone it.
 2. Navigate to GameData/ and copy the KerbalWeatherProject folder to your KSP home directory.
-3. Optionally, install KerWxBalloons an update of KerBalloons for KSP 1.11. 
+3. (Optional) install KerWxBalloons: an update of KerBalloons for KSP 1.11. 
 
 ##### Automatic
 
