@@ -11,11 +11,11 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 
 1. Download the repository as a zip or clone it.
 2. Navigate to GameData/ and copy the KerbalWeatherProject folder to your KSP home directory.
-3. (Optional) install KerWxBalloons: an update of KerBalloons for KSP 1.11. 
+3. (Optional) install [KerBalloons](https://github.com/cmac994/KerBalloons).
 
 ##### Automatic
 
-Using CKAN select Kerbal Weather Project and click install! CKAN should automatically install the two dependencies of the mod: toolbar controller and modular fight integrator. If you'd like to emulate the collection of [real-world weather data](https://www.weather.gov/upperair/factsheet) you can also select KerWxBalloons in CKAN. This repository provides a wide array of balloons capable of lifting both sensors and Kerbals!
+Using CKAN select Kerbal Weather Project and click install! CKAN should automatically install the two dependencies of the mod: toolbar controller and modular fight integrator. If you'd like to emulate the collection of [real-world weather data](https://www.weather.gov/upperair/factsheet) you can also select [KerWxBalloons](https://github.com/cmac994/KerBalloons) in CKAN. This repository provides a wide array of balloons capable of lifting both sensors and Kerbals!
 
 ### Compatability
 
