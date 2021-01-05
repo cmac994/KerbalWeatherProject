@@ -17,7 +17,7 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 
 Using CKAN select Kerbal Weather Project and click install! CKAN should automatically install the two dependencies of the mod: toolbar controller and modular fight integrator.
 
-#### Compatability
+### Compatability
 
 KWP works with stock KSP and should work with the vast majority of KSP mods. KWP has been tested, without issue, in a KSP 1.10 playthrough with 220 other popular KSP mods. That said, KWP may conflict with mods like [real heat](https://forum.kerbalspaceprogram.com/index.php?/topic/115066-113-realheat-minimalist-v43-july-3/) or [deadly reentry](https://forum.kerbalspaceprogram.com/index.php?/topic/50296-181-deadly-reentry-v774-the-maat-edition-nov-6th-2019/) that modify the stock game's aerodynamic or thermodynamic system. KWP can still be used with these mods as KWP's override of the stock thermodynamic system can be disabled in the settings menu. 
 
