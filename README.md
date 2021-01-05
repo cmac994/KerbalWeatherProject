@@ -23,9 +23,9 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 1. Download and install [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl) 
 2. Download and install [ModularFlightIntegrator](https://github.com/sarbian/ModularFlightIntegrator)
 3. Download the repository as a zip or clone it.
-4. Unzip the repository and copy the KerbalWeatherProject folder to your KSP home directory (i.e. GameData).
+4. Unzip the repository and copy the KerbalWeatherProject folder to your KSP home directory (i.e. GameData folder).
 
-##### Automated Installation
+##### Automatic Installation (Coming Soon - Mod has not been added to CKAN yet)
 
 Using CKAN select Kerbal Weather Project and click install! CKAN should automatically install the two dependencies of the mod: toolbar controller and modular fight integrator. If you'd like to emulate the collection of [real-world weather data](https://www.weather.gov/upperair/factsheet) you can also select [KerBalloons](https://github.com/cmac994/KerBalloons) in CKAN. This repository provides a wide array of balloons capable of lifting both sensors and Kerbals!
 
