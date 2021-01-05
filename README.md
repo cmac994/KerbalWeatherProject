@@ -7,6 +7,15 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 
 ### Installation
 
+##### Manual
+
+1. Download the repository as a zip or clone it.
+2. Navigate to GameData/ and copy the KerbalWeatherProject folder to your KSP directory.
+3. Optionally, install KerWxBalloons an update of KerBalloons for KSP 1.11. 
+
+##### Automatic
+
+Using CKAN select Kerbal Weather Project and click install! CKAN should automatically install the two dependencies of the mod: toolbar controller and modular fight integrator.
 
 #### Compatability
 
@@ -14,7 +23,7 @@ KWP works with stock KSP and should work with the vast majority of KSP mods. KWP
 
 KWP is compatible with the aerodynamics overhaul: Ferram Aerospace Research ([FAR](https://github.com/dkavolis/Ferram-Aerospace-Research)). Note that since FAR overrides KSP's thermodynamic system, pressure and temperature data from KWP will not affect flight dynamics when FAR is installed.
 
-#### Background
+### Background
 
 Kerbin weather and climate analyses were produced using the Model for Prediction Across Scale  (MPAS; [Skamarock et al., 2012](https://doi.org/10.1175/MWR-D-11-00215.1)). 
 <p align="center">
@@ -33,7 +42,7 @@ In addition to land surface modifications, several changes to MPAS were made to 
 
 A climatology of Kerbin was developed by averaging the results of the five-year MPAS simulation, by the hour. Results from this simulation were incorporated into the game via KWP. The hourly climatology allows players to experience diurnal and spatial variations in atmospheric conditions Alternatively, weather time series, extracted at select launch sites, allow players to experience dynamic weather conditions.
 
-#### Settings
+### Settings
 <p align="center">
   <img width="900" height="550" src="Figures/KSP_Settings.PNG">
 </p>
@@ -43,12 +52,12 @@ Under wind settings, KWP includes options for the source of wind data. By defaul
 
 Since KSP is a game enjoyed around the world, KWP incorporates unit settings that allow players to select their preferred units for meteorological parameters. The units default to S.I. units.
 
-#### Acknowledgements
+### Acknowledgements
 
 * KSP Developer Squad and KSP creator Felipe Falanghe.
 * KSP Modding Community – specifically KSP forum users linuxgurugamer, JoePatrick1, Fengist, DaMichel, NathanKell, and DMagic. These mod developers in particular, by pubishing their code publicly, provided a valuable teaching tool which facillitated many of the advancements implemented in KWP. Without their prior work, incporating weather data into KSP would have been exceedingly difficult.
 
-#### References
+### References
 Manley (2016), Can Kerbal Space Program Really Teach Rocket Science? https://www.youtube.com/watch?v=ogC6ds81gek. Accessed 12 December 2020.
 
 Skamarock, W. C., J. B. Klemp, M. G. Duda, L. D. Fowler, S. Park, and T. D. Ringler, 2012: A Multiscale Nonhydrostatic Atmospheric Model Using Centroidal Voronoi Tesselations and C-Grid Staggering. Mon. Wea. Rev., 140, 3090–3105, https://doi.org/10.1175/MWR-D-11-00215.1. 
