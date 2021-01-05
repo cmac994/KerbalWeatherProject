@@ -29,7 +29,7 @@ Kerbin weather and climate analyses were produced using the Model for Predictio
 <p align="center">
   <img width="800" height="430" src="Figures/MPAS_Mesh.png">
 </p>
-MPAS was run for six-years (1st year: spin-up) at a resolution of 2 x 2 decimal degrees. Fortunately, Kerbin’s atmosphere has the same chemical composition as Earth’s.
+MPAS was run for six-years (1st year: spin-up) at a resolution of 2 x 2 decimal degrees. Fortunately, [Kerbin’s atmosphere](https://wiki.kerbalspaceprogram.com/wiki/Kerbin#Atmosphere) has the same chemical composition as Earth’s.
 
 In MPAS, terrain and biome data from KSP were used to classify land use, vegetation type, green fraction, etc.
 
