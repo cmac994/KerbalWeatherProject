@@ -18,7 +18,7 @@ KWP is compatible with the aerodynamics overhaul: Ferram Aerospace Research (FAR
 
 Kerbin weather and climate analyses were produced using the Model for Prediction Across Scale  (MPAS; Skamarock et al., 2012). 
 <p align="center">
-  <img width="1020" height="640" src="Figures/MPAS_Mesh.png">
+  <img width="800" height="400" src="Figures/MPAS_Mesh.png">
 </p>
 MPAS was run for six-years (1st year: spin-up) at a resolution of 2 x 2 deg. Kerbin is the home world of the game’s main protagonists: the Kerbals! Fortunately, Kerbin’s atmosphere has the same chemical composition as Earth’s
 
@@ -36,7 +36,7 @@ Results from this simulation were incorporated into the game via KWP. The hourly
 
 #### Settings
 <p align="center">
-  <img width="800" height="450" src="Figures/KSP_Settings.PNG">
+  <img width="700" height="450" src="Figures/KSP_Settings.PNG">
 </p>
 On the settings page, KWP parameters and defaults can be adjusted. Under weather settings, the default data source can be selected as either climatology or point weather data. The MPAS climatology ensures weather conditions will vary spatially and diurnally. In contrast, point weather data will allow weather to change in time and height, at selected launch sites. Users can select whether KWP will affect KSP's aerodynamic or thermodynamic models under weather settings. This is useful if using other mods that influence these models.
 
