@@ -36,7 +36,7 @@ Results from this simulation were incorporated into the game via KWP. The hourly
 
 #### Settings
 <p align="center">
-  <img width="800" height="450" src="Figures/KSP_Settings.png">
+  <img width="800" height="450" src="Figures/KSP_Settings.PNG">
 </p>
 On the settings page, KWP parameters and defaults can be adjusted. Under weather settings, the default data source can be selected as either climatology or point weather data. The MPAS climatology ensures weather conditions will vary spatially and diurnally. In contrast, point weather data will allow weather to change in time and height, at selected launch sites. Users can select whether KWP will affect KSP's aerodynamic or thermodynamic models under weather settings. This is useful if using other mods that influence these models.
 
