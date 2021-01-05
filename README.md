@@ -6,8 +6,8 @@
 
 Kerbal Weather Project (KWP) is a groundbreaking weather and climate mod for KSP. In KWP, weather and climate data from a global circulation model ([MPAS](https://mpas-dev.github.io/)) were incorporated into KSP gameplay through a C# plugin. More information about KWP is available at the [mod webpage](https://kerbalwxproject.space).
 
-<p align="center">
-<img width="600" height="450" src="Figures/wxballoons.png">
-<img width="600" height="450" src="Figures/polarsatmet.png">
+<p align="left">
+<img width="450" height="300" src="Figures/wxballoons.png" width="100%">
+<img width="450" height="300" src="Figures/polarsatmet.png" width="100%">
 </p>
 
