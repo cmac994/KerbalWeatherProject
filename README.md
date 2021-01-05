@@ -3,7 +3,7 @@
   <img width="800" height="450" src="Figures/olrtoa_hrly.gif">
 </p>
 
-Kerbal Space Program (KSP) is a popular space-flight simulation video game that has been used as a creative sandbox to promote and teach STEM concepts (Manley, 2016). While the game simulates atmospheres with variable depths and densities it lacks dynamic weather limiting its utility as tool for exploring atmospheric science concepts. To remedy this, Kerbal weather Project (KWP) was developed. In KWP, weather and climate data from a global circulation model ([MPAS](https://mpas-dev.github.io/)) were incorporated into KSP gameplay through a C# plugin. More information about KWP is available at the [mod webpage](https://kerbalwxproject.space).
+Kerbal Space Program (KSP) is a popular space-flight simulation video game that has been used as a creative sandbox to promote and teach STEM concepts ([Manley, 2016](https://www.youtube.com/watch?v=ogC6ds81gek)). While the game simulates atmospheres with variable depths and densities it lacks dynamic weather limiting its utility as tool for exploring atmospheric science concepts. To remedy this, Kerbal weather Project (KWP) was developed. In KWP, weather and climate data from a global circulation model ([MPAS](https://mpas-dev.github.io/)) were incorporated into KSP gameplay through a C# plugin. More information about KWP is available at the [mod webpage](https://kerbalwxproject.space).
 
 ### Installation
 
