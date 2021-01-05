@@ -67,7 +67,7 @@ Since KSP is a game enjoyed around the world, KWP incorporates unit settings tha
 ### Acknowledgements
 
 * KSP Developer Squad and KSP creator Felipe Falanghe.
-* KSP Modding Community – specifically KSP forum users linuxgurugamer, JoePatrick1, Fengist, DaMichel, NathanKell, and DMagic. These mod developers in particular, by pubishing their code publicly, provided a valuable teaching tool which facillitated many of the advancements implemented in KWP. Without their prior work, incporating weather data into KSP would have been exceedingly difficult.
+* KSP Modding Community – specifically KSP forum users linuxgurugamer, JoePatrick1, Fengist, DaMichel, NathanKell, and DMagic. These mod developers, by publishing their code publicly, provided a valuable teaching tool which facilitated many of the advancements implemented in KWP. Without their prior work, incorporating weather data into KSP would have been exceedingly difficult.
 
 ### References
 Manley (2016), Can Kerbal Space Program Really Teach Rocket Science? https://www.youtube.com/watch?v=ogC6ds81gek. Accessed 12 December 2020.
