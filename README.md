@@ -18,7 +18,7 @@ KWP is compatible with the aerodynamics overhaul: Ferram Aerospace Research (FAR
 
 Kerbin weather and climate analyses were produced using the Model for Prediction Across Scale  (MPAS; Skamarock et al., 2012). 
 <p align="center">
-  <img width="800" height="450" src="Figures/MPAS_Mesh.png">
+  <img width="800" height="430" src="Figures/MPAS_Mesh.png">
 </p>
 MPAS was run for six-years (1st year: spin-up) at a resolution of 2 x 2 deg. Kerbin is the home world of the game’s main protagonists: the Kerbals! Fortunately, Kerbin’s atmosphere has the same chemical composition as Earth’s
 
