@@ -10,29 +10,28 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 
 #### Compatability
 
-KWP works with stock KSP and should work with the vast majority of KSP mods. KWP has been tested, without issue, in a KSP 1.10 playthrough with 220 other popular KSP mods. That said, KWP may conflict with mods like real heat or deadly reentry that modify the stock game's aerodynamic or thermodynamic system. KWP can still be used with these mods as KWP's override of the stock thermodynamic system can be disabled in the settings menu. 
+KWP works with stock KSP and should work with the vast majority of KSP mods. KWP has been tested, without issue, in a KSP 1.10 playthrough with 220 other popular KSP mods. That said, KWP may conflict with mods like [real heat](https://forum.kerbalspaceprogram.com/index.php?/topic/115066-113-realheat-minimalist-v43-july-3/) or [deadly reentry](https://forum.kerbalspaceprogram.com/index.php?/topic/50296-181-deadly-reentry-v774-the-maat-edition-nov-6th-2019/) that modify the stock game's aerodynamic or thermodynamic system. KWP can still be used with these mods as KWP's override of the stock thermodynamic system can be disabled in the settings menu. 
 
-KWP is compatible with the aerodynamics overhaul: Ferram Aerospace Research (FAR). Note that since FAR overrides KSP's thermodynamic system, pressure and temperature data from KWP will not affect flight dynamics when FAR is installed.
+KWP is compatible with the aerodynamics overhaul: Ferram Aerospace Research ([FAR](https://github.com/dkavolis/Ferram-Aerospace-Research). Note that since FAR overrides KSP's thermodynamic system, pressure and temperature data from KWP will not affect flight dynamics when FAR is installed.
 
 #### Background
 
-Kerbin weather and climate analyses were produced using the Model for Prediction Across Scale  (MPAS; Skamarock et al., 2012). 
+Kerbin weather and climate analyses were produced using the Model for Prediction Across Scale  (MPAS; [Skamarock et al., 2012](https://doi.org/10.1175/MWR-D-11-00215.1)). 
 <p align="center">
   <img width="800" height="430" src="Figures/MPAS_Mesh.png">
 </p>
-MPAS was run for six-years (1st year: spin-up) at a resolution of 2 x 2 deg. Kerbin is the home world of the game’s main protagonists: the Kerbals! Fortunately, Kerbin’s atmosphere has the same chemical composition as Earth’s
+MPAS was run for six-years (1st year: spin-up) at a resolution of 2 x 2 decimal degrees. Fortunately, Kerbin’s atmosphere has the same chemical composition as Earth’s.
 
 In MPAS, terrain and biome data from KSP were used to classify land use, vegetation type, green fraction, etc.
 
 In addition to land surface modifications, several changes to MPAS were made to enable more realistic simulations of Kerbin's atmosphere. These changes are listed below:
 1. Axial obliquity was set to zero.
 1. Orbital eccentricity was set to zero.
-1. The solar constant was set to 1360 W/m
+1. The solar constant was set to 1360 W/m<sup>2</sup>
 1. The day length was set to 6 hours (21600 s)
 1. The Coriolis parameter was multiplied by 4.
 
-A climatology of Kerbin was developed by averaging the results of the five-year MPAS simulation, by the hour.
-Results from this simulation were incorporated into the game via KWP. The hourly climatology allows players to experience diurnal and spatial variations in atmospheric conditions Alternatively, weather time series, extracted at select launch sites, allow players to experience dynamic weather conditions.
+A climatology of Kerbin was developed by averaging the results of the five-year MPAS simulation, by the hour. Results from this simulation were incorporated into the game via KWP. The hourly climatology allows players to experience diurnal and spatial variations in atmospheric conditions Alternatively, weather time series, extracted at select launch sites, allow players to experience dynamic weather conditions.
 
 #### Settings
 <p align="center">
