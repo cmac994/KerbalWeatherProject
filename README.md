@@ -7,13 +7,25 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 
 ### Installation
 
-##### Manual
+#### Required Mods
 
-1. Download the repository as a zip or clone it.
-2. Navigate to GameData/ and copy the KerbalWeatherProject folder to your KSP home directory.
-3. (Optional) install [KerBalloons](https://github.com/cmac994/KerBalloons).
+* [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl)
+* [ModularFlightIntegrator](https://github.com/sarbian/ModularFlightIntegrator)
 
-##### Automatic
+#### Recommended Mods
+
+* [Kerbinside Remastered](https://github.com/Eskandare/KerbinSideRemastered/releases/tag/v0.90.1.1) - adds launch sites compataible with KWP and missions for flying around Kerbin
+* [KerBalloons](https://github.com/cmac994/KerBalloons) - Enables weather balloons!
+* [Atmospheric Autopilot](https://github.com/Boris-Barboris/AtmosphereAutopilot) - makes takeoff/landing during windy conditions easier.
+ 
+##### Manual Installation
+
+1. Download and install [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl) 
+2. Download and install [ModularFlightIntegrator](https://github.com/sarbian/ModularFlightIntegrator)
+3. Download the repository as a zip or clone it.
+4. Navigate to GameData/ and copy the KerbalWeatherProject folder to your KSP home directory.
+
+##### Automated Installation
 
 Using CKAN select Kerbal Weather Project and click install! CKAN should automatically install the two dependencies of the mod: toolbar controller and modular fight integrator. If you'd like to emulate the collection of [real-world weather data](https://www.weather.gov/upperair/factsheet) you can also select [KerBalloons](https://github.com/cmac994/KerBalloons) in CKAN. This repository provides a wide array of balloons capable of lifting both sensors and Kerbals!
 
