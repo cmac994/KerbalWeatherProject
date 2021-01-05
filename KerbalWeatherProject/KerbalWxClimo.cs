@@ -14,8 +14,8 @@ namespace KerbalWeatherProject
         internal const string MODNAME = "KerbalWeatherProject";
 
         // wind
-        Vector3 windVectorWS; // final wind direction and magnitude in world space
-        Vector3 windVector; // wind in "map" space, y = north, x = east (?)
+        public static Vector3 windVectorWS; // final wind direction and magnitude in world space
+        public Vector3 windVector; // wind in "map" space, y = north, x = east (?)
 
         bool use_climo;
         bool aero;
@@ -77,7 +77,8 @@ namespace KerbalWeatherProject
                 {
                     return false;
                 }
-                var del = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheWind"), true);
+                var del = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheWindClimo"), true);
+                //var del = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheWind"), true);
                 SetWindFunction.Invoke(null, new object[] { del });
                 return true; // jump out
             }
@@ -107,6 +108,12 @@ namespace KerbalWeatherProject
             cnst_wnd = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().use_cnstprofile;
             wspd_prof = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().set_wspeed;
             wdir_prof = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().set_wdir;
+
+            if (haveFAR)
+            {
+                CheckFAR();
+            }
+
         }
 
         void Awake()
@@ -117,14 +124,9 @@ namespace KerbalWeatherProject
             //Initialize climate api
             _clim_api = new climate_api();
 
-            Debug.Log(Message);
             //Register with FAR
-            haveFAR = CheckFAR();
-            Util.Log("Have FAR: " + haveFAR);
-            if (!haveFAR)
-            {
-                KWPWind.SetWindFunction(GetTheWind);
-            }
+            //haveFAR = CheckFAR();
+            //Util.Log("Have FAR: " + haveFAR);
 
             //Define Kerbin (only have weather data for Kerbin)
             kerbin = Util.getbody();
@@ -184,7 +186,6 @@ namespace KerbalWeatherProject
             double vheight = vessel.altitude;
             double vlat = vessel.latitude;
             double vlng = vessel.longitude;
-
             if ((wx_enabled) && (use_climo))
             {
                 UpdateCoords();
@@ -393,7 +394,7 @@ namespace KerbalWeatherProject
             return wx_list3d;
         }
 
-        public Vector3 getWSWind()
+        public static Vector3 getWSWind()
         {
             return windVectorWS;
         }
@@ -404,8 +405,9 @@ namespace KerbalWeatherProject
         }
 
         //Called by FAR. Returns wind vector.
-        public Vector3 GetTheWind(CelestialBody body, Part part, Vector3 position)
+        public Vector3 GetTheWindClimo (CelestialBody body, Part part, Vector3 position)
         {
+
             if (!part || (part.partBuoyancy && part.partBuoyancy.splashed))
             {
                 return Vector3.zero;

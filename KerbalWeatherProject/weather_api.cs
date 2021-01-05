@@ -114,7 +114,7 @@ namespace KerbalWeatherProject
             get_dims(); //Get coordinates of data
             //Retrieve meteorological data for the full atmosphere (3D) and at the surface (2D)
             string lsite = Util.get_last_lsite_short();
-            Util.Log("Weather API: Last Launch Site: " + lsite);
+            //Util.Log("Weather API: Last Launch Site: " + lsite);
             point_3d = _kwx_read.getMPAS_3D(lsite);
             point_2d = _kwx_read.getMPAS_2D(lsite);
         }
@@ -126,7 +126,7 @@ namespace KerbalWeatherProject
             get_dims(); //Get coordinates of data
             //Retrieve meteorological data for the full atmosphere (3D) and at the surface (2D)
             string lsite = Util.get_last_lsite_short();
-            Util.Log("Weather API: Last Launch Site: " + lsite);
+            //Util.Log("Weather API: Last Launch Site: " + lsite);
             point_3d = _kwx_read.getMPAS_3D(lsite);
             point_2d = _kwx_read.getMPAS_2D(lsite);
         }
@@ -223,7 +223,7 @@ namespace KerbalWeatherProject
 
             //Compute air density
             double rho = (pp / (Util.Rd * tt));
-            Util.Log("Pressure: " + pp + ", zidx: " + z);
+            //Util.Log("Pressure: " + pp + ", zidx: " + z);
             //Return all fields as struct
             wx_atm wx_data = new wx_atm();
             wx_data.wind_x = uu;

@@ -14,7 +14,7 @@ namespace KerbalWeatherProject
         internal const string MODNAME = "KerbalWeatherProject";
 
         // wind
-        Vector3 windVectorWS; // final wind direction and magnitude in world space
+        public static Vector3 windVectorWS; // final wind direction and magnitude in world space
         Vector3 windVector; // wind in "map" space, y = north, x = east (?)
         bool use_point;
         bool aero;
@@ -101,7 +101,7 @@ namespace KerbalWeatherProject
                 {
                     return false;
                 }
-                var del = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxPoint).GetMethod("GetTheWind"), true);
+                var del = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
                 SetWindFunction.Invoke(null, new object[] { del });
                 return true; // jump out
             }
@@ -131,24 +131,19 @@ namespace KerbalWeatherProject
             cnst_wnd = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().use_cnstprofile;
             wspd_prof = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().set_wspeed;
             wdir_prof = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().set_wdir;
+
         }
 
         void Awake()
         {
-            
+            windVectorWS = Vector3.zero;
+
+            check_settings();
             //Initialize weather api
             _wx_api = new weather_api();
 
-            check_settings();
-            //if (use_point)
-            //{
-            Debug.Log(Message);
             //Register with FAR
             haveFAR = CheckFAR();
-            if (!haveFAR)
-            {
-                KWPWind.SetWindFunction(GetTheWind);
-            }
 
             //Initialize vel data
             for (int i = 0; i < nvars; i++)
@@ -193,7 +188,6 @@ namespace KerbalWeatherProject
         {
 
             check_settings();
-
             //If were not using point MPAS data or were not in flight return void
             if ((!HighLogic.LoadedSceneIsFlight) || (!use_point))
             {
@@ -202,7 +196,6 @@ namespace KerbalWeatherProject
             Vessel vessel = FlightGlobals.ActiveVessel;
             //Get vehicle position
             double vheight = vessel.altitude;
-
             if ((wx_enabled) && (use_point))
             {
                 UpdateCoords();
@@ -215,11 +208,11 @@ namespace KerbalWeatherProject
                 string lsite0 = Util.get_last_lsite();
                 //Check to see if launch site has changed
                 string lsite = vessel.launchedFrom;
-                Util.Log("Currrent Launch Site: " + lsite);
+                //Util.Log("Currrent Launch Site: " + lsite);
                 //Rename launchpad to KSC
                 if (lsite != lsite0)
                 {
-                    Util.Log("Launch site changed, update weather data | New: " + lsite + ", Old: " + lsite0);
+                    //Util.Log("Launch site changed, update weather data | New: " + lsite + ", Old: " + lsite0);
                     gotMPAS = false;
                 }
 
@@ -227,7 +220,7 @@ namespace KerbalWeatherProject
                 if (lsites_name.Contains(lsite))
                 {
                     lidx = lsites_name.IndexOf(lsite);
-                    Util.Log("Launch site confirmed: " + lsites[lidx]);
+                    //Util.Log("Launch site confirmed: " + lsites[lidx]);
                 }
                 else
                 {
@@ -239,7 +232,7 @@ namespace KerbalWeatherProject
                         ddist.Add(Math.Pow((lsites_lat[l] - mlat), 2) + Math.Pow((lsites_lng[l] - mlng), 2));
                     }
                     lidx = ddist.IndexOf(ddist.Min());
-                    Util.Log("Retrieve longitude of nearest launch site: " + lsites[lidx]);
+                    //Util.Log("Retrieve longitude of nearest launch site: " + lsites[lidx]);
                 }
 
                 //Get current launch site
@@ -248,12 +241,12 @@ namespace KerbalWeatherProject
                 //If launch site has changed retrieved weather data for new launch site
                 if (!gotMPAS)
                 {
-                    Debug.Log("Current launch site: " + lsite);
-                    Util.Log("Retrieve weather data for new launch site");
+                    //Debug.Log("Current launch site: " + lsite);
+                    //Util.Log("Retrieve weather data for new launch site");
                     if (lsites_name.Contains(lsite)) { 
                         //If launch site is known (i.e., in KSP or Kerbinside remastered)
                         lidx = lsites_name.IndexOf(lsite);
-                        Util.Log("Retrieve weather data for: " + lsites[lidx]);
+                        //Util.Log("Retrieve weather data for: " + lsites[lidx]);
                         _wx_api.Refresh();
                         gotMPAS = true;
                     } else { 
@@ -265,11 +258,11 @@ namespace KerbalWeatherProject
                             ddist.Add(Math.Pow((lsites_lat[l] - mlat), 2) + Math.Pow((lsites_lng[l] - mlng), 2));
                         }
                         int midx = ddist.IndexOf(ddist.Min());
-                        Util.Log("Retrieve nearby weather data for: " + lsites[midx]);
+                        //Util.Log("Retrieve nearby weather data for: " + lsites[midx]);
                         _wx_api.Refresh();
                         gotMPAS = true;
                     }
-                    Util.Log("GotMPAS: " + gotMPAS.ToString());
+                    //Util.Log("GotMPAS: " + gotMPAS.ToString());
                 }
 
                 if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (vessel.altitude >= 70000))
@@ -315,7 +308,7 @@ namespace KerbalWeatherProject
                     {
                         //Compute wind components
                         u = -wspd_prof * Math.Sin((Math.PI / 180.0) * wdir_prof);
-                        v = -wspd_prof * Math.Sin((Math.PI / 180.0) * wdir_prof);
+                        v = -wspd_prof * Math.Cos((Math.PI / 180.0) * wdir_prof);
                         w = 0; //no vertical motion
                     }
 
@@ -462,6 +455,10 @@ namespace KerbalWeatherProject
         {
             return wx_list3d;
         }
+        public static Vector3 getWSWind()
+        {
+            return windVectorWS;
+        }
 
         public List<double> getWx2D()
         {
@@ -469,9 +466,9 @@ namespace KerbalWeatherProject
         }
 
         //Called by FAR. Returns wind vector.
-        public Vector3 GetTheWind(CelestialBody body, Part part, Vector3 position)
+        public Vector3 GetTheWindPoint(CelestialBody body, Part part, Vector3 position)
         {
-            if (!part || (part.partBuoyancy && part.partBuoyancy.splashed))
+            if (!part  || (part.partBuoyancy && part.partBuoyancy.splashed))
             {
                 return Vector3.zero;
             }
@@ -483,5 +480,6 @@ namespace KerbalWeatherProject
                     return windVectorWS;
             }
         }
+
     }
 }

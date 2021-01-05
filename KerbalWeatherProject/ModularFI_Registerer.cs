@@ -17,6 +17,11 @@ namespace KerbalWeatherProject
         //Initialize weather api class reference
         public weather_api _wx_api;
 
+        //Initialize climate api class reference
+        public KerbalWxClimo _clim_wx;
+        //Initialize weather api class reference
+        public KerbalWxPoint _point_wx;
+
         //Get Kerbin cbody
         CelestialBody kerbin;
 
@@ -65,7 +70,7 @@ namespace KerbalWeatherProject
 
         internal void SetWindBool(bool wind_bool)
         {
-            Util.Log("Set WindBool: " + wind_bool);
+            //Util.Log("Set WindBool: " + wind_bool);
             wx_enabled = wind_bool;
         }
 
@@ -73,7 +78,7 @@ namespace KerbalWeatherProject
         {
             //Check if KWP is enabled by default
             wx_enabled = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams>().WxEnabled;
-            Util.Log("MFI: wx_enabled: " + wx_enabled);
+            //Util.Log("MFI: wx_enabled: " + wx_enabled);
             //Determine MPAS data set
             use_climo = Util.useCLIM();
             use_point = Util.useWX();
@@ -85,6 +90,9 @@ namespace KerbalWeatherProject
             //Get instance of climate api
             _clim_api = new climate_api();
             _wx_api = new weather_api();
+
+            _clim_wx = new KerbalWxClimo();
+            _point_wx = new KerbalWxPoint();
 
             if (!haveFAR)
             {
@@ -124,6 +132,17 @@ namespace KerbalWeatherProject
             //Get main vessel and get reference to Kerbin (i.e. celestial body)
             kerbin = Util.getbody();
 
+            //Get wind vector (initialize to zero)
+            Vector3d windVec = Vector3d.zero;
+            if (use_climo)
+            {
+                //Retrieve wind vector from climatology
+                windVec = KerbalWxClimo.getWSWind(); // .GetWind(FlightGlobals.currentMainBody, part, rb.position);
+            } else if (use_point)
+            {
+                //Retrieve wind vector from point forecast
+                windVec = KerbalWxPoint.getWSWind(); // .GetWind(FlightGlobals.currentMainBody, part, rb.position);
+            }
             //Check to see if root part is in list. If not do not perform aero update. 
             //This avoids updating aerodynamics of parts that have been decoupled and are no longer part of the active vessel.
             bool hasPart = false;
@@ -150,7 +169,7 @@ namespace KerbalWeatherProject
             double air_pressure; double air_density; double soundSpeed;
             //Define gamma (i.e. ratio between specific heat of dry air at constant pressure and specific heat of dry air at constant volume: cp/cv).
             double gamma = 1.4;
-
+            //Util.Log("MFI wx_enabled: " + wx_enabled+", use_point: "+use_point+", use_climo: "+use_climo);
             bool inatmos = false;
             if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (v.altitude <= 70000) && (wx_enabled))
             {
@@ -215,8 +234,8 @@ namespace KerbalWeatherProject
                         v.mach = 0;
                     }
                     //Retrieve wind vector at vessel location
-                    Vector3d windVec = KWPWind.GetWind(FlightGlobals.currentMainBody, part, rb.position);
-
+                    //Vector3d windVec = KWPWind.GetWind(FlightGlobals.currentMainBody, part, rb.position);
+                    //Util.Log("MFI windVec: " + windVec + ", use_point: " + use_point + ", use_climo: " + use_climo);
                     //Retrieve world velocity without wind vector
                     Vector3 velocity_nowind = rb.velocity + Krakensbane.GetFrameVelocity();
                     //Compute mach number
