@@ -36,7 +36,7 @@ KWP works with stock KSP and should work with the vast majority of KSP mods. KWP
 KWP is compatible with the aerodynamics overhaul: Ferram Aerospace Research ([FAR](https://github.com/dkavolis/Ferram-Aerospace-Research)). Note that since FAR overrides KSP's thermodynamic system, pressure and temperature data from KWP will not affect flight dynamics when FAR is installed.
 
 ### Background
-Kerbin weather and climate analyses were produced using the [Model for Prediction Across Scale](https://mpas-dev.github.io) (MPAS); [Skamarock et al., 2012](https://doi.org/10.1175/MWR-D-11-00215.1))
+Kerbin weather and climate analyses were produced using the [Model for Prediction Across Scale](https://mpas-dev.github.io) (MPAS; [Skamarock et al., 2012](https://doi.org/10.1175/MWR-D-11-00215.1))
 <p align="center">
   <img width="800" height="430" src="Figures/MPAS_Mesh.png">
 </p>
