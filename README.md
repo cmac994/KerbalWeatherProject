@@ -23,7 +23,7 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 1. Download and install [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl) 
 2. Download and install [ModularFlightIntegrator](https://github.com/sarbian/ModularFlightIntegrator)
 3. Download the repository as a zip or clone it.
-4. Navigate to GameData/ and copy the KerbalWeatherProject folder to your KSP home directory.
+4. Unzip the repository and copy the KerbalWeatherProject folder to your KSP home directory (i.e. GameData).
 
 ##### Automated Installation
 
