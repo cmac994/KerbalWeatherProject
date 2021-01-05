@@ -8,7 +8,6 @@ Kerbal Weather Project (KWP) is a groundbreaking weather and climate mod for KSP
 
 <p align="center">
 <img width="900" height="500" src="Figures/wxballoon.png">
-<img width="900" height="500" src="Figures/wind_surfing.png">
 <img width="900" height="500" src="Figures/satmet.png">
 </p>
 
