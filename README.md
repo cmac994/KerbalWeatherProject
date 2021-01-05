@@ -1,7 +1,7 @@
 # KerbalWeatherProject
 
 <p align="center">
-  <img width="400" height="400" src="GameData/KerbalWeatherProject/Textures/KWP_icon_large.png">
+  <img width="200" height="200" src="GameData/KerbalWeatherProject/Textures/KWP_icon_small.png">
   <img width="800" height="450" src="Figures/olrtoa_hrly.gif">
 </p>
 
