@@ -10,7 +10,7 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 #### Required Mods
 
 * [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl)
-* [ModularFlightIntegrator](https://github.com/sarbian/ModularFlightIntegrator)
+* [ModularFlightIntegrator](https://ksp.sarbian.com/jenkins/job/ModularFlightIntegrator/33/artifact/ModularFlightIntegrator-1.2.7.0.zip)
 
 #### Recommended Mods
 
@@ -21,7 +21,7 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 ##### Manual Installation
 
 1. Download and install [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl) 
-2. Download and install [ModularFlightIntegrator](https://github.com/sarbian/ModularFlightIntegrator)
+2. Download and install [ModularFlightIntegrator](https://ksp.sarbian.com/jenkins/job/ModularFlightIntegrator/33/artifact/ModularFlightIntegrator-1.2.7.0.zip)
 3. Download the repository as a zip or clone it.
 4. Unzip the repository and copy the KerbalWeatherProject folder to your KSP home directory (i.e. GameData folder).
 
