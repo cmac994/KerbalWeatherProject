@@ -51,4 +51,5 @@ Since KSP is a game enjoyed around the world, KWP incorporates unit settings tha
 
 #### References
 Manley (2016), Can Kerbal Space Program Really Teach Rocket Science? https://www.youtube.com/watch?v=ogC6ds81gek. Accessed 12 December 2020.
+
 Skamarock, W. C., J. B. Klemp, M. G. Duda, L. D. Fowler, S. Park, and T. D. Ringler, 2012: A Multiscale Nonhydrostatic Atmospheric Model Using Centroidal Voronoi Tesselations and C-Grid Staggering. Mon. Wea. Rev., 140, 3090–3105, https://doi.org/10.1175/MWR-D-11-00215.1. 
