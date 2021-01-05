@@ -46,6 +46,7 @@ A climatology of Kerbin was developed by averaging the results of the five-year 
 <p align="center">
   <img width="900" height="550" src="Figures/KSP_Settings.PNG">
 </p>
+
 On the settings page, KWP parameters and defaults can be adjusted. Under weather settings, the default data source can be selected as either climatology or point weather data. The MPAS climatology ensures weather conditions will vary spatially and diurnally. In contrast, point weather data will allow weather to change in time and height, at selected launch sites. Users can select whether KWP will affect KSP's aerodynamic or thermodynamic models under weather settings. This is useful if using other mods that influence these models.
 
 Under wind settings, KWP includes options for the source of wind data. By default, wind data will be provided by MPAS. As an alternative, a constant wind profile can be selected and tweaked to the player's preferred direction and speed. An additional option, for disabling wind within 50-m of the ground, is provided for players who find landing/takeoff in the presence of wind too challenging.
