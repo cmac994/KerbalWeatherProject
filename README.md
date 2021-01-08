@@ -8,7 +8,7 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 ### Installation
 
 #### Required Mods
-* [Click Through Blocker] (https://forum.kerbalspaceprogram.com/index.php?/topic/170747-19x-110x-click-through-blocker-new-dependency/)
+* [Click Through Blocker](https://forum.kerbalspaceprogram.com/index.php?/topic/170747-19x-110x-click-through-blocker-new-dependency/)
 * [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl)
 * [ModularFlightIntegrator](https://ksp.sarbian.com/jenkins/job/ModularFlightIntegrator/33/artifact/ModularFlightIntegrator-1.2.7.0.zip)
 
@@ -20,11 +20,11 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
  
 ##### Manual Installation
 
-1. Download and install [Click Through Blocker] (https://forum.kerbalspaceprogram.com/index.php?/topic/170747-19x-110x-click-through-blocker-new-dependency)
-1. Download and install [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl)
-2. Download and install [ModularFlightIntegrator](https://ksp.sarbian.com/jenkins/job/ModularFlightIntegrator/33/artifact/ModularFlightIntegrator-1.2.7.0.zip)
-3. Download the repository as a zip or clone it.
-4. Unzip the repository and copy the KerbalWeatherProject folder to your KSP home directory (i.e. GameData folder).
+1. Download and install [Click Through Blocker](https://forum.kerbalspaceprogram.com/index.php?/topic/170747-19x-110x-click-through-blocker-new-dependency)
+2. Download and install [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl)
+3. Download and install [ModularFlightIntegrator](https://ksp.sarbian.com/jenkins/job/ModularFlightIntegrator/33/artifact/ModularFlightIntegrator-1.2.7.0.zip)
+4. Download the repository as a zip or clone it.
+5. Unzip the repository and copy the KerbalWeatherProject folder to your KSP home directory (i.e. GameData folder).
 
 ##### Automatic Installation (CKAN)
 
