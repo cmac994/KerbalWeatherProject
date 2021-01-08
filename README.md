@@ -8,24 +8,25 @@ Kerbal Space Program (KSP) is a popular space-flight simulation video game that 
 ### Installation
 
 #### Required Mods
-
+* [Click Through Blocker] (https://forum.kerbalspaceprogram.com/index.php?/topic/170747-19x-110x-click-through-blocker-new-dependency/)
 * [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl)
 * [ModularFlightIntegrator](https://ksp.sarbian.com/jenkins/job/ModularFlightIntegrator/33/artifact/ModularFlightIntegrator-1.2.7.0.zip)
 
 #### Recommended Mods
 
 * [Kerbinside Remastered](https://github.com/Eskandare/KerbinSideRemastered/releases/tag/v0.90.1.1) - adds launch sites compataible with KWP and missions for flying around Kerbin
-* [KerBalloons](https://github.com/cmac994/KerBalloons) - Enables weather balloons!
+* [KerBalloons](https://forum.kerbalspaceprogram.com/index.php?/topic/199372-18-19-110-kerballoons-reinflated-real-science-beta/) - Enables weather balloons!
 * [Atmospheric Autopilot](https://github.com/Boris-Barboris/AtmosphereAutopilot) - makes takeoff/landing during windy conditions easier.
  
 ##### Manual Installation
 
-1. Download and install [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl) 
+1. Download and install [Click Through Blocker] (https://forum.kerbalspaceprogram.com/index.php?/topic/170747-19x-110x-click-through-blocker-new-dependency)
+1. Download and install [Toolbar Controller](https://github.com/linuxgurugamer/ToolbarControl)
 2. Download and install [ModularFlightIntegrator](https://ksp.sarbian.com/jenkins/job/ModularFlightIntegrator/33/artifact/ModularFlightIntegrator-1.2.7.0.zip)
 3. Download the repository as a zip or clone it.
 4. Unzip the repository and copy the KerbalWeatherProject folder to your KSP home directory (i.e. GameData folder).
 
-##### Automatic Installation (Coming Soon - Mod has not been added to CKAN yet)
+##### Automatic Installation (CKAN)
 
 Using CKAN select Kerbal Weather Project and click install! CKAN should automatically install the two dependencies of the mod: toolbar controller and modular fight integrator. If you'd like to emulate the collection of [real-world weather data](https://www.weather.gov/upperair/factsheet) you can also select [KerBalloons](https://github.com/cmac994/KerBalloons) in CKAN. This repository provides a wide array of balloons capable of lifting both sensors and Kerbals!
 
