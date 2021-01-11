@@ -67,7 +67,7 @@ Check to see if KWP is available
 	    return false;
 	}
 
-Use the climate API to retrieve climatological data at specific point in time and space.
+Use the climate API to retrieve climatological data at a specific point in time and space.
 
 .. testcode::
 
@@ -93,7 +93,7 @@ Use the climate API to retrieve climatological data at specific point in time an
 	Climatological V-Wind 5 km ASL at (25N, 60W) -1.55983404053068 m/s
 	Climatological Z-Wind 5 km ASL at (25N, 60W) -0.0169466099952593 m/s
 
-Use the weather API to retrieve point weather data at a specified time and height, above each launch site.
+Use the weather API to retrieve point weather data at a given time and height (above each launch site).
 
 .. testcode:: 
 
