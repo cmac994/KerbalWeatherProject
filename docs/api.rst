@@ -4,8 +4,53 @@ API Documentation
 Climate API
 -----------
 
+Utility
+#######
+
+.. function:: climate_api.get_vars3D()
+		
+	Returns (Dictionary<string,int>): 3D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)
+	
+.. function:: climate_api.get_vars2D()
+
+	Returns (Dictionary<string,int>): 2D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)
+
+
 Wind
 ####
+
+.. function:: climate_api.uwind(latitude, longitude, altitude, ut)
+
+	Parameters 
+
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): zonal-wind component (m/s). Wind velocity in east-west direction.
+	
+.. function:: climate_api.vwind(latitude, longitude, altitude, ut)
+
+	Parameters 
+
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): meridional wind component (m/s). Wind velocity in north-south direction.
+
+.. function:: climate_api.zwind(latitude, longitude, altitude, ut)
+
+	Parameters 
+
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): vertical wind component (m/s). wind velocity in up-down direction.	
 
 Ambient Conditions
 ##################
@@ -14,68 +59,67 @@ Ambient Conditions
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* altitude - meters above sea level
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: air pressure (Pa)
+	Returns (double): air pressure (Pa)
 	
-
 .. function:: climate_api.temperature(latitude, longitude, altitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* altitude - meters above sea level
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: air temperature (K)
+	Returns (double): air temperature (K)
 	
 .. function:: climate_api.density(latitude, longitude, altitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* altitude - meters above sea level
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: air density (kg/m^3)
+	Returns (double): air density (kg/m^3)
 	
 .. function:: climate_api.relative_humidity(latitude, longitude, altitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* altitude - meters above sea level
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: relative_humidity (%) 
+	Returns (double): relative_humidity (%) 
 	
 .. function:: climate_api.cloud_cover(latitude, longitude, altitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* altitude - meters above sea level
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: cloud_cover (%) - above altitude. Percentage of sky above covered by clouds.
+	Returns (double): cloud_cover (%) - above altitude. Percentage of sky above covered by clouds.
 	
 .. function:: climate_api.visibility(latitude, longitude, altitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* altitude - meters above sea level
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: visibility (km). Estimate of visibility derived from humidity, cloud cover, and precipitation rate.
+	Returns (double): visibility (km). Estimate of visibility derived from humidity, cloud cover, and precipitation rate.
 
 Surface Conditions
 ##################
@@ -84,71 +128,242 @@ Surface Conditions
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: outgoing longwave radiation (w/m^2). Returned from IR satellite imagery and used to view cloud cover in the absence of visible light.
+	Returns (double): outgoing longwave radiation (w/m^2). Returned from IR satellite imagery and used to view cloud cover in the absence of visible light.
 
 .. function:: climate_api.total_cloud_cover(latitude, longitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: total cloud cover (%). Percentage of sky covered by clouds.
+	Returns (double): total cloud cover (%). Percentage of sky covered by clouds.
 
 .. function:: climate_api.precipitable_water(latitude, longitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: precipitable water (mm). Amount of liquid water produced by the condensation of all available water vapor in the atmospheric column above a given point. Estimates the moisture content of the atmosphere.
+	Returns (double): precipitable water (mm). Amount of liquid water produced by the condensation of all available water vapor in the atmospheric column above a given point. Estimates the moisture content of the atmosphere.
 
 .. function:: climate_api.prate(latitude, longitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* ut (double) - universal time in seconds (time since game began)
 
-	Returns: precipitation rate (mm/hr). Liquid water equivalent precipitation rate, derived from convective and stratiform precipitation totals. 
+	Returns (double): precipitation rate (mm/hr). Liquid water equivalent precipitation rate, derived from convective and stratiform precipitation totals. 
 
 .. function:: climate_api.mslp(latitude, longitude, ut)
 
 	Parameters 
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* ut - universal time in seconds (time since game began)
-
-	Returns: mean sea level pressure (Pa). Pressure, reduced to sea level, by accounting for the elevation of terrain and diurnal variations in temperature.
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* ut (double) - universal time in seconds (time since game began)
+		
+	Returns (double): mean sea level pressure (Pa). Pressure, reduced to sea level, by accounting for the elevation of terrain and diurnal variations in temperature.
 	
 .. function:: climate_api.sst(latitude, longitude, ut)
 
 	Parameters 
+	
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		* ut (double) - universal time in seconds (time since game began)
 
-		* latitude - decimal degrees
-		* longitude - decimal degrees
-		* ut - universal time in seconds (time since game began)
-
-	Returns: skin surface temperature (K). On land = land surface temperature. On water = sea surface temperature (SST).
+	Returns (double): skin surface temperature (K). On land = land surface temperature. On water = sea surface temperature (SST).
 
 Weather API
 -----------
 
-.. function::  weather_api.temperature(altitude, ut)
- 
+Utility
+#######
+
+	lsites (List<string>)
+		* list of available launch sites (three letter abbreviations)
+		
+	lsites_name (List<string>)
+		* list of available launch sites (full names)
+
+	lsites_lat (List<double>)
+		* list of launch site latitudes
+		
+	lsites_lng (List<double>)
+		* list of launch site longitudes
+
+.. function:: weather_api.get_nearest_lsite_idx(latitude, longitude)
+
 	Parameters 
 
-		* altitude - meters above sea level
-		* ut - universal time in seconds (time since game began)
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		
+	Returns (int): Index of nearest launch site in list (int).
+	
+.. function:: weather_api.get_nearest_lsite(latitude, longitude)
 
-	Returns: temperature: Temperature (K) at a given time and height ASL. 
+	Parameters 
+
+		* latitude (double) - decimal degrees
+		* longitude (double) - decimal degrees
+		
+	Returns (string): Nearest launch site.
+	
+.. function:: weather_api.get_vars3D()
+		
+	Returns (Dictionary<string,int>): 3D atmospheric variables accessible with the KWP weather API. (Key = variable name, Value = variable index)
+	
+.. function:: weather_api.get_vars2D()
+
+	Returns (Dictionary<string,int>): 2D atmospheric variables accessible with the KWP weather API. (Key = variable name, Value = variable index)
+
+Wind
+####
+
+.. function:: weather_api.uwind(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): zonal-wind component (m/s). Wind velocity in east-west direction.
+	
+.. function:: weather_api.vwind(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): meridional wind component (m/s). Wind velocity in north-south direction.
+
+.. function:: weather_api.zwind(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): vertical wind component (m/s). wind velocity in up-down direction.	
+
+Ambient Conditions
+##################
+
+.. function:: weather_api.pressure(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): air pressure (Pa)
+	
+.. function:: weather_api.temperature(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): air temperature (K)
+	
+.. function:: weather_api.density(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): air density (kg/m^3)
+	
+.. function:: weather_api.relative_humidity(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): relative_humidity (%) 
+	
+.. function:: weather_api.cloud_cover(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): cloud_cover (%) - above altitude. Percentage of sky above covered by clouds.
+	
+.. function:: weather_api.visibility(altitude, ut)
+
+	Parameters 
+
+		* altitude (double) - meters above sea level
+		* ut (double) - universal time in seconds (time since game began)
+
+	Returns (double): visibility (km). Estimate of visibility derived from humidity, cloud cover, and precipitation rate.
+
+Surface Conditions
+##################
+
+.. function:: weather_api.OLR(ut)
+
+	Parameters 
+
+		* ut(double) - universal time in seconds (time since game began)
+
+	Returns (double): outgoing longwave radiation (w/m^2). Returned from IR satellite imagery and used to view cloud cover in the absence of visible light.
+
+.. function:: weather_api.total_cloud_cover(ut)
+
+	Parameters 
+
+		* ut(double) - universal time in seconds (time since game began)
+
+	Returns (double): total cloud cover (%). Percentage of sky covered by clouds.
+
+.. function:: weather_api.precipitable_water(ut)
+
+	Parameters 
+
+		* ut(double) - universal time in seconds (time since game began)
+
+	Returns (double): precipitable water (mm). Amount of liquid water produced by the condensation of all available water vapor in the atmospheric column above a given point. Estimates the moisture content of the atmosphere.
+
+.. function:: weather_api.prate(ut)
+
+	Parameters 
+
+		* ut(double) - universal time in seconds (time since game began)
+
+	Returns (double): precipitation rate (mm/hr). Liquid water equivalent precipitation rate, derived from convective and stratiform precipitation totals. 
+
+.. function:: weather_api.mslp(ut)
+
+	Parameters 
+
+		* ut(double) - universal time in seconds (time since game began)
+
+	Returns (double): mean sea level pressure (Pa). Pressure, reduced to sea level, by accounting for the elevation of terrain and diurnal variations in temperature.
+	
+.. function:: weather_api.sst(ut)
+
+	Parameters 
+
+		* ut(double) - universal time in seconds (time since game began)
+
+	Returns (double): skin surface temperature (K). On land = land surface temperature. On water = sea surface temperature (SST).
+
 
