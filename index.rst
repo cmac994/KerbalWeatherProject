@@ -19,7 +19,7 @@ Indices and tables
 
 ========
 
-$project is a groundbreaking weather and climate mod for KSP. This documentation details mod features and API usage. The $project API documentation is provided for KSP modders interested in incoporating weather data in their projects
+KerbalWeatherProject is a groundbreaking weather and climate mod for KSP. This documentation details mod features and API usage. The KerbalWeatherProject API documentation is provided for KSP modders interested in incoporating weather data in their projects
 
 Features
 ========
@@ -37,12 +37,12 @@ Features
 Compatability
 =============
 
-$project is compatabile with almost all KSP mods include FAR. $project may conflict with mods that override KSP's aerodynamic model using ModularFlightIntegrator.
+KerbalWeatherProject is compatabile with almost all KSP mods include FAR. $project may conflict with mods that override KSP's aerodynamic model using ModularFlightIntegrator.
 
 Installation
 ============
 
-Install $project through CKAN without hassle. Or download $project from the following repositories:
+Install KerbalWeatherProject through CKAN without hassle. Or download $project from the following repositories:
 
 GitHub: https://github.com/cmac994/KerbalWeatherProject/releases/tag/1.0.2
     
