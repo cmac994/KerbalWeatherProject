@@ -1,14 +1,12 @@
 ﻿using System.IO;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace KerbalWeatherProject_Lite
 {
     //Class to read climatological data from binary files
-    public class read_climo : MonoBehaviour 
+    public static class read_climo  
     { 
         //Path to Climatology binary data
-        string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherproject_Lite\\Binary\\Climatology";
+        private static string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherproject_Lite\\Binary\\Climatology";
 
         const int NT = 6; //Number of Times (0-6 hr)
         const int NZ = 17; //Number of vertical levels (0-17)
@@ -18,45 +16,45 @@ namespace KerbalWeatherProject_Lite
         const int nsvars = 6; //Number of climate surface variables
 
         //Initialize arrays
-        float[,,,,] climo_3d = new float[nvars, NT, NZ, NLAT, NLON];
-        float[,,,] climo_2d = new float[nsvars, NT, NLAT, NLON];
-        float[,,] height_3d = new float[NLAT, NLON, NZ];
+        public static float[,,,,] climo_3d = new float[nvars, NT, NZ, NLAT, NLON];
+        public static float[,,,] climo_2d = new float[nsvars, NT, NLAT, NLON];
+        public static float[,,] height_3d = new float[NLAT, NLON, NZ];
 
         //Retrieve full-atmosphere climatological data
-        public float[,,,,] getMPAS_3D(string lstr)
+        public static float[,,,,] getMPAS_3D(string lstr)
         {
             get_climo_3d_data(lstr);
             return climo_3d;
         }
 
         //Retrieve surface climatological data
-        public float[,,,] getMPAS_2D(string lstr)
+        public static float[,,,] getMPAS_2D(string lstr)
         {
             get_climo_2d_data(lstr + "_surface");
             return climo_2d;
         }
 
         //Get Time coordinate
-        public float[] getTime()
+        public static float[] getTime()
         {
             return get1d("time", NT);
         }
 
         //Get latitude coordinates
-        public float[] getLat()
+        public static float[] getLat()
         {
             return get1d("latitude", NLAT);
         }
 
         //Get longitude coordinates
-        public float[] getLng()
+        public static float[] getLng()
         {
             return get1d("longitude", NLON);
         }
 
 
         //Retrieve coordinate data (1D)
-        public float[] get1d(string vvar, int arr1)
+        public static float[] get1d(string vvar, int arr1)
         {
             Util.Log("Reading Binary 1-D data: " + vvar);
             float[] vars1d = new float[arr1];
@@ -74,7 +72,7 @@ namespace KerbalWeatherProject_Lite
         }
 
         //Read full-atmosphere climatological data 
-        public void get_climo_3d_data(string mon)
+        public static void get_climo_3d_data(string mon)
         {
             Util.Log("Reading Binary CLIMO 3D data: " + mon);
             // open the binary file for reading
@@ -101,7 +99,7 @@ namespace KerbalWeatherProject_Lite
         }
 
         //Retrieve 3D height data
-        public float[,,] get_height_data()
+        public static float[,,] get_height_data()
         {
             Util.Log("Reading Binary Height 3D data");
             // open the binary file for reading
@@ -123,7 +121,7 @@ namespace KerbalWeatherProject_Lite
         }
 
         //Retrieve surface climatological data.
-        public void get_climo_2d_data(string mon)
+        public static void get_climo_2d_data(string mon)
         {
             Util.Log("Reading Binary CLIMO 2D data: " + mon);
             // open the file binary file for reading

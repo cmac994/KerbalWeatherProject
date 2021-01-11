@@ -12,16 +12,6 @@ namespace KerbalWeatherProject_Lite
         public bool haveFAR;
         public double mach;
 
-        //Initialize climate api class reference
-        public climate_api _clim_api;
-        //Initialize weather api class reference
-        public weather_api _wx_api;
-
-        //Initialize climate api class reference
-        public KerbalWxClimo _clim_wx;
-        //Initialize weather api class reference
-        public KerbalWxPoint _point_wx;
-
         //Get Kerbin cbody
         CelestialBody kerbin;
 
@@ -39,7 +29,7 @@ namespace KerbalWeatherProject_Lite
         {
             try
             {
-                Type FARWind = null;
+                Type FARAtm = null;
 
                 foreach (var assembly in AssemblyLoader.loadedAssemblies)
                 {
@@ -50,12 +40,16 @@ namespace KerbalWeatherProject_Lite
                         {
                             if (t.FullName.Equals("FerramAerospaceResearch.FARWind"))
                             {
-                                FARWind = t;
+                                FARAtm = t;
+                            }
+                            if (t.FullName.Equals("FerramAerospaceResearch.FARAtmosphere"))
+                            {
+                                FARAtm = t;
                             }
                         }
                     }
                 }
-                if (FARWind == null)
+                if (FARAtm == null)
                 {
                     return false;
                 }
@@ -88,40 +82,35 @@ namespace KerbalWeatherProject_Lite
             //Check if FAR is available
             haveFAR = RegisterWithFAR();
             //Get instance of climate api
-            _clim_api = new climate_api();
-            _wx_api = new weather_api();
 
-            _clim_wx = new KerbalWxClimo();
-            _point_wx = new KerbalWxPoint();
+            //if (!haveFAR)
+            //{
+            Vessel v = FlightGlobals.ActiveVessel;
 
-            if (!haveFAR)
+            //Override KSP's FlightIntegrator using the ModularFlightIntegrator 
+            //Util.Log("Register Modular FlightIntegrator");
+            if (aero)
             {
-                Vessel v = FlightGlobals.ActiveVessel;
+                //Util.Log("Register Aero");
+                ModularFI.ModularFlightIntegrator.RegisterUpdateAerodynamicsOverride(UpdateAerodynamicsWx);
+            }
+            if (thermo)
+            {
+                //Util.Log("Register Thermo");
+                ModularFI.ModularFlightIntegrator.RegisterUpdateThermodynamicsPre(UpdateThermodynamicsPreWx);
+            }
 
-                //Override KSP's FlightIntegrator using the ModularFlightIntegrator 
-                Util.Log("Register Modular FlightIntegrator");
-                if (aero)
-                {
-                    ModularFI.ModularFlightIntegrator.RegisterUpdateAerodynamicsOverride(UpdateAerodynamics);
-                }
-                if (thermo)
-                {
-                    ModularFI.ModularFlightIntegrator.RegisterUpdateThermodynamicsPre(UpdateThermodynamicsPre);
-                }
-
-                if ((aero) || (thermo))
-                {
-                    //Util.Log("MFI On");
-                    Util.setMFI(true);
-                }
-
+            if ((aero) || (thermo))
+            {
+                //Util.Log("MFI On");
+                Util.setMFI(true);
             }
             GameObject.Destroy(this);
         }
 
         //Update aerodynamics
         //Adapted from KSP Trajectories, Kerbal Wind Tunnel, FAR, and AeroGUI 
-        void UpdateAerodynamics(ModularFI.ModularFlightIntegrator fi, Part part)
+        void UpdateAerodynamicsWx(ModularFI.ModularFlightIntegrator fi, Part part)
         {
 
             Vessel v = FlightGlobals.ActiveVessel;
@@ -153,6 +142,7 @@ namespace KerbalWeatherProject_Lite
                 if (ppart == v.rootPart)
                 {
                     hasPart = true;
+                    break;
                 }
             }
 
@@ -176,17 +166,19 @@ namespace KerbalWeatherProject_Lite
                 if (use_climo)
                 {
                     //Retrieve air pressure/density at vessel location
-                    climate_api.wx_aero ptd = _clim_api.getPTD(vlat, vlng, vheight);
+                    climate_data.wx_aero ptd = climate_data.getPTD(vlat, vlng, vheight);
                     air_density = ptd.density;
                     air_pressure = ptd.pressure;
                 }
                 else 
                 {
                     //Retrieve air pressure/density at vessel location
-                    weather_api.wx_aero ptd = _wx_api.getPTD(vheight);
+                    weather_data.wx_aero ptd = weather_data.getPTD(vheight);
                     air_density = ptd.density;
                     air_pressure = ptd.pressure;
                 }
+                //Util.Log("Part AtmDensity: " + part.atmDensity);
+                part.atmDensity = air_density;
                 //Compute speed of sound based on air pressure and air density.
                 soundSpeed = Math.Sqrt(gamma * (air_pressure / air_density));
                 inatmos = true;
@@ -232,10 +224,6 @@ namespace KerbalWeatherProject_Lite
                     if (part == v.rootPart)
                     {
                         v.mach = 0;
-                    }
-                    if (!part || (part.partBuoyancy && part.partBuoyancy.splashed))
-                    {
-                        windVec = Vector3.zero;
                     }
                     //Retrieve wind vector at vessel location
                     //Vector3d windVec = KWPWind.GetWind(FlightGlobals.currentMainBody, part, rb.position);
@@ -426,7 +414,7 @@ namespace KerbalWeatherProject_Lite
             return total;
         }
 
-        public void UpdateThermodynamicsPre(ModularFI.ModularFlightIntegrator fi)
+        public void UpdateThermodynamicsPreWx(ModularFI.ModularFlightIntegrator fi)
         {
 
             wx_enabled = Util.getWindBool();
@@ -453,6 +441,7 @@ namespace KerbalWeatherProject_Lite
                 if (part == v.rootPart)
                 {
                     hasPart = true;
+                    break;
                 }
             }
 
@@ -462,7 +451,7 @@ namespace KerbalWeatherProject_Lite
             }
 
             //Start out with Stock Thermodynamics before performing adjustments due to wind/weather.
-            fi.BaseFIUpdateThermodynamics();
+            //fi.BaseFIUpdateThermodynamics();
 
             // Initialize External Temp and part drag/lift sum for GUI. //
             // This ensures GUI updates are smooth and don't bounce back and forth between stock aero and KWP aero updates //
@@ -478,18 +467,26 @@ namespace KerbalWeatherProject_Lite
                 //Define gamma (ratio of cp/cv)
                 double gamma = 1.4;
 
+                double sqrMag = v.srf_velocity.sqrMagnitude; //Square magnitude of vessel surface velocity
                 if (use_climo)
                 {
-                    climate_api.wx_aero ptd = _clim_api.getPTD(vlat, vlng, vheight); //Retrieve pressure,temperature,and density from climate API
+                    climate_data.wx_aero ptd = climate_data.getPTD(vlat, vlng, vheight); //Retrieve pressure,temperature,and density from climate API
                     //Adjust atmospheric constants
                     CalculateConstantsAtmosphere_CLIMO(fi, ptd, v);
+                    double Q = 0.5 * v.atmDensity * sqrMag; // dynamic pressure, aka Q
+                    //Update dynamic pressure
+                    v.dynamicPressurekPa = Q / 1000.0;
                 }
                 else 
                 {
-                    weather_api.wx_aero ptd = _wx_api.getPTD(vheight); //Retrieve pressure,temperature,and density from climate API
+                    weather_data.wx_aero ptd = weather_data.getPTD(vheight); //Retrieve pressure,temperature,and density from climate API
                     //Adjust atmospheric constants
                     CalculateConstantsAtmosphere_WX(fi, ptd, v);
-                }
+                    double Q = 0.5 * v.atmDensity * sqrMag; // dynamic pressure, aka Q
+                    //Update dynamic pressure
+                    v.dynamicPressurekPa = Q / 1000.0;
+                }  
+
                 // change density lerp
                 double shockDensity = GetShockDensity(fi.density, fi.mach, gamma);
                 fi.DensityThermalLerp = CalculateDensityThermalLerp(shockDensity);
@@ -501,10 +498,10 @@ namespace KerbalWeatherProject_Lite
                 fi.backgroundRadiationTemp = CalculateBackgroundRadiationTemperature(fi.atmosphericTemperature, fi.DensityThermalLerp);
                 fi.backgroundRadiationTempExposed = CalculateBackgroundRadiationTemperature(fi.externalTemperature, fi.DensityThermalLerp);
             }
-            else if (!wx_enabled)
+            /*else if (!wx_enabled)
             {
                 fi.BaseFIUpdateThermodynamics();
-            }
+            }*/
         }
 
         //Adapted from Real Heat
@@ -530,7 +527,7 @@ namespace KerbalWeatherProject_Lite
         }
 
         //Update atmospheric constants to reflect MPAS climatology
-        public static double CalculateConstantsAtmosphere_CLIMO(ModularFI.ModularFlightIntegrator fi, climate_api.wx_aero ptd, Vessel v)
+        public static double CalculateConstantsAtmosphere_CLIMO(ModularFI.ModularFlightIntegrator fi, climate_data.wx_aero ptd, Vessel v)
         {
 
             //Get environmental conditions
@@ -543,14 +540,14 @@ namespace KerbalWeatherProject_Lite
             v.staticPressurekPa = air_pressure / 1000.0;
             v.atmDensity = air_density;
             v.atmosphericTemperature = air_temperature;
-            v.speedOfSound = Math.Sqrt(1.4 * (air_pressure / air_density));
+            v.speedOfSound = Math.Sqrt(1.4 * (air_pressure / air_density)); //mach is updated in update aero
             v.atmosphericTemperature = air_temperature;
-            v.externalTemperature = (air_temperature + (fi.externalTemperature - orig_temp));
+            v.externalTemperature = Math.Max(air_temperature, fi.CalculateShockTemperature()); //Revision to temp calc from dkvalois 
             return air_temperature;
         }
 
         //Update atmospheric constants to reflect MPAS Point Data
-        public static double CalculateConstantsAtmosphere_WX(ModularFI.ModularFlightIntegrator fi, weather_api.wx_aero ptd, Vessel v)
+        public static double CalculateConstantsAtmosphere_WX(ModularFI.ModularFlightIntegrator fi, weather_data.wx_aero ptd, Vessel v)
         {
 
             //Get environmental conditions
@@ -563,9 +560,10 @@ namespace KerbalWeatherProject_Lite
             v.staticPressurekPa = air_pressure / 1000.0;
             v.atmDensity = air_density;
             v.atmosphericTemperature = air_temperature;
-            v.speedOfSound = Math.Sqrt(1.4 * (air_pressure / air_density));
+            v.speedOfSound = Math.Sqrt(1.4 * (air_pressure / air_density)); //mach is updated in update aero
             v.atmosphericTemperature = air_temperature;
-            v.externalTemperature = (air_temperature + (fi.externalTemperature - orig_temp));
+            v.externalTemperature = Math.Max(air_temperature, fi.CalculateShockTemperature()); //Revision to temp calc from dkvalois 
+            //v.externalTemperature = (air_temperature + (fi.externalTemperature - orig_temp));
             return air_temperature;
         }
 

@@ -5,11 +5,14 @@ using UnityEngine;
 
 namespace KerbalWeatherProject_Lite
 {
+
+    using WindDelegate = Func<CelestialBody, Part, Vector3, Vector3>;
+    using PropertyDelegate = Func<CelestialBody, Vector3d, double, double>;
+
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     //Main Class for processing climatological data
     public class KerbalWxClimo : MonoBehaviour
     {
-        private const string Message = "[KerbalWeatherProject_Lite]: Initiated";
         internal const string MODID = "KerbalWeatherProject_Lite_NS";
         internal const string MODNAME = "KerbalWeatherProject_Lite";
 
@@ -31,19 +34,20 @@ namespace KerbalWeatherProject_Lite
         public bool haveFAR = false;
         public bool disable_surface_wind;
         public bool cnst_wnd;
-        public bool power_wnd;
         public int wspd_prof;
         public int wdir_prof;
         // book keeping data
         Matrix4x4 worldframe = Matrix4x4.identity; // orientation of the planet surface under the vessel in world space
-        public climate_api _clim_api;
-
+        public climate_data _clim_api;
         bool CheckFAR()
         {
             try
             {
-                Type FARWind = null;
-                Type WindFunction = null;
+                Type OldWindFunction = null;
+                Type FARAtm = null;
+                Type PresFunction = typeof(PropertyDelegate);
+                Type TempFunction = typeof(PropertyDelegate);
+                Type WindFunction = typeof(WindDelegate);
 
                 foreach (var assembly in AssemblyLoader.loadedAssemblies)
                 {
@@ -53,33 +57,66 @@ namespace KerbalWeatherProject_Lite
 
                         foreach (Type t in types)
                         {
+                            //Util.Log("Ttype: " + t.FullName);
                             if (t.FullName.Equals("FerramAerospaceResearch.FARWind"))
                             {
-                                FARWind = t;
+                                FARAtm = t;
                             }
-                            if (t.FullName.Equals("FerramAerospaceResearch.FARWind+WindFunction"))
+                            if (t.FullName.Equals("FerramAerospaceResearch.FARAtmosphere"))
                             {
-                                WindFunction = t;
+                                FARAtm = t;
+                            }
+                            if (t.FullName.Equals("FerramAerospaceResarch.FARWind+WindFunction"))
+                            {
+                                OldWindFunction = t;
                             }
                         }
                     }
                 }
-                if (FARWind == null)
+
+                if (FARAtm == null)
                 {
                     return false;
                 }
-                if (WindFunction == null)
+
+                //Check if Old Version of FAR is installed
+                if (OldWindFunction != null)
                 {
-                    return false;
+                    //Get FAR Wind Method
+                    MethodInfo SetWindFunction = FARAtm.GetMethod("SetWindFunction");
+                    if (SetWindFunction == null)
+                    {
+                        return false;
+                    }
+                    //Set FARWind function
+                    var del = Delegate.CreateDelegate(OldWindFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheWindClimo"), true);
+                    SetWindFunction.Invoke(null, new object[] { del });
                 }
-                MethodInfo SetWindFunction = FARWind.GetMethod("SetWindFunction");
-                if (SetWindFunction == null)
+                else
                 {
-                    return false;
+
+                    //Get FAR Atmosphere Methods 
+                    MethodInfo SetWindFunction = FARAtm.GetMethod("SetWindFunction");
+                    MethodInfo SetTempFunction = FARAtm.GetMethod("SetTemperatureFunction");
+                    MethodInfo SetPresFunction = FARAtm.GetMethod("SetPressureFunction");
+
+                    if (SetWindFunction == null)
+                    {
+                        return false;
+                    }
+
+                    // Set FAR Atmosphere functions
+
+                    var del1 = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheWindClimo"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);                                                                                                                                      //Util.Log("del1: " + del1);
+                    SetWindFunction.Invoke(null, new object[] { del1 });
+
+                    var del2 = Delegate.CreateDelegate(TempFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheTemperatureClimo"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
+                    SetTempFunction.Invoke(null, new object[] { del2 });
+
+                    var del3 = Delegate.CreateDelegate(PresFunction, this, typeof(KerbalWxClimo).GetMethod("GetThePressureClimo"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
+                    SetPresFunction.Invoke(null, new object[] { del3 });
+                    //Util.Log("SetPressureFunction: " + SetPresFunction+", del3: "+SetPresFunction);
                 }
-                var del = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheWindClimo"), true);
-                //var del = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheWind"), true);
-                SetWindFunction.Invoke(null, new object[] { del });
                 return true; // jump out
             }
             catch (Exception e)
@@ -114,13 +151,11 @@ namespace KerbalWeatherProject_Lite
         {
             windVectorWS = Vector3.zero;
 
+            //Retrieve settings
             check_settings();
-            //Initialize climate api
-            _clim_api = new climate_api();
 
             //Register with FAR
-            //haveFAR = CheckFAR();
-            //Util.Log("Have FAR: " + haveFAR);
+            haveFAR = CheckFAR();
 
             //Define Kerbin (only have weather data for Kerbin)
             kerbin = Util.getbody();
@@ -142,7 +177,6 @@ namespace KerbalWeatherProject_Lite
             {
                 wx_list3d.Add(0);
             }
-            //}
         }
 
         bool UpdateCoords()
@@ -168,8 +202,10 @@ namespace KerbalWeatherProject_Lite
         void FixedUpdate()
         {
 
+            //See if settings have changed
             check_settings();
 
+            //Check if in flight or using point weather
             if ((!HighLogic.LoadedSceneIsFlight) || (!use_climo)) 
             {
                 return;
@@ -182,17 +218,20 @@ namespace KerbalWeatherProject_Lite
             double vlng = vessel.longitude;
             if ((wx_enabled) && (use_climo))
             {
+                //Update reference frame
                 UpdateCoords();
 
+                //Just Kerbin weather for now
                 if ((FlightGlobals.ActiveVessel.mainBody != kerbin))
                 {
                     return;
                 }
+                //In space above Kerbin
                 if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (vessel.altitude >= 70000)) {
 
                     //Get 2D meteorological fields
                     double olr; double precipw; double mslp; double sst; double tcld; double rain; double tsfc; double rhsfc; double uwnd_sfc; double vwnd_sfc;
-                    climate_api.wx_srf climate_data2D = _clim_api.getAmbientWx2D(vlat, vlng);
+                    climate_data.wx_srf climate_data2D = climate_data.getAmbientWx2D(vlat, vlng);
                     olr = climate_data2D.olr; tcld = climate_data2D.cloudcover; mslp = climate_data2D.mslp; precipw = climate_data2D.precitable_water; rain = climate_data2D.precipitation_rate;
                     sst = climate_data2D.sst; tsfc = climate_data2D.temperature; rhsfc = climate_data2D.humidity; uwnd_sfc = climate_data2D.wind_x; vwnd_sfc = climate_data2D.wind_y;
                     double wspd_sfc = Math.Sqrt(Math.Pow(uwnd_sfc, 2) + Math.Pow(vwnd_sfc, 2));
@@ -218,12 +257,14 @@ namespace KerbalWeatherProject_Lite
                     wx_list2d[7] = wspd_sfc;
                     return;
                 }
+                //In Kerbin's atmosphere
                 if (FlightGlobals.ready && FlightGlobals.ActiveVessel != null)
                 {
 
                     double u; double v; double w; double t; double p; double d;  double rh; double vis; double cldfrac;
                     //Retrieve 3D meteorological fields
-                    climate_api.wx_atm climate_data3D = _clim_api.getAmbientWx3D(vlat, vlng, vheight);
+                    
+                    climate_data.wx_atm climate_data3D = climate_data.getAmbientWx3D(vlat, vlng, vheight);
                     u = climate_data3D.wind_x; v = climate_data3D.wind_y; w = climate_data3D.wind_z; t = climate_data3D.temperature; d = climate_data3D.density;
                     p = climate_data3D.pressure; rh = climate_data3D.humidity; vis = climate_data3D.visibility; cldfrac = climate_data3D.cloudcover;
 
@@ -243,7 +284,7 @@ namespace KerbalWeatherProject_Lite
 
                     //Retrieve 2D meteorological fields
                     double olr; double precipw; double mslp; double sst; double tcld; double rain; double tsfc; double rhsfc; double uwnd_sfc; double vwnd_sfc;
-                    climate_api.wx_srf climate_data2D = _clim_api.getAmbientWx2D(vlat, vlng);
+                    climate_data.wx_srf climate_data2D = climate_data.getAmbientWx2D(vlat, vlng);
                     olr = climate_data2D.olr; tcld = climate_data2D.cloudcover; mslp = climate_data2D.mslp; precipw = climate_data2D.precitable_water; rain = climate_data2D.precipitation_rate;
                     sst = climate_data2D.sst; tsfc = climate_data2D.temperature; rhsfc = climate_data2D.humidity; uwnd_sfc = climate_data2D.wind_x; vwnd_sfc = climate_data2D.wind_y;
                     windVector.x = (float)v; //North
@@ -283,14 +324,14 @@ namespace KerbalWeatherProject_Lite
 
                     //Get vehicle/wind relative velocity 
                     double vel_ias; double vel_tas; double vel_eas; double vel_grnd; double vel_par; double vel_prp;
-                    climate_api.wx_vel vdata;
+                    climate_data.wx_vel vdata;
                     if (cnst_wnd)
                     {
-                        vdata = _clim_api.getVehicleVelCnst(vessel, u, v, w, wx_enabled);
+                        vdata = climate_data.getVehicleVelCnst(vessel, u, v, w, wx_enabled);
                     }
                     else
                     {
-                        vdata = _clim_api.getVehicleVel(vessel, vlat, vlng, vheight, wx_enabled);
+                        vdata = climate_data.getVehicleVel(vessel, vlat, vlng, vheight, wx_enabled);
                     }
 
                     vel_ias = vdata.vel_ias; vel_tas = vdata.vel_tas; vel_eas = vdata.vel_eas; vel_grnd = vdata.vel_grnd; vel_par = vdata.vel_par; vel_prp = vdata.vel_prp;
@@ -328,16 +369,19 @@ namespace KerbalWeatherProject_Lite
             }
             else
             {
-                //Get vehicle/wind relative velocity 
+                //KWP Weather disabled use stock atmosphere instead
+
+                //Get vehicle/wind relative velocity
                 double vel_ias; double vel_tas; double vel_eas; double vel_grnd; double vel_par; double vel_prp;
-                climate_api.wx_vel vdata;
+                climate_data.wx_vel vdata;
                 if (cnst_wnd)
                 {
-                    vdata = _clim_api.getVehicleVelCnst(vessel, 0, 0, 0, wx_enabled);
+                    vdata = climate_data.getVehicleVelCnst(vessel, 0, 0, 0, wx_enabled);
                 }
                 else
                 {
-                    vdata = _clim_api.getVehicleVel(vessel, vlat, vlng, vheight, wx_enabled);
+                    vdata = climate_data.getVehicleVel(vessel, vlat, vlng, vheight, wx_enabled);
+                    vdata = climate_data.getVehicleVel(vessel, vlat, vlng, vheight, wx_enabled);
                 }
 
                 vel_ias = vdata.vel_ias; vel_tas = vdata.vel_tas; vel_eas = vdata.vel_eas; vel_grnd = vdata.vel_grnd; vel_par = vdata.vel_par; vel_prp = vdata.vel_prp;
@@ -374,6 +418,7 @@ namespace KerbalWeatherProject_Lite
             }
         }
 
+        //Series of internal functions for GUI
         public List<double> getAero()
         {
             return vel_list;
@@ -398,21 +443,32 @@ namespace KerbalWeatherProject_Lite
             return wx_list2d;
         }
 
-        //Called by FAR. Returns wind vector.
-        public Vector3 GetTheWindClimo (CelestialBody body, Part part, Vector3 position)
-        {
 
+        //Called by FAR. Returns wind vector.
+        public Vector3 GetTheWindClimo(CelestialBody body, Part part, Vector3 position)
+        {
             if (!part || (part.partBuoyancy && part.partBuoyancy.splashed))
             {
                 return Vector3.zero;
             }
             else
             {
-                if (part.vessel == FlightGlobals.ActiveVessel)
-                    return windVectorWS;
-                else
-                    return windVectorWS;
+                return windVectorWS;
             }
+        }
+
+        //Called by FAR. Returns ambient temperature.
+        public double GetTheTemperatureClimo(CelestialBody body, Vector3d latlonAltitude, double ut)
+        {
+            //Retrieve air temperature at vessel location
+            return wx_list3d[4];
+        }
+
+        //Called by FAR. Returns ambient pressure.
+        public double GetThePressureClimo(CelestialBody body, Vector3d latlonAltitude, double ut)
+        {
+            //Retrieve air pressure at vessel location
+            return wx_list3d[3];
         }
     }
 }

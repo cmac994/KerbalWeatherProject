@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KerbalWeatherProject_Lite")]
-[assembly: AssemblyCopyright("Copyright ©  C.M. 2020")]
+[assembly: AssemblyCopyright("Copyright ©  C.M. 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -35,3 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: KSPAssemblyDependency("ToolbarController", 1, 0)]
 [assembly: KSPAssemblyDependency("ModularFlightIntegrator", 1, 0)]
+[assembly: KSPAssembly("KerbalWeatherProject_Lite", 1, 0)]

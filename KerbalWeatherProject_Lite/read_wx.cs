@@ -1,13 +1,11 @@
 ﻿using System.IO;
-using UnityEngine;
 
 namespace KerbalWeatherProject_Lite
 {
-
-    public class read_wx : MonoBehaviour
+    public static class read_wx
     {
         //Get Location of point weather data
-        string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherproject_Lite\\Binary\\Point";
+        private static string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherproject_Lite\\Binary\\Point";
 
         //Define dimensions of binary array
         const int NT = 2556; //Temporal dimension
@@ -16,36 +14,36 @@ namespace KerbalWeatherProject_Lite
         const int nsvars = 6; //2D surface weather variables
 
         //Initialize 2-d and 3-d weather (i.e. meteorological) fields
-        public float[,,] point_3d = new float[nvars, NT, NZ];
-        public float[,] point_2d = new float[nsvars, NT];
-        public bool gotMPAS;
+        public static float[,,] point_3d = new float[nvars, NT, NZ];
+        public static float[,] point_2d = new float[nsvars, NT];
+        public static bool gotMPAS;
 
         //Get 3-D point meteorological data data (i.e. lat,lng, height)
-        public float[,,] getMPAS_3D(string lstr)
+        public static float[,,] getMPAS_3D(string lstr)
         {
             get_ts_3d_data(lstr);
             return point_3d;
         }
 
         //Get 2-d surface meteorological data (i.e. lat,lng)
-        public float[,] getMPAS_2D(string lstr) {
+        public static float[,] getMPAS_2D(string lstr) {
             get_ts_2d_data(lstr + "_surface");
             return point_2d;
         }
 
         //Get coordinates of data
-        public float[] getHeight()
+        public static float[] getHeight()
         {
             return get1d("height", NZ);
         }
 
-        public float[] getTime()
+        public static float[] getTime()
         {
             return get1d("time", NT);
         }
 
         //Retrieve 1-d coordinate data from file
-        public float[] get1d(string vvar, int arr1)
+        public static float[] get1d(string vvar, int arr1)
         {
             float[] vars1d = new float[arr1];
             // open the file
@@ -61,7 +59,7 @@ namespace KerbalWeatherProject_Lite
         }
 
         //Get Full atmospheric data
-        public void get_ts_3d_data(string mon)
+        public static void get_ts_3d_data(string mon)
         {
             // open the file
             using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\" + mon + "_wx.bin")))
@@ -81,7 +79,7 @@ namespace KerbalWeatherProject_Lite
         }
 
         //Get surface data
-        public void get_ts_2d_data(string mon)
+        public static void get_ts_2d_data(string mon)
         {
             // open the file
             using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\" + mon + "_wx.bin")))
