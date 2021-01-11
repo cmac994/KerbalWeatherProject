@@ -367,7 +367,7 @@ Retrieve surface (2D) atmospheric variables
 
 	Parameters 
 
-		* ut(double) - universal time in seconds (time since game began)
+		* ut (double) - universal time in seconds (time since game began)
 
 	Returns (double): outgoing longwave radiation (w/m^2). Returned from IR satellite imagery and used to view cloud cover in the absence of visible light.
 
@@ -375,7 +375,7 @@ Retrieve surface (2D) atmospheric variables
 
 	Parameters 
 
-		* ut(double) - universal time in seconds (time since game began)
+		* ut (double) - universal time in seconds (time since game began)
 
 	Returns (double): total cloud cover (%). Percentage of sky covered by clouds.
 
@@ -383,7 +383,7 @@ Retrieve surface (2D) atmospheric variables
 
 	Parameters 
 
-		* ut(double) - universal time in seconds (time since game began)
+		* ut (double) - universal time in seconds (time since game began)
 
 	Returns (double): precipitable water (mm). Amount of liquid water produced by the condensation of all available water vapor in the atmospheric column above a given point. Estimates the moisture content of the atmosphere.
 
@@ -391,7 +391,7 @@ Retrieve surface (2D) atmospheric variables
 
 	Parameters 
 
-		* ut(double) - universal time in seconds (time since game began)
+		* ut (double) - universal time in seconds (time since game began)
 
 	Returns (double): precipitation rate (mm/hr). Liquid water equivalent precipitation rate, derived from convective and stratiform precipitation totals. 
 
@@ -399,7 +399,7 @@ Retrieve surface (2D) atmospheric variables
 
 	Parameters 
 
-		* ut(double) - universal time in seconds (time since game began)
+		* ut (double) - universal time in seconds (time since game began)
 
 	Returns (double): mean sea level pressure (Pa). Pressure, reduced to sea level, by accounting for the elevation of terrain and diurnal variations in temperature.
 	
