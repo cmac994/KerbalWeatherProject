@@ -307,16 +307,7 @@ Ambient Conditions
 		* ut (double) - universal time in seconds (time since game began)
 
 	Returns (double): air temperature (K)
-	
-.. function:: weather_api.density(altitude, ut)
-
-	Parameters 
-
-		* altitude (double) - meters above sea level
-		* ut (double) - universal time in seconds (time since game began)
-
-	Returns (double): air density (kg/m^3)
-	
+		
 .. function:: weather_api.relative_humidity(altitude, ut)
 
 	Parameters 

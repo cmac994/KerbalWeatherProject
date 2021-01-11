@@ -141,21 +141,6 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="climate_api.density">
-<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.density" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parameters</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>latitude (double) - decimal degrees</p></li>
-<li><p>longitude (double) - decimal degrees</p></li>
-<li><p>altitude (double) - meters above sea level</p></li>
-<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
-</ul>
-</div></blockquote>
-<p>Returns (double): air density (kg/m^3)</p>
-</dd></dl>
-
-<dl class="py function">
 <dt id="climate_api.relative_humidity">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">relative_humidity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.relative_humidity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters</p>
@@ -285,6 +270,61 @@
 </ul>
 </div></blockquote>
 <p>Returns (double): skin surface temperature (K). On land = land surface temperature. On water = sea surface temperature (SST).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="derivatives">
+<h3>Derivatives<a class="headerlink" href="#derivatives" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="climate_api.density">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pressure</span></em>, <em class="sig-param"><span class="n">temperature</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pressure (double) - air pressure (Pa)</p></li>
+<li><p>temperature (double) - air temperature (K)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): air density (kg/m^3)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.wspd">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">wspd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uwind</span></em>, <em class="sig-param"><span class="n">vwind</span></em>, <em class="sig-param"><span class="n">zwind</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.wspd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uwind (double) - zonal wind component (m/s)</p></li>
+<li><p>vwind (double) - meridional wind component (m/s)</p></li>
+<li><p>zwind (double) - vertical wind component (m/s)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): wind speed (m/s)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.wdir_degrees">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">wdir_degrees</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uwind</span></em>, <em class="sig-param"><span class="n">vwind</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.wdir_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uwind (double) - zonal wind component (m/s)</p></li>
+<li><p>vwind (double) - meridional wind component (m/s)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): wind direction (degrees). Direction in which the wind is coming from (e.g. 45 or 225).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.wdir_cardinal">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">wdir_cardinal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wdir_degrees</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.wdir_cardinal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>wdir_degrees (double) - wind direction (degrees)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (string): cardinal wind direction. Direction in which the wind is coming from (e.g. NE or SW)</p>
 </dd></dl>
 
 </div>
@@ -423,19 +463,6 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="weather_api.density">
-<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.density" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parameters</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>altitude (double) - meters above sea level</p></li>
-<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
-</ul>
-</div></blockquote>
-<p>Returns (double): air density (kg/m^3)</p>
-</dd></dl>
-
-<dl class="py function">
 <dt id="weather_api.relative_humidity">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">relative_humidity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.relative_humidity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters</p>
@@ -550,6 +577,61 @@
 </dd></dl>
 
 </div>
+<div class="section" id="id5">
+<h3>Derivatives<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="weather_api.density">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pressure</span></em>, <em class="sig-param"><span class="n">temperature</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pressure (double) - air pressure (Pa)</p></li>
+<li><p>temperature (double) - air temperature (K)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): air density (kg/m^3)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.wspd">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">wspd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uwind</span></em>, <em class="sig-param"><span class="n">vwind</span></em>, <em class="sig-param"><span class="n">zwind</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.wspd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uwind (double) - zonal wind component (m/s)</p></li>
+<li><p>vwind (double) - meridional wind component (m/s)</p></li>
+<li><p>zwind (double) - vertical wind component (m/s)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): wind speed (m/s)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.wdir_degrees">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">wdir_degrees</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uwind</span></em>, <em class="sig-param"><span class="n">vwind</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.wdir_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uwind (double) - zonal wind component (m/s)</p></li>
+<li><p>vwind (double) - meridional wind component (m/s)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): wind direction (degrees). Direction in which the wind is coming from (e.g. 45 or 225).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.wdir_cardinal">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">wdir_cardinal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wdir_degrees</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.wdir_cardinal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>wdir_degrees (double) - wind direction (degrees)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (string): cardinal wind direction. Direction in which the wind is coming from (e.g. NE or SW)</p>
+</dd></dl>
+
+</div>
 </div>
 </div>
 
@@ -568,6 +650,7 @@
 <li><a class="reference internal" href="#wind">Wind</a></li>
 <li><a class="reference internal" href="#ambient-conditions">Ambient Conditions</a></li>
 <li><a class="reference internal" href="#surface-conditions">Surface Conditions</a></li>
+<li><a class="reference internal" href="#derivatives">Derivatives</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#weather-api">Weather API</a><ul>
@@ -575,6 +658,7 @@
 <li><a class="reference internal" href="#id2">Wind</a></li>
 <li><a class="reference internal" href="#id3">Ambient Conditions</a></li>
 <li><a class="reference internal" href="#id4">Surface Conditions</a></li>
+<li><a class="reference internal" href="#id5">Derivatives</a></li>
 </ul>
 </li>
 </ul>
