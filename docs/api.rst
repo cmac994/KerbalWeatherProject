@@ -77,17 +77,6 @@ Ambient Conditions
 
 	Returns (double): air temperature (K)
 	
-.. function:: climate_api.density(latitude, longitude, altitude, ut)
-
-	Parameters 
-
-		* latitude (double) - decimal degrees
-		* longitude (double) - decimal degrees
-		* altitude (double) - meters above sea level
-		* ut (double) - universal time in seconds (time since game began)
-
-	Returns (double): air density (kg/m^3)
-	
 .. function:: climate_api.relative_humidity(latitude, longitude, altitude, ut)
 
 	Parameters 
@@ -184,6 +173,46 @@ Surface Conditions
 
 	Returns (double): skin surface temperature (K). On land = land surface temperature. On water = sea surface temperature (SST).
 
+
+Derivatives
+###########
+
+.. function:: climate_api.density(pressure, temperature)
+
+	Parameters 
+
+		* pressure (double) - air pressure (Pa)
+		* temperature (double) - air temperature (K)
+		
+	Returns (double): air density (kg/m^3)
+
+.. function:: climate_api.wspd(uwind, vwind, zwind)
+
+	Parameters 
+
+		* uwind (double) - zonal wind component (m/s)
+		* vwind (double) - meridional wind component (m/s)
+		* zwind (double) - vertical wind component (m/s)
+
+	Returns (double): wind speed (m/s)
+	
+.. function:: climate_api.wdir_degrees(uwind, vwind)
+
+	Parameters 
+
+		* uwind (double) - zonal wind component (m/s)
+		* vwind (double) - meridional wind component (m/s)
+
+	Returns (double): wind direction (degrees). Direction in which the wind is coming from (e.g. 45 or 225).
+	
+.. function:: climate_api.wdir_cardinal(wdir_degrees)
+
+	Parameters 
+
+		* wdir_degrees (double) - wind direction (degrees)
+
+	Returns (string): cardinal wind direction. Direction in which the wind is coming from (e.g. NE or SW)
+	
 Weather API
 -----------
 
@@ -365,5 +394,44 @@ Surface Conditions
 		* ut(double) - universal time in seconds (time since game began)
 
 	Returns (double): skin surface temperature (K). On land = land surface temperature. On water = sea surface temperature (SST).
+	
+Derivatives
+###########
+
+.. function:: weather_api.density(pressure, temperature)
+
+	Parameters 
+
+		* pressure (double) - air pressure (Pa)
+		* temperature (double) - air temperature (K)
+		
+	Returns (double): air density (kg/m^3)
+
+.. function:: weather_api.wspd(uwind, vwind, zwind)
+
+	Parameters 
+
+		* uwind (double) - zonal wind component (m/s)
+		* vwind (double) - meridional wind component (m/s)
+		* zwind (double) - vertical wind component (m/s)
+
+	Returns (double): wind speed (m/s)
+	
+.. function:: weather_api.wdir_degrees(uwind, vwind)
+
+	Parameters 
+
+		* uwind (double) - zonal wind component (m/s)
+		* vwind (double) - meridional wind component (m/s)
+
+	Returns (double): wind direction (degrees). Direction in which the wind is coming from (e.g. 45 or 225).
+	
+.. function:: weather_api.wdir_cardinal(wdir_degrees)
+
+	Parameters 
+
+		* wdir_degrees (double) - wind direction (degrees)
+
+	Returns (string): cardinal wind direction. Direction in which the wind is coming from (e.g. NE or SW)
 
 
