@@ -5,8 +5,7 @@ This module demonstrates how to instantiate the KerbalWeatherProject (KWP) API
 
 Copy KerbalWeatherProject.dll to your KSP_x64_Data/Managed Folder in the KSP Game Directory. 
 
-Add KerbalWeatherProject.dll as a project reference. 
-   - In Visual Studio this can be accomplished by clicking `Project` then `add Reference`. Browse and select KerbalWeatherProject.dll.
+Add KerbalWeatherProject.dll as a project reference. In Visual Studio this can be accomplished by clicking `Project` then `add Reference`. Browse and select KerbalWeatherProject.dll.
 
 Include KerbalWeatherProject as an assembly dependency in your project
 
