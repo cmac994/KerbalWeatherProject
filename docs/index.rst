@@ -4,7 +4,7 @@ Another simple header
 
 Here is some text explaining some complicated stuff.::
 
-   print 'hello'
+   print 'hello this is an example'
    >> hello$
 
 Guide
