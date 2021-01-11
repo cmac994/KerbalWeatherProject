@@ -6,103 +6,130 @@ using UnityEngine;
 
 namespace KerbalWeatherProject
 {
+    using WindDelegate = Func<CelestialBody, Part, Vector3, Vector3>;
+    using PropertyDelegate = Func<CelestialBody, Vector3d, double, double>;
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class KerbalWxPoint : MonoBehaviour
     {
-        private const string Message = "[KerbalWeatherProject]: Initiated";
+
         internal const string MODID = "KerbalWeatherProject_NS";
         internal const string MODNAME = "KerbalWeatherProject";
 
         // wind
         public static Vector3 windVectorWS; // final wind direction and magnitude in world space
         Vector3 windVector; // wind in "map" space, y = north, x = east (?)
+        //Setting booleans
         bool use_point;
         bool aero;
         bool thermo;
+        public bool wx_enabled = true;
+        public bool gotMPAS = false;
+        public bool haveFAR = false;
+        public bool disable_surface_wind = false;
+
+        //Define wind bools
+        public bool cnst_wnd;
+        public int wspd_prof;
+        public int wdir_prof;
 
         const int nvars = 8; //Variable dimension (number of 3D, full-atmosphere variables)
         const int nsvars = 6; //Surface Variable dimension (number of 2D surface variables)
 
+        //Define velocity and weather lists
         List<double> vel_list = new List<double>();
         List<double> wx_list2d = new List<double>();
         List<double> wx_list3d = new List<double>();
 
+        //Set celestial body
         CelestialBody kerbin = Util.getbody();
-        public bool wx_enabled = true;
-        public bool gotMPAS = false;
+        
         // book keeping data
         Matrix4x4 worldframe = Matrix4x4.identity; // orientation of the planet surface under the vessel in world space
-        public weather_api _wx_api;
-        public climate_api _clim_api;
 
-        public bool cnst_wnd;
-        public bool power_wnd;
-        public int wspd_prof;
-        public int wdir_prof;
-
-        public bool haveFAR = false;
-        public bool disable_surface_wind;
-        public string lsite = "KSC";
-
-        List<string> lsites = new List<string>() { "KSC", "DLS", "WLS", "BKN", "BKN", "KHV", "KAT", "CKR", "SLK", "KRS" };
-        List<string> lsites_name = new List<string>()
-            {
-                "LaunchPad",
-                "Desert_Launch_Site",
-                "Woomerang_Launch_Site",
-                "Baikerbanur Launch Pad",
-                "KSC2",
-                "Kojave Sands Launch Pad",
-                "Kerman Atoll Launch Pad",
-                "Cape Kerman_KSC_LaunchPad_level_3_0",
-                "South Lake",
-                "Kermundsen Research Station"
-            };
-
-        List<double> lsites_lat = new List<double>() { -0.0972, -6.5603, 45.290, 20.6397, 6.0744, -37.1457, 24.9062, -37.25, -90.0 };
-        List<double> lsites_lng = new List<double>() { -74.5571, -143.95, 136.1101, -146.4786, -142.0487, -71.0359, -83.6232, 52.70, 113.04703 };
-
+        //Check if FAR is available
         bool CheckFAR()
         {
             try
             {
-                Type FARWind = null;
-                Type WindFunction = null;
+                //Define type methods
+                Type OldWindFunction = null;
+                Type FARAtm = null;
+                Type PresFunction = typeof(PropertyDelegate);
+                Type TempFunction = typeof(PropertyDelegate);
+                Type WindFunction = typeof(WindDelegate);
 
+                //Search assembly
                 foreach (var assembly in AssemblyLoader.loadedAssemblies)
                 {
                     if (assembly.name == "FerramAerospaceResearch")
                     {
+                        //Get Far assembly info
                         var types = assembly.assembly.GetExportedTypes();
 
                         foreach (Type t in types)
                         {
                             if (t.FullName.Equals("FerramAerospaceResearch.FARWind"))
                             {
-                                FARWind = t;
+                                FARAtm = t;
                             }
-                            if (t.FullName.Equals("FerramAerospaceResearch.FARWind+WindFunction"))
+                            if (t.FullName.Equals("FerramAerospaceResearch.FARAtmosphere"))
                             {
-                                WindFunction = t;
+                                FARAtm = t;
+                            }
+                            if (t.FullName.Equals("FerramAerospaceResarch.FARWind+WindFunction"))
+                            {
+                                OldWindFunction = t;
                             }
                         }
                     }
                 }
-                if (FARWind == null)
+
+                //If no wind or atmosphere cs available return false
+                if (FARAtm == null)
                 {
                     return false;
                 }
-                if (WindFunction == null)
+
+                //Check if Old Version of FAR is installed
+                if (OldWindFunction != null)
                 {
-                    return false;
+                    //Get FAR Wind Method
+                    MethodInfo SetWindFunction = FARAtm.GetMethod("SetWindFunction");
+                    if (SetWindFunction == null)
+                    {
+                        return false;
+                    }
+                    //Set FARWind function
+                    var del = Delegate.CreateDelegate(OldWindFunction, this, typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
+                    SetWindFunction.Invoke(null, new object[] { del });
                 }
-                MethodInfo SetWindFunction = FARWind.GetMethod("SetWindFunction");
-                if (SetWindFunction == null)
+                else
                 {
-                    return false;
+
+                    //Get FAR Atmosphere Methods 
+                    MethodInfo SetWindFunction = FARAtm.GetMethod("SetWindFunction");
+                    MethodInfo SetTempFunction = FARAtm.GetMethod("SetTemperatureFunction");
+                    MethodInfo SetPresFunction = FARAtm.GetMethod("SetPressureFunction");
+
+                    //If no wind function available return false
+                    if (SetWindFunction == null)
+                    {
+                        return false;
+                    }
+
+                    // Set FAR Atmosphere functions
+
+                    var del1 = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);                                                                                                                                      //Util.Log("del1: " + del1);
+                    SetWindFunction.Invoke(null, new object[] { del1 });
+
+                    var del2 = Delegate.CreateDelegate(TempFunction, this, typeof(KerbalWxPoint).GetMethod("GetTheTemperaturePoint"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
+                    SetTempFunction.Invoke(null, new object[] { del2 });
+
+                    var del3 = Delegate.CreateDelegate(PresFunction, this, typeof(KerbalWxPoint).GetMethod("GetThePressurePoint"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
+                    SetPresFunction.Invoke(null, new object[] { del3 });
+                    //Util.Log("SetPressureFunction: " + SetPresFunction + ", del3: " + SetPresFunction);
+
                 }
-                var del = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
-                SetWindFunction.Invoke(null, new object[] { del });
                 return true; // jump out
             }
             catch (Exception e)
@@ -112,6 +139,7 @@ namespace KerbalWeatherProject
             return false;
         }
 
+        //Check game settings
         void check_settings()
         {
             //Check to see if weather or climate data is to be used.
@@ -136,11 +164,11 @@ namespace KerbalWeatherProject
 
         void Awake()
         {
+            //Initialize wind vector
             windVectorWS = Vector3.zero;
 
+            //Check settings
             check_settings();
-            //Initialize weather api
-            _wx_api = new weather_api();
 
             //Register with FAR
             haveFAR = CheckFAR();
@@ -164,6 +192,7 @@ namespace KerbalWeatherProject
             }
         }
 
+        //Define world refence frame
         bool UpdateCoords()
         {
             Vessel vessel = FlightGlobals.ActiveVessel;
@@ -208,73 +237,64 @@ namespace KerbalWeatherProject
                 string lsite0 = Util.get_last_lsite();
                 //Check to see if launch site has changed
                 string lsite = vessel.launchedFrom;
-                //Util.Log("Currrent Launch Site: " + lsite);
+
                 //Rename launchpad to KSC
                 if (lsite != lsite0)
                 {
-                    //Util.Log("Launch site changed, update weather data | New: " + lsite + ", Old: " + lsite0);
                     gotMPAS = false;
                 }
 
+                //Get launch site from list
                 int lidx;
-                if (lsites_name.Contains(lsite))
+                if (weather_api.lsites_name.Contains(lsite))
                 {
-                    lidx = lsites_name.IndexOf(lsite);
-                    //Util.Log("Launch site confirmed: " + lsites[lidx]);
+                    lidx = weather_api.lsites_name.IndexOf(lsite);
                 }
                 else
                 {
+                    //If launch site is not in list find the nearest launch site from current position
                     double mlat = vessel.latitude;
                     double mlng = vessel.longitude;
-                    List<double> ddist = new List<double>();
-                    for (int l = 0; l < lsites_lat.Count(); l++)
-                    {
-                        ddist.Add(Math.Pow((lsites_lat[l] - mlat), 2) + Math.Pow((lsites_lng[l] - mlng), 2));
-                    }
-                    lidx = ddist.IndexOf(ddist.Min());
-                    //Util.Log("Retrieve longitude of nearest launch site: " + lsites[lidx]);
+                    lidx = weather_api.get_nearest_lsite_idx(mlat, mlng);
                 }
 
-                //Get current launch site
+                //Save launch site
                 Util.save_lsite(lsite);
-                Util.save_lsite_short(lsites[lidx]);
+                Util.save_lsite_short(weather_api.lsites[lidx]);
+
                 //If launch site has changed retrieved weather data for new launch site
                 if (!gotMPAS)
                 {
-                    //Debug.Log("Current launch site: " + lsite);
-                    //Util.Log("Retrieve weather data for new launch site");
-                    if (lsites_name.Contains(lsite)) { 
+                    if (weather_api.lsites_name.Contains(lsite)) { 
                         //If launch site is known (i.e., in KSP or Kerbinside remastered)
-                        lidx = lsites_name.IndexOf(lsite);
-                        //Util.Log("Retrieve weather data for: " + lsites[lidx]);
-                        _wx_api.Refresh();
-                        gotMPAS = true;
+                        lidx = weather_api.lsites_name.IndexOf(lsite);
+                        //Retrieve weather data for launch site
+                        weather_data.get_wxdata(Util.get_last_lsite_short());
+                        gotMPAS = true; //set data read boolean
                     } else { 
+
+                        //Find nearest launch site given current position
                         double mlat = vessel.latitude;
                         double mlng = vessel.longitude;
-                        List<double> ddist = new List<double>();
-                        for (int l = 0; l < lsites_lat.Count(); l++)
-                        {
-                            ddist.Add(Math.Pow((lsites_lat[l] - mlat), 2) + Math.Pow((lsites_lng[l] - mlng), 2));
-                        }
-                        int midx = ddist.IndexOf(ddist.Min());
-                        //Util.Log("Retrieve nearby weather data for: " + lsites[midx]);
-                        _wx_api.Refresh();
-                        gotMPAS = true;
+                        int midx = weather_api.get_nearest_lsite_idx(mlat, mlng);
+                        //Retrieve weather data for nearest launch site
+                        weather_data.get_wxdata(Util.get_last_lsite_short());
+                        gotMPAS = true; //set data read boolean
                     }
-                    //Util.Log("GotMPAS: " + gotMPAS.ToString());
                 }
 
                 if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (vessel.altitude >= 70000))
                 {
-
                     //Get 2D meteorological fields
                     double olr; double precipw; double mslp; double sst; double tcld; double rain; double tsfc; double rhsfc; double uwnd_sfc; double vwnd_sfc;
-                    weather_api.wx_srf weather_data2D = _wx_api.getAmbientWx2D();
+                    weather_data.wx_srf weather_data2D = weather_data.getAmbientWx2D(); //Retrieve ambient surface weather data
+                    //Get individual fields from struct
                     olr = weather_data2D.olr; tcld = weather_data2D.cloudcover; mslp = weather_data2D.mslp; precipw = weather_data2D.precitable_water; rain = weather_data2D.precipitation_rate;
                     sst = weather_data2D.sst; tsfc = weather_data2D.temperature; rhsfc = weather_data2D.humidity; uwnd_sfc = weather_data2D.wind_x; vwnd_sfc = weather_data2D.wind_y;
+                    //Compute wind speed
                     double wspd_sfc = Math.Sqrt(Math.Pow(uwnd_sfc, 2) + Math.Pow(vwnd_sfc, 2));
 
+                    //Ensure total cloud cover is not negative.
                     if (tcld < 0.0)
                     {
                         tcld = 0.0;
@@ -295,9 +315,11 @@ namespace KerbalWeatherProject
                 {
                     double u; double v; double w; double t; double p; double rh; double vis; double cldfrac; double d;
                     //Retrieve 3D meteorological fields
-                    weather_api.wx_atm weather_data3D = _wx_api.getAmbientWx3D(vheight);
+                    weather_data.wx_atm weather_data3D = weather_data.getAmbientWx3D(vheight); //Get 3-D weather data
+                    //Extract individual fields from struct
                     u = weather_data3D.wind_x; v = weather_data3D.wind_y; w = weather_data3D.wind_z; t = weather_data3D.temperature; d = weather_data3D.density;
                     p = weather_data3D.pressure; rh = weather_data3D.humidity; vis = weather_data3D.visibility; cldfrac = weather_data3D.cloudcover;
+                    //Set wind to zero if landed or if wind near surface is dsiabled
                     if (((vessel.LandedOrSplashed) || (vessel.heightFromTerrain < 50)) && (disable_surface_wind))
                     {
                         u = 0; v = 0; w = 0;
@@ -314,8 +336,8 @@ namespace KerbalWeatherProject
 
                     //Retrieve 2D meteorological fields
                     double olr; double precipw; double mslp; double sst; double tcld; double rain; double tsfc; double rhsfc; double uwnd_sfc; double vwnd_sfc;
-                    weather_api.wx_srf weather_data2D = _wx_api.getAmbientWx2D();
-
+                    weather_data.wx_srf weather_data2D = weather_data.getAmbientWx2D(); //Get surface weather data
+                    //Extract individual fields
                     olr = weather_data2D.olr; tcld = weather_data2D.cloudcover; mslp = weather_data2D.mslp; precipw = weather_data2D.precitable_water; rain = weather_data2D.precipitation_rate;
                     sst = weather_data2D.sst; tsfc = weather_data2D.temperature; rhsfc = weather_data2D.humidity; uwnd_sfc = weather_data2D.wind_x; vwnd_sfc = weather_data2D.wind_y;
                     windVector.x = (float)v; //North
@@ -324,7 +346,7 @@ namespace KerbalWeatherProject
                     windVectorWS = worldframe * windVector;
                     //Compute horizontal wind speed
                     double wspd_sfc = Math.Sqrt(Math.Pow(uwnd_sfc, 2) + Math.Pow(vwnd_sfc, 2));
-
+                    //Ensure total cloud cover is non-negative
                     if (tcld < 0)
                     {
                         tcld = 0;
@@ -353,14 +375,14 @@ namespace KerbalWeatherProject
 
                     //Get vehicle/wind relative velocity 
                     double vel_ias; double vel_tas; double vel_eas; double vel_grnd; double vel_par; double vel_prp;
-                    weather_api.wx_vel vdata;
+                    weather_data.wx_vel vdata;
                     if (cnst_wnd)
                     {
-                       vdata = _wx_api.getVehicleVelCnst(vessel, u, v, w, wx_enabled);
+                       vdata = weather_data.getVehicleVelCnst(vessel, u, v, w, wx_enabled);
                     }
                     else
                     {
-                        vdata = _wx_api.getVehicleVel(vessel, vheight, wx_enabled);
+                        vdata = weather_data.getVehicleVel(vessel, vheight, wx_enabled);
                     }
 
                     vel_ias = vdata.vel_ias; vel_tas = vdata.vel_tas; vel_eas = vdata.vel_eas; vel_grnd = vdata.vel_grnd; vel_par = vdata.vel_par; vel_prp = vdata.vel_prp;
@@ -399,14 +421,14 @@ namespace KerbalWeatherProject
             {
                 //Get vehicle/wind relative velocity 
                 double vel_ias; double vel_tas; double vel_eas; double vel_grnd; double vel_par; double vel_prp;
-                weather_api.wx_vel vdata;
+                weather_data.wx_vel vdata;
                 if (cnst_wnd)
                 {
-                    vdata = _wx_api.getVehicleVelCnst(vessel, 0, 0, 0, wx_enabled);
+                    vdata = weather_data.getVehicleVelCnst(vessel, 0, 0, 0, wx_enabled);
                 }
                 else
                 {
-                    vdata = _wx_api.getVehicleVel(vessel, vheight, wx_enabled);
+                    vdata = weather_data.getVehicleVel(vessel, vheight, wx_enabled);
                 }
 
                 vel_ias = vdata.vel_ias; vel_tas = vdata.vel_tas; vel_eas = vdata.vel_eas; vel_grnd = vdata.vel_grnd; vel_par = vdata.vel_par; vel_prp = vdata.vel_prp;
@@ -468,17 +490,28 @@ namespace KerbalWeatherProject
         //Called by FAR. Returns wind vector.
         public Vector3 GetTheWindPoint(CelestialBody body, Part part, Vector3 position)
         {
-            if (!part  || (part.partBuoyancy && part.partBuoyancy.splashed))
+            if (!part || (part.partBuoyancy && part.partBuoyancy.splashed))
             {
                 return Vector3.zero;
             }
             else
             {
-                if (part.vessel == FlightGlobals.ActiveVessel)
-                    return windVectorWS;
-                else
-                    return windVectorWS;
+                return windVectorWS;
             }
+        }
+
+        //Called by FAR. Returns wind vector.
+        public double GetTheTemperaturePoint(CelestialBody body, Vector3d latlonAltitude, double ut)
+        {
+            //Retrieve air temperature at vessel location
+            return wx_list3d[4];
+        }
+
+        //Called by FAR. Returns ambient pressure.
+        public double GetThePressurePoint(CelestialBody body, Vector3d latlonAltitude, double ut)
+        {
+            //Retrieve air pressure at vessel location
+            return wx_list3d[3];
         }
 
     }

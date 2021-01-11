@@ -87,8 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bf\Serialize.cs" />
-    <Compile Include="KWPWind.cs" />
+    <Compile Include="weather_api.cs" />
     <Compile Include="climate_api.cs" />
+    <Compile Include="climate_data.cs" />
     <Compile Include="ModularFI_Registerer.cs" />
     <Compile Include="read_climo.cs" />
     <Compile Include="KerbalWxPoint.cs" />
@@ -98,7 +99,7 @@
     <Compile Include="KerbalWxClimo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolbarRegistration.cs" />
-    <Compile Include="weather_api.cs" />
+    <Compile Include="weather_data.cs" />
     <Compile Include="WxUnityGUI.cs" />
   </ItemGroup>
   <ItemGroup>

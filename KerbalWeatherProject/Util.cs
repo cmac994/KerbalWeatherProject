@@ -14,7 +14,7 @@ namespace KerbalWeatherProject
 
         public static string lsite_name = "LaunchPad";
         public static string lsite = "KSC";
-        const int NT = 12810; //Time dimension (length of weather time-series)
+        const double NT = 12810.0; //Time dimension (length of weather time-series)
         public static bool wx_enabled = true;
         public static bool use_climo = true;
         public static bool use_point = false;
@@ -343,9 +343,6 @@ namespace KerbalWeatherProject
         {
             try
             {
-                Type FARWind = null;
-                Type WindFunction = null;
-
                 foreach (var assembly in AssemblyLoader.loadedAssemblies)
                 {
                     if (assembly.name == "FerramAerospaceResearch")
@@ -354,14 +351,6 @@ namespace KerbalWeatherProject
 
                         foreach (Type t in types)
                         {
-                            if (t.FullName.Equals("FerramAerospaceResearch.FARWind"))
-                            {
-                                FARWind = t;
-                            }
-                            if (t.FullName.Equals("FerramAerospaceResearch.FARWind+WindFunction"))
-                            {
-                                WindFunction = t;
-                            }
                             if (t.FullName.Equals("FerramAerospaceResearch.FARAeroUtil"))
                             {
                                 far_GetMachNumber = (FAR_GetMachNumber)Delegate.CreateDelegate(typeof(FAR_GetMachNumber), t, "GetMachNumber", false, false);
@@ -370,28 +359,9 @@ namespace KerbalWeatherProject
                         }
                     }
                 }
-                if (FARWind == null)
+                if (far_GetMachNumber == null)
                 {
                     return false;
-                }
-                if (WindFunction == null)
-                {
-                    return false;
-                }
-                MethodInfo SetWindFunction = FARWind.GetMethod("SetWindFunction");
-                if (SetWindFunction == null)
-                {
-                    return false;
-                }
-                if (Util.useCLIM())
-                {
-                    var del = Delegate.CreateDelegate(WindFunction, new KerbalWxClimo(), typeof(KerbalWxClimo).GetMethod("GetTheWind"), true);
-                    SetWindFunction.Invoke(null, new object[] { del });
-                }
-                else
-                {
-                    var del = Delegate.CreateDelegate(WindFunction, new KerbalWxPoint(), typeof(KerbalWxClimo).GetMethod("GetTheWind"), true);
-                    SetWindFunction.Invoke(null, new object[] { del });
                 }
                 return true; // jump out
             }
@@ -514,7 +484,7 @@ namespace KerbalWeatherProject
             if (M <= 1)
                 return StagnationPressureCalc(M);
 
-            double gamma = Util.CurrentBody.atmosphereAdiabaticIndex;
+            double gamma = CurrentBody.atmosphereAdiabaticIndex;
             double value;
             value = (gamma + 1) * M;                  //Rayleigh Pitot Tube Formula; gives max stagnation pressure behind shock
             value *= value;
@@ -614,12 +584,31 @@ namespace KerbalWeatherProject
             return epoch;
         }
 
+
+        //Convert Any Time from GMT to Local (UT) time. 
+        public static double getTime(double epoch)
+        {
+            epoch = (epoch + 3600 * ((((180.0 - 74.724375) / 15.0) / 24.0) * 6));
+            //Util.Log("Epoch time: " + epoch_time.ToString());
+            epoch = ((epoch / 21600.0) - (int)(epoch / 21600.0)) * 21600.0;
+            return epoch;
+        }
+
+        //Convert Model time to UT time.
+        public static double getTime_Wx(double epoch_time)
+        {
+            epoch_time = (epoch_time + 3600 * ((((180.0 - 74.724375) / 15.0) / 24.0) * 6)); //Adjust for Local kerbin time @ KSC. 
+            double nrun = epoch_time / (NT * 3600);
+            epoch_time = epoch_time - (NT * 3600) * nrun;
+            return epoch_time;
+        }
+
         //Convert Model time to UT time.
         public static double getLocalTime_Wx()
         {
             double epoch_time = Planetarium.GetUniversalTime();
             epoch_time = (epoch_time + 3600 * ((((180.0 - 74.724375) / 15.0) / 24.0) * 6)); //Adjust for Local kerbin time @ KSC.                    
-            int nrun = (int)epoch_time / (NT * 3600);
+            double nrun = epoch_time / (NT * 3600);
             epoch_time = epoch_time - (NT * 3600) * nrun;
             return epoch_time;
         }

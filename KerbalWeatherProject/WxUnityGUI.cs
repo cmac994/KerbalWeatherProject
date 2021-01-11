@@ -177,7 +177,7 @@ namespace KerbalWeatherProject
             kerbin = Util.getbody();
             //Check to see if weather is enabled
             wx_enabled = Util.getWindBool();
-            Util.Log("Wx Enabled, " + wx_enabled.ToString());
+            //Util.Log("Wx Enabled, " + wx_enabled.ToString());
             Util.CacheKWPLocalization();
             //Initialize wind vector
             kwind.x = 0.0f;
@@ -218,7 +218,7 @@ namespace KerbalWeatherProject
 
             //Add to toolbar
             AddToolbarButton();
-            Util.Log("Instantiate Toolbar and KWP");
+            //Util.Log("Instantiate Toolbar and KWP");
         }
 
         void FixedUpdate()
@@ -244,7 +244,7 @@ namespace KerbalWeatherProject
             //Check to see if outside of Kerbin's SOI
             if (((FlightGlobals.ActiveVessel.mainBody != kerbin)))
             {
-                Util.Log("Destroy toolbar as we're outside Kerbin's SOI");
+                //Util.Log("Destroy toolbar as we're outside Kerbin's SOI");
                 //Don't display toolbar button or GUI when out of Kerbin SOI
                 ToolbarButtonOnFalse();
                 Destroy();
@@ -255,7 +255,7 @@ namespace KerbalWeatherProject
                 //If we're back in Kerbin's SOI add the toolbar button and enable GUI oncemore.
                 if (gui_removed)
                 {
-                    Util.Log("Re-add toolbar as we're back in Kerbin's SOI");
+                    //Util.Log("Re-add toolbar as we're back in Kerbin's SOI");
                     AddToolbarButton();
                     gui_removed = false;
                 }
@@ -395,7 +395,6 @@ namespace KerbalWeatherProject
             //Add GUI button to disable or enable weather (i.e. toggle weather)
             if (GUILayout.Button(tws, buttonStyle))
             {
-                Util.Log("Toggle weather: "+!wx_enabled);
                 wx_enabled = !wx_enabled;
                 Util.setWindBool(wx_enabled);
             }
@@ -415,7 +414,7 @@ namespace KerbalWeatherProject
             //GUI Button to select MPAS climatology as data source (i.e. spatially varying wx conditions with diurnal cycle)
             if (GUILayout.Button(use_climo_str, buttonStyle))
             {
-                Util.Log("Enable Climo");
+                //Util.Log("Enable Climo");
                 use_climo = true;
                 use_point = false;
                 Util.setMAPSDtype(use_climo, use_point);
@@ -423,7 +422,7 @@ namespace KerbalWeatherProject
             //GUI Button to select MPAS Point Time-series (i.e. local weather at nearest launch site, which varies in height-time)
             if (GUILayout.Button(use_point_str, buttonStyle))
             {
-                Util.Log("Enable Point");
+                //Util.Log("Enable Point");
                 use_climo = false;
                 use_point = true;
                 Util.setMAPSDtype(use_climo, use_point);
