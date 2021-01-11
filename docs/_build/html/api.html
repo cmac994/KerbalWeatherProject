@@ -47,6 +47,7 @@
 <h2>Climate API<a class="headerlink" href="#climate-api" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="utility">
 <h3>Utility<a class="headerlink" href="#utility" title="Permalink to this headline">¶</a></h3>
+<p>Variable lists.</p>
 <dl class="py function">
 <dt id="climate_api.get_vars3D">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">get_vars3D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.get_vars3D" title="Permalink to this definition">¶</a></dt>
@@ -62,6 +63,7 @@
 </div>
 <div class="section" id="wind">
 <h3>Wind<a class="headerlink" href="#wind" title="Permalink to this headline">¶</a></h3>
+<p>Retrieve atmospheric wind data</p>
 <dl class="py function">
 <dt id="climate_api.uwind">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">uwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.uwind" title="Permalink to this definition">¶</a></dt>
@@ -110,6 +112,7 @@
 </div>
 <div class="section" id="ambient-conditions">
 <h3>Ambient Conditions<a class="headerlink" href="#ambient-conditions" title="Permalink to this headline">¶</a></h3>
+<p>Retrieve column (3D) atmospheric variables</p>
 <dl class="py function">
 <dt id="climate_api.pressure">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.pressure" title="Permalink to this definition">¶</a></dt>
@@ -188,6 +191,7 @@
 </div>
 <div class="section" id="surface-conditions">
 <h3>Surface Conditions<a class="headerlink" href="#surface-conditions" title="Permalink to this headline">¶</a></h3>
+<p>Retrieve surface (2D) atmospheric variables</p>
 <dl class="py function">
 <dt id="climate_api.OLR">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">OLR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.OLR" title="Permalink to this definition">¶</a></dt>
@@ -275,6 +279,7 @@
 </div>
 <div class="section" id="derivatives">
 <h3>Derivatives<a class="headerlink" href="#derivatives" title="Permalink to this headline">¶</a></h3>
+<p>Derive variables from climate API calls above.</p>
 <dl class="py function">
 <dt id="climate_api.density">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pressure</span></em>, <em class="sig-param"><span class="n">temperature</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.density" title="Permalink to this definition">¶</a></dt>
@@ -327,12 +332,25 @@
 <p>Returns (string): cardinal wind direction. Direction in which the wind is coming from (e.g. NE or SW)</p>
 </dd></dl>
 
+<dl class="py function">
+<dt id="climate_api.cloud_top_temps">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">cloud_top_temps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">olr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.cloud_top_temps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>olr (double) - outgoing longwave radiation (W/m^2)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (string): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.</p>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="weather-api">
 <h2>Weather API<a class="headerlink" href="#weather-api" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
 <h3>Utility<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>List of available launch sites and atmospheric variables</p>
 <blockquote>
 <div><dl class="simple">
 <dt>lsites (List&lt;string&gt;)</dt><dd><ul class="simple">
@@ -394,6 +412,7 @@
 </div>
 <div class="section" id="id2">
 <h3>Wind<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Retrieve atmospheric wind data</p>
 <dl class="py function">
 <dt id="weather_api.uwind">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">uwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.uwind" title="Permalink to this definition">¶</a></dt>
@@ -436,6 +455,7 @@
 </div>
 <div class="section" id="id3">
 <h3>Ambient Conditions<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Retrieve column (3D) atmospheric variables</p>
 <dl class="py function">
 <dt id="weather_api.pressure">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.pressure" title="Permalink to this definition">¶</a></dt>
@@ -504,6 +524,7 @@
 </div>
 <div class="section" id="id4">
 <h3>Surface Conditions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Retrieve surface (2D) atmospheric variables</p>
 <dl class="py function">
 <dt id="weather_api.OLR">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">OLR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.OLR" title="Permalink to this definition">¶</a></dt>
@@ -579,6 +600,7 @@
 </div>
 <div class="section" id="id5">
 <h3>Derivatives<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Derive variables from weather API calls above.</p>
 <dl class="py function">
 <dt id="weather_api.density">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pressure</span></em>, <em class="sig-param"><span class="n">temperature</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.density" title="Permalink to this definition">¶</a></dt>
@@ -629,6 +651,18 @@
 </ul>
 </div></blockquote>
 <p>Returns (string): cardinal wind direction. Direction in which the wind is coming from (e.g. NE or SW)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.cloud_top_temps">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">cloud_top_temps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">olr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.cloud_top_temps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>olr (double) - outgoing longwave radiation (W/m^2)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (string): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.</p>
 </dd></dl>
 
 </div>

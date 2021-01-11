@@ -7,6 +7,8 @@ Climate API
 Utility
 #######
 
+Variable lists.
+
 .. function:: climate_api.get_vars3D()
 		
 	Returns (Dictionary<string,int>): 3D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)
@@ -18,6 +20,7 @@ Utility
 
 Wind
 ####
+Retrieve atmospheric wind data
 
 .. function:: climate_api.uwind(latitude, longitude, altitude, ut)
 
@@ -54,6 +57,8 @@ Wind
 
 Ambient Conditions
 ##################
+
+Retrieve column (3D) atmospheric variables
 
 .. function:: climate_api.pressure(latitude, longitude, altitude, ut)
 
@@ -112,6 +117,8 @@ Ambient Conditions
 
 Surface Conditions
 ##################
+
+Retrieve surface (2D) atmospheric variables
 
 .. function:: climate_api.OLR(latitude, longitude, ut)
 
@@ -177,6 +184,8 @@ Surface Conditions
 Derivatives
 ###########
 
+Derive variables from climate API calls above.
+
 .. function:: climate_api.density(pressure, temperature)
 
 	Parameters 
@@ -213,11 +222,21 @@ Derivatives
 
 	Returns (string): cardinal wind direction. Direction in which the wind is coming from (e.g. NE or SW)
 	
+.. function:: climate_api.cloud_top_temps(olr)
+
+	Parameters 
+
+		* olr (double) - outgoing longwave radiation (W/m^2)
+
+	Returns (string): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.
+	
 Weather API
 -----------
 
 Utility
 #######
+
+List of available launch sites and atmospheric variables
 
 	lsites (List<string>)
 		* list of available launch sites (three letter abbreviations)
@@ -260,6 +279,8 @@ Utility
 Wind
 ####
 
+Retrieve atmospheric wind data
+
 .. function:: weather_api.uwind(altitude, ut)
 
 	Parameters 
@@ -289,6 +310,8 @@ Wind
 
 Ambient Conditions
 ##################
+
+Retrieve column (3D) atmospheric variables
 
 .. function:: weather_api.pressure(altitude, ut)
 
@@ -337,6 +360,8 @@ Ambient Conditions
 
 Surface Conditions
 ##################
+
+Retrieve surface (2D) atmospheric variables
 
 .. function:: weather_api.OLR(ut)
 
@@ -389,6 +414,8 @@ Surface Conditions
 Derivatives
 ###########
 
+Derive variables from weather API calls above.
+
 .. function:: weather_api.density(pressure, temperature)
 
 	Parameters 
@@ -425,4 +452,11 @@ Derivatives
 
 	Returns (string): cardinal wind direction. Direction in which the wind is coming from (e.g. NE or SW)
 
+.. function:: weather_api.cloud_top_temps(olr)
+
+	Parameters 
+
+		* olr (double) - outgoing longwave radiation (W/m^2)
+
+	Returns (string): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.
 
