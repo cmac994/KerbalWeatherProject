@@ -235,7 +235,7 @@ Derive variables from climate API calls above.
 
 		* olr (double) - outgoing longwave radiation (W/m^2)
 
-	Returns (string): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.
+	Returns (double): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.
 	
 Weather API
 -----------
@@ -471,5 +471,5 @@ Derive variables from weather API calls above.
 
 		* olr (double) - outgoing longwave radiation (W/m^2)
 
-	Returns (string): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.
+	Returns (double): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.
 
