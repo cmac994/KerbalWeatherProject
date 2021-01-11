@@ -37,14 +37,17 @@ Features
 Compatability
 =============
 
-KerbalWeatherProject is compatabile with almost all KSP mods include FAR. $project may conflict with mods that override KSP's aerodynamic model using ModularFlightIntegrator.
+KerbalWeatherProject is compatabile with almost all KSP mods include those that overhaul aerodynamics like FAR.
+.. _a link: https://forum.kerbalspaceprogram.com/index.php?/topic/179445-18-110-ferram-aerospace-research-continued-v01601-mader-241120/
+KerbalWeatherProject may conflict with mods that use ModularFlightIntegrator to override KSP's aerodynamic model
 
 Installation
 ============
 
-Install KerbalWeatherProject through CKAN without hassle. Or download $project from the following repositories:
+Install KerbalWeatherProject through CKAN without hassle.
+Or download KerbalWeatherProject from one of the following repositories:
 
-GitHub: https://github.com/cmac994/KerbalWeatherProject/releases/tag/1.0.2
+GitHub: https://github.com/cmac994/KerbalWeatherProject/releases
     
 SpaceDock: https://spacedock.info/mod/2607/Kerbal%20Weather%20Project/
 
@@ -58,8 +61,8 @@ Source Code: https://github.com/cmac994/KerbalWeatherProject/KerbalWeatherProjec
 Support
 =======
 
-If you are having issues, please let us know. Comment on the Forum Page:
-https://forum.kerbalspaceprogram.com/index.php?/topic/199347-18x-111x-kerbal-weather-project-kwp-v100/
+If you are having issues, please let us know. Comment on the KSP Forums Page  
+.. _a link: https://forum.kerbalspaceprogram.com/index.php?/topic/199347-18x-111x-kerbal-weather-project-kwp-v100/
 or submit an issue on GitHub.
 
 License
