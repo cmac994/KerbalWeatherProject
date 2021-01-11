@@ -45,37 +45,511 @@
 <h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="climate-api">
 <h2>Climate API<a class="headerlink" href="#climate-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="utility">
+<h3>Utility<a class="headerlink" href="#utility" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="climate_api.get_vars3D">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">get_vars3D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.get_vars3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (Dictionary&lt;string,int&gt;): 3D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.get_vars2D">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">get_vars2D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.get_vars2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (Dictionary&lt;string,int&gt;): 2D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="wind">
+<h3>Wind<a class="headerlink" href="#wind" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="climate_api.uwind">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">uwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.uwind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): zonal-wind component (m/s). Wind velocity in east-west direction.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.vwind">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">vwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.vwind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): meridional wind component (m/s). Wind velocity in north-south direction.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.zwind">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">zwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.zwind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): vertical wind component (m/s). wind velocity in up-down direction.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="ambient-conditions">
+<h3>Ambient Conditions<a class="headerlink" href="#ambient-conditions" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="climate_api.pressure">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): air pressure (Pa)</p>
+</dd></dl>
+
 <dl class="py function">
 <dt id="climate_api.temperature">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">temperature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>latitude - decimal degrees</p></li>
-<li><p>longitude - decimal degrees</p></li>
-<li><p>altitude - meters above sea level</p></li>
-<li><p>ut - universal time in seconds (time since game began)</p></li>
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
 </ul>
 </div></blockquote>
-<p>Returns: Climatological temperature at a given point in space and time.</p>
+<p>Returns (double): air temperature (K)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.density">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): air density (kg/m^3)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.relative_humidity">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">relative_humidity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.relative_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): relative_humidity (%)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.cloud_cover">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">cloud_cover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.cloud_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): cloud_cover (%) - above altitude. Percentage of sky above covered by clouds.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.visibility">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">visibility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): visibility (km). Estimate of visibility derived from humidity, cloud cover, and precipitation rate.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="surface-conditions">
+<h3>Surface Conditions<a class="headerlink" href="#surface-conditions" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="climate_api.OLR">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">OLR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.OLR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): outgoing longwave radiation (w/m^2). Returned from IR satellite imagery and used to view cloud cover in the absence of visible light.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.total_cloud_cover">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">total_cloud_cover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.total_cloud_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): total cloud cover (%). Percentage of sky covered by clouds.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.precipitable_water">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">precipitable_water</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.precipitable_water" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): precipitable water (mm). Amount of liquid water produced by the condensation of all available water vapor in the atmospheric column above a given point. Estimates the moisture content of the atmosphere.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.prate">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">prate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.prate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): precipitation rate (mm/hr). Liquid water equivalent precipitation rate, derived from convective and stratiform precipitation totals.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.mslp">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">mslp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.mslp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): mean sea level pressure (Pa). Pressure, reduced to sea level, by accounting for the elevation of terrain and diurnal variations in temperature.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="climate_api.sst">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">sst</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.sst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): skin surface temperature (K). On land = land surface temperature. On water = sea surface temperature (SST).</p>
+</dd></dl>
+
+</div>
+</div>
 <div class="section" id="weather-api">
 <h2>Weather API<a class="headerlink" href="#weather-api" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt id="weather_api.temperature">
-<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">temperature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.temperature" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Parameters</dt><dd><ul class="simple">
-<li><p>altitude - meters above sea level</p></li>
-<li><p>ut - universal time in seconds (time since game began)</p></li>
+<div class="section" id="id1">
+<h3>Utility<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>lsites (List&lt;string&gt;)</dt><dd><ul class="simple">
+<li><p>list of available launch sites (three letter abbreviations)</p></li>
+</ul>
+</dd>
+<dt>lsites_name (List&lt;string&gt;)</dt><dd><ul class="simple">
+<li><p>list of available launch sites (full names)</p></li>
+</ul>
+</dd>
+<dt>lsites_lat (List&lt;double&gt;)</dt><dd><ul class="simple">
+<li><p>list of launch site latitudes</p></li>
+</ul>
+</dd>
+<dt>lsites_lng (List&lt;double&gt;)</dt><dd><ul class="simple">
+<li><p>list of launch site longitudes</p></li>
 </ul>
 </dd>
 </dl>
-<p>Returns: temperature: Temperature (K) at a given time and height ASL.</p>
+</div></blockquote>
+<dl class="py function">
+<dt id="weather_api.get_nearest_lsite_idx">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">get_nearest_lsite_idx</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.get_nearest_lsite_idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (int): Index of nearest launch site in list (int).</p>
 </dd></dl>
 
+<dl class="py function">
+<dt id="weather_api.get_nearest_lsite">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">get_nearest_lsite</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.get_nearest_lsite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude (double) - decimal degrees</p></li>
+<li><p>longitude (double) - decimal degrees</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (string): Nearest launch site.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.get_vars3D">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">get_vars3D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.get_vars3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (Dictionary&lt;string,int&gt;): 3D atmospheric variables accessible with the KWP weather API. (Key = variable name, Value = variable index)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.get_vars2D">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">get_vars2D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.get_vars2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (Dictionary&lt;string,int&gt;): 2D atmospheric variables accessible with the KWP weather API. (Key = variable name, Value = variable index)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>Wind<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="weather_api.uwind">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">uwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.uwind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): zonal-wind component (m/s). Wind velocity in east-west direction.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.vwind">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">vwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.vwind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): meridional wind component (m/s). Wind velocity in north-south direction.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.zwind">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">zwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.zwind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): vertical wind component (m/s). wind velocity in up-down direction.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id3">
+<h3>Ambient Conditions<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="weather_api.pressure">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): air pressure (Pa)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.temperature">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">temperature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): air temperature (K)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.density">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): air density (kg/m^3)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.relative_humidity">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">relative_humidity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.relative_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): relative_humidity (%)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.cloud_cover">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">cloud_cover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.cloud_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): cloud_cover (%) - above altitude. Percentage of sky above covered by clouds.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.visibility">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">visibility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.visibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>altitude (double) - meters above sea level</p></li>
+<li><p>ut (double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): visibility (km). Estimate of visibility derived from humidity, cloud cover, and precipitation rate.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id4">
+<h3>Surface Conditions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="weather_api.OLR">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">OLR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.OLR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ut(double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): outgoing longwave radiation (w/m^2). Returned from IR satellite imagery and used to view cloud cover in the absence of visible light.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.total_cloud_cover">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">total_cloud_cover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.total_cloud_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ut(double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): total cloud cover (%). Percentage of sky covered by clouds.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.precipitable_water">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">precipitable_water</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.precipitable_water" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ut(double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): precipitable water (mm). Amount of liquid water produced by the condensation of all available water vapor in the atmospheric column above a given point. Estimates the moisture content of the atmosphere.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.prate">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">prate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.prate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ut(double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): precipitation rate (mm/hr). Liquid water equivalent precipitation rate, derived from convective and stratiform precipitation totals.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.mslp">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">mslp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.mslp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ut(double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): mean sea level pressure (Pa). Pressure, reduced to sea level, by accounting for the elevation of terrain and diurnal variations in temperature.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="weather_api.sst">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">sst</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.sst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ut(double) - universal time in seconds (time since game began)</p></li>
+</ul>
+</div></blockquote>
+<p>Returns (double): skin surface temperature (K). On land = land surface temperature. On water = sea surface temperature (SST).</p>
+</dd></dl>
+
+</div>
 </div>
 </div>
 
@@ -89,8 +563,20 @@
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">API Documentation</a><ul>
-<li><a class="reference internal" href="#climate-api">Climate API</a></li>
-<li><a class="reference internal" href="#weather-api">Weather API</a></li>
+<li><a class="reference internal" href="#climate-api">Climate API</a><ul>
+<li><a class="reference internal" href="#utility">Utility</a></li>
+<li><a class="reference internal" href="#wind">Wind</a></li>
+<li><a class="reference internal" href="#ambient-conditions">Ambient Conditions</a></li>
+<li><a class="reference internal" href="#surface-conditions">Surface Conditions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#weather-api">Weather API</a><ul>
+<li><a class="reference internal" href="#id1">Utility</a></li>
+<li><a class="reference internal" href="#id2">Wind</a></li>
+<li><a class="reference internal" href="#id3">Ambient Conditions</a></li>
+<li><a class="reference internal" href="#id4">Surface Conditions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
