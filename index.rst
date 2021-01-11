@@ -44,15 +44,16 @@ Installation
 
 Install $project through CKAN without hassle. Or download $project from the following repositories:
 
-    - GitHub: https://github.com/cmac994/KerbalWeatherProject/releases/tag/1.0.2
+GitHub: https://github.com/cmac994/KerbalWeatherProject/releases/tag/1.0.2
     
-    - SpaceDock: https://spacedock.info/mod/2607/Kerbal%20Weather%20Project/
+SpaceDock: https://spacedock.info/mod/2607/Kerbal%20Weather%20Project/
 
 Contribute
 ==========
 
-- Issue Tracker: https://github.com/cmac994/KerbalWeatherProject/issues
-- Source Code: https://github.com/cmac994/KerbalWeatherProject/KerbalWeatherProject
+Issue Tracker: https://github.com/cmac994/KerbalWeatherProject/issues
+
+Source Code: https://github.com/cmac994/KerbalWeatherProject/KerbalWeatherProject
 
 Support
 =======
