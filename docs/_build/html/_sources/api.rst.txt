@@ -259,6 +259,14 @@ List of available launch sites and atmospheric variables
 	lsites_lng (List<double>)
 		* list of launch site longitudes
 
+.. function:: weather_api.set_datasource(string launch_site)
+
+	Parameters
+
+		* launch site (string) - three letter launch site abbreviation (e.g. KSC)
+
+	Returns (void): Reads weather data, at the specified launch site, into memory.
+
 .. function:: weather_api.get_nearest_lsite_idx(latitude, longitude)
 
 	Parameters 
