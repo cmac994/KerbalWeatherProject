@@ -37,6 +37,7 @@ namespace KerbalWeatherProject
         public static double R = 8.314427; //Universal gas constant (J/K*mol)
         public static double Rd = 287.047; //Gas constant, dry air (J/kg*K)
         public static double Rv = 461.5; //Gas constant, water vapor (J/kg*K)
+        public static double sigma = 5.670374419 * 1e-8; //Stefan-Boltzmann Constant (W/m^2 K-4)
 
         public static string logTag = "KerbalWeatherProject";
 

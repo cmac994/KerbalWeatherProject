@@ -8,7 +8,6 @@ namespace KerbalWeatherProject
     {
 
         //Define launch sites (including those from Kerbinside)
-        public static string lsite = "KSC";
         public static List<string> lsites = new List<string>() { "KSC", "DLS", "WLS", "BKN", "BKN", "KHV", "KAT", "CKR", "SLK", "KRS" };
         public static List<string> lsites_name = new List<string>()
             {
@@ -27,7 +26,6 @@ namespace KerbalWeatherProject
         //Define location of launch sites
         public static List<double> lsites_lat = new List<double>() { -0.0972, -6.5603, 45.290, 20.6397, 6.0744, -37.1457, 24.9062, -37.25, -90.0 };
         public static List<double> lsites_lng = new List<double>() { -74.5571, -143.95, 136.1101, -146.4786, -142.0487, -71.0359, -83.6232, 52.70, 113.04703 };
-
 
         //Get launch site closest to position (lat,lng)
         public static string get_nearest_lsite(double latitude, double longitude)
@@ -100,6 +98,38 @@ namespace KerbalWeatherProject
             return weather_data.get3DVar(altitude, ut, "w");
         }
 
+        //Retrieve wind speed (m/s)
+        public static double wspd(double uwind, double vwind, double zwind)
+        {
+            //Calculate wind speed
+            double wspd = Math.Sqrt(Math.Pow(uwind,2) + Math.Pow(vwind,2) + Math.Pow(zwind, 2));
+            return wspd;
+        }
+
+
+        //Retrieve wind direction (deg)
+        public static double wdir_degrees(double uwind, double vwind)
+        {
+
+            //Convert wind components to wind direction
+            int wdir2 = (int)Math.Round(((180.0 / Math.PI) * Math.Atan2(-1.0 * uwind, -1.0 * vwind)), 0); // Direction wind is blowing from.
+            if (wdir2 < 0)
+            {
+                wdir2 += 360;
+            }
+
+            return wdir2;
+        }
+
+        //Retrieve cardinal wind direction
+        public static string wdir_cardinal(double wdir_degrees) { 
+
+            //Get cardinal wind direction from direction in degrees
+            string wdir_str = Util.get_wind_card(wdir_degrees, "N,NNE,NE,ENE,...");
+            return wdir_str;
+        }
+
+
         /// <summary>
         ///  Returns point ambient weather data at a specified time and height above launch site.
         /// </summary>
@@ -139,12 +169,10 @@ namespace KerbalWeatherProject
         }
 
         //Retrieve atmospheric density (hPa)
-        public static double density(double altitude, double ut)
+        public static double density(double pressure, double temperature)
         {
-            double pp = pressure(altitude, ut); //Compute air pressure
-            double tt = temperature(altitude, ut); //Compute air temperature
             //Compute air density using ideal gas law
-            double rho = (pp / (Util.Rd * tt));
+            double rho = (pressure / (Util.Rd * temperature));
             return rho;
         }
 
@@ -190,6 +218,12 @@ namespace KerbalWeatherProject
         public static double sst(double ut)
         {
             return weather_data.get2DVar(ut, "sst");
+        }
+
+        //Compute cloud top temperatures using the Stefan-Boltzmann Law.
+        public static double cloud_top_temps(double olr)
+        {
+            return Math.Pow((olr / Util.sigma), 0.25);
         }
 
     }
