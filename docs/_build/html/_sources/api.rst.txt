@@ -8,6 +8,7 @@ Utility
 #######
 
 Variable lists.
+***************
 
 .. function:: climate_api.get_vars3D()
 		
@@ -21,7 +22,9 @@ Variable lists.
 
 Wind
 ####
+
 Retrieve atmospheric wind data
+******************************
 
 .. function:: climate_api.uwind(latitude, longitude, altitude, ut)
 
@@ -60,6 +63,7 @@ Ambient Conditions
 ##################
 
 Retrieve column (3D) atmospheric variables
+******************************************
 
 .. function:: climate_api.pressure(latitude, longitude, altitude, ut)
 
@@ -120,6 +124,7 @@ Surface Conditions
 ##################
 
 Retrieve surface (2D) atmospheric variables
+*******************************************
 
 .. function:: climate_api.OLR(latitude, longitude, ut)
 
@@ -186,6 +191,7 @@ Derivatives
 ###########
 
 Derive variables from climate API calls above.
+**********************************************
 
 .. function:: climate_api.density(pressure, temperature)
 

@@ -47,7 +47,8 @@
 <h2>Climate API<a class="headerlink" href="#climate-api" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="utility">
 <h3>Utility<a class="headerlink" href="#utility" title="Permalink to this headline">¶</a></h3>
-<p>Variable lists.</p>
+<div class="section" id="variable-lists">
+<h4>Variable lists.<a class="headerlink" href="#variable-lists" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="climate_api.get_vars3D">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">get_vars3D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.get_vars3D" title="Permalink to this definition">¶</a></dt>
@@ -71,9 +72,11 @@
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="wind">
 <h3>Wind<a class="headerlink" href="#wind" title="Permalink to this headline">¶</a></h3>
-<p>Retrieve atmospheric wind data</p>
+<div class="section" id="retrieve-atmospheric-wind-data">
+<h4>Retrieve atmospheric wind data<a class="headerlink" href="#retrieve-atmospheric-wind-data" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="climate_api.uwind">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">uwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.uwind" title="Permalink to this definition">¶</a></dt>
@@ -120,9 +123,11 @@
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="ambient-conditions">
 <h3>Ambient Conditions<a class="headerlink" href="#ambient-conditions" title="Permalink to this headline">¶</a></h3>
-<p>Retrieve column (3D) atmospheric variables</p>
+<div class="section" id="retrieve-column-3d-atmospheric-variables">
+<h4>Retrieve column (3D) atmospheric variables<a class="headerlink" href="#retrieve-column-3d-atmospheric-variables" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="climate_api.pressure">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.pressure" title="Permalink to this definition">¶</a></dt>
@@ -199,9 +204,11 @@
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="surface-conditions">
 <h3>Surface Conditions<a class="headerlink" href="#surface-conditions" title="Permalink to this headline">¶</a></h3>
-<p>Retrieve surface (2D) atmospheric variables</p>
+<div class="section" id="retrieve-surface-2d-atmospheric-variables">
+<h4>Retrieve surface (2D) atmospheric variables<a class="headerlink" href="#retrieve-surface-2d-atmospheric-variables" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="climate_api.OLR">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">OLR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.OLR" title="Permalink to this definition">¶</a></dt>
@@ -287,9 +294,11 @@
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="derivatives">
 <h3>Derivatives<a class="headerlink" href="#derivatives" title="Permalink to this headline">¶</a></h3>
-<p>Derive variables from climate API calls above.</p>
+<div class="section" id="derive-variables-from-climate-api-calls-above">
+<h4>Derive variables from climate API calls above.<a class="headerlink" href="#derive-variables-from-climate-api-calls-above" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="climate_api.density">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pressure</span></em>, <em class="sig-param"><span class="n">temperature</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.density" title="Permalink to this definition">¶</a></dt>
@@ -354,6 +363,7 @@
 <p>Returns (string): cloud top temperatures (K). Cloud top temperature. If skies are clear this is an estimate of the land/sea surface temperature.</p>
 </dd></dl>
 
+</div>
 </div>
 </div>
 <div class="section" id="weather-api">
@@ -700,11 +710,26 @@
   <ul>
 <li><a class="reference internal" href="#">API Documentation</a><ul>
 <li><a class="reference internal" href="#climate-api">Climate API</a><ul>
-<li><a class="reference internal" href="#utility">Utility</a></li>
-<li><a class="reference internal" href="#wind">Wind</a></li>
-<li><a class="reference internal" href="#ambient-conditions">Ambient Conditions</a></li>
-<li><a class="reference internal" href="#surface-conditions">Surface Conditions</a></li>
-<li><a class="reference internal" href="#derivatives">Derivatives</a></li>
+<li><a class="reference internal" href="#utility">Utility</a><ul>
+<li><a class="reference internal" href="#variable-lists">Variable lists.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wind">Wind</a><ul>
+<li><a class="reference internal" href="#retrieve-atmospheric-wind-data">Retrieve atmospheric wind data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ambient-conditions">Ambient Conditions</a><ul>
+<li><a class="reference internal" href="#retrieve-column-3d-atmospheric-variables">Retrieve column (3D) atmospheric variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#surface-conditions">Surface Conditions</a><ul>
+<li><a class="reference internal" href="#retrieve-surface-2d-atmospheric-variables">Retrieve surface (2D) atmospheric variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#derivatives">Derivatives</a><ul>
+<li><a class="reference internal" href="#derive-variables-from-climate-api-calls-above">Derive variables from climate API calls above.</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#weather-api">Weather API</a><ul>
