@@ -246,6 +246,7 @@ Utility
 #######
 
 List of available launch sites and atmospheric variables
+********************************************************
 
 	lsites (List<string>)
 		* list of available launch sites (three letter abbreviations)
