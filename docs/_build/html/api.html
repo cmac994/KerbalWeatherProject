@@ -43,31 +43,33 @@
             
   <div class="section" id="api-documentation">
 <h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="the-climate-module">
-<h2>The “climate” module<a class="headerlink" href="#the-climate-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="climate-api">
+<h2>Climate API<a class="headerlink" href="#climate-api" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="climate_api.temperature">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">temperature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.temperature" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Parameters: * latitude - decimal degrees</dt><dd><ul class="simple">
+<dd><p>Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>latitude - decimal degrees</p></li>
 <li><p>longitude - decimal degrees</p></li>
 <li><p>altitude - meters above sea level</p></li>
-<li><p>ut - time in seconds since start of game</p></li>
+<li><p>ut - universal time in seconds (time since game began)</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 <p>Returns: Climatological temperature at a given point in space and time.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="the-weather-module">
-<h2>The “weather” module<a class="headerlink" href="#the-weather-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="weather-api">
+<h2>Weather API<a class="headerlink" href="#weather-api" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="weather_api.temperature">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">temperature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.temperature" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
-<dt>Parameters: * altitude - meters above sea level</dt><dd><ul class="simple">
-<li><p>ut - time in seconds since start of game</p></li>
+<dt>Parameters</dt><dd><ul class="simple">
+<li><p>altitude - meters above sea level</p></li>
+<li><p>ut - universal time in seconds (time since game began)</p></li>
 </ul>
 </dd>
 </dl>
@@ -87,8 +89,8 @@
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">API Documentation</a><ul>
-<li><a class="reference internal" href="#the-climate-module">The “climate” module</a></li>
-<li><a class="reference internal" href="#the-weather-module">The “weather” module</a></li>
+<li><a class="reference internal" href="#climate-api">Climate API</a></li>
+<li><a class="reference internal" href="#weather-api">Weather API</a></li>
 </ul>
 </li>
 </ul>

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 KerbalWeatherProject API Documentation
+=======
+Documentation for KerbalWeatherProject API
+>>>>>>> 4b81e8af28cabadcfdf4fe6fb99898ac901a9b18
 
 Guide
 ^^^^^
@@ -18,4 +22,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

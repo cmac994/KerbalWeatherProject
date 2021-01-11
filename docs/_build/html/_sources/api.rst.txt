@@ -1,25 +1,28 @@
 API Documentation
 =================
 
-The “climate” module
+Climate API
 --------------------
 
 .. function:: climate_api.temperature(latitude, longitude, altitude, ut)
 
-   Parameters: * latitude - decimal degrees
-               * longitude - decimal degrees
-               * altitude - meters above sea level
-               * ut - time in seconds since start of game
+	Parameters 
 
-   Returns: Climatological temperature at a given point in space and time.
+		* latitude - decimal degrees
+		* longitude - decimal degrees
+		* altitude - meters above sea level
+		* ut - universal time in seconds (time since game began)
 
-The “weather” module
+	Returns: Climatological temperature at a given point in space and time.
+
+Weather API
 --------------------
 
 .. function::  weather_api.temperature(altitude, ut)
  
-   Parameters: * altitude - meters above sea level
-               * ut - time in seconds since start of game 
+	Parameters 
+		* altitude - meters above sea level
+		* ut - universal time in seconds (time since game began)
 
-   Returns: temperature: Temperature (K) at a given time and height ASL. 
+	Returns: temperature: Temperature (K) at a given time and height ASL. 
 
