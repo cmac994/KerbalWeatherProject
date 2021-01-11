@@ -24,14 +24,10 @@ $project is a groundbreaking weather and climate mod for KSP. This documentation
 Features
 --------
 
-* Climatology (Kerbin) 
-
-  * Climate data varies geographically, vertically, and diurnally. 
-
-*Point Weather (Launch Sites)
-
-  * Point weather data varies with height and time and is valid only for a fixed location. 
-
+* Climatology (Kerbin)
+* Climate data varies geographically, vertically, and diurnally. 
+* Point Weather (Launch Sites)
+* Point weather data varies with height and time and is valid only for a fixed location. 
 * Text Based GUI for vewing ambient weather conditions, wind and vehicle relative winds, aerodynamic information, and vehicle velocity stats.
 * Climate API
 * Weather API
