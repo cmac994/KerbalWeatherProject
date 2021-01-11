@@ -25,9 +25,11 @@ Features
 ========
 
 * Climatology (Kerbin)
-* Climate data varies geographically, vertically, and diurnally. 
+   * Climate data varies geographically, vertically, and diurnally. 
+
 * Point Weather (Launch Sites)
-* Point weather data varies with height and time and is valid only for a fixed location. 
+   * Point weather data varies with height and time and is valid only for a fixed location. 
+
 * Text Based GUI for vewing ambient weather conditions, wind and vehicle relative winds, aerodynamic information, and vehicle velocity stats.
 * Climate API
 * Weather API
@@ -42,8 +44,9 @@ Installation
 
 Install $project through CKAN without hassle. Or download $project from the following repositories:
 
-    GitHub: https://github.com/cmac994/KerbalWeatherProject/releases/tag/1.0.2
-    SpaceDock: https://spacedock.info/mod/2607/Kerbal%20Weather%20Project/
+    - GitHub: https://github.com/cmac994/KerbalWeatherProject/releases/tag/1.0.2
+    
+    - SpaceDock: https://spacedock.info/mod/2607/Kerbal%20Weather%20Project/
 
 Contribute
 ==========
