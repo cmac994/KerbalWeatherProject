@@ -1,5 +1,6 @@
 KerbalWeatherProject API Documentation
-=======
+======================================
+
 Documentation for KerbalWeatherProject's (KWP) climate and weather API.
 
 See the tutorial for a guide on how to access and use the KWP API.

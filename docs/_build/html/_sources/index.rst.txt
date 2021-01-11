@@ -1,8 +1,11 @@
-<<<<<<< HEAD
 KerbalWeatherProject API Documentation
-=======
-Documentation for KerbalWeatherProject API
->>>>>>> 4b81e8af28cabadcfdf4fe6fb99898ac901a9b18
+======================================
+
+Documentation for KerbalWeatherProject's (KWP) climate and weather API.
+
+See the tutorial for a guide on how to access and use the KWP API.
+
+Click API documentation to view a list of api calls
 
 Guide
 ^^^^^
