@@ -22,7 +22,7 @@ Indices and tables
 $project is a groundbreaking weather and climate mod for KSP. This documentation details mod features and API usage. The $project API documentation is provided for KSP modders interested in incoporating weather data in their projects
 
 Features
---------
+========
 
 * Climatology (Kerbin)
 * Climate data varies geographically, vertically, and diurnally. 
@@ -33,12 +33,12 @@ Features
 * Weather API
 
 Compatability
--------------
+=============
 
 $project is compatabile with almost all KSP mods include FAR. $project may conflict with mods that override KSP's aerodynamic model using ModularFlightIntegrator.
 
 Installation
-------------
+============
 
 Install $project through CKAN without hassle. Or download $project from the following repositories:
 
@@ -46,19 +46,19 @@ Install $project through CKAN without hassle. Or download $project from the foll
     SpaceDock: https://spacedock.info/mod/2607/Kerbal%20Weather%20Project/
 
 Contribute
-----------
+==========
 
 - Issue Tracker: https://github.com/cmac994/KerbalWeatherProject/issues
 - Source Code: https://github.com/cmac994/KerbalWeatherProject/KerbalWeatherProject
 
 Support
--------
+=======
 
 If you are having issues, please let us know. Comment on the Forum Page:
 https://forum.kerbalspaceprogram.com/index.php?/topic/199347-18x-111x-kerbal-weather-project-kwp-v100/
 or submit an issue on GitHub.
 
 License
--------
+=======
 
 The project is licensed under the MIT license.
