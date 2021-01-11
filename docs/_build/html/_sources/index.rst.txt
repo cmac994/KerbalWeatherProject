@@ -1,11 +1,4 @@
-Simple Documentation Tutorial: KerbalWeatherProject
-
-Another simple header
-
-Here is some text explaining some complicated stuff.::
-
-   print 'hello this is an example'
-   >> hello$
+KerbalWeatherProject API Documentation
 
 Guide
 ^^^^^
@@ -13,7 +6,7 @@ Guide
 .. toctree::
    :maxdepth: 4
    
-   Tutorial
+   tutorial
    api
    license
    help

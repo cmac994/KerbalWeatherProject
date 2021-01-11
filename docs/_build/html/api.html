@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KerbalWeatherProject API Documentation &#8212; KerbalWeatherProject 1.0.2 documentation</title>
+    <title>API Documentation &#8212; KerbalWeatherProject 1.0.2 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
@@ -17,7 +17,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="License" href="license.html" />
-    <link rel="prev" title="KerbalWeatherProjet API: Tutorial" href="Tutorial.html" /> 
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,10 +29,10 @@
           <a href="license.html" title="License"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="Tutorial.html" title="KerbalWeatherProjet API: Tutorial"
+          <a href="tutorial.html" title="Tutorial"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">KerbalWeatherProject 1.0.2 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">KerbalWeatherProject API Documentation</a></li> 
+        <li class="nav-item nav-item-this"><a href="">API Documentation</a></li> 
       </ul>
     </div>  
 
@@ -41,33 +41,37 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="kerbalweatherproject-api-documentation">
-<h1>KerbalWeatherProject API Documentation<a class="headerlink" href="#kerbalweatherproject-api-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="api-documentation">
+<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="the-climate-module">
 <h2>The “climate” module<a class="headerlink" href="#the-climate-module" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt>
-<code class="sig-name descname">public static double temperature(double latitude, double longitude, double altitude, double ut)</code></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Module</dt>
-<dd class="field-odd"><p>climate_api.temperature</p>
+<dt id="climate_api.temperature">
+<code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">temperature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">latitude</span></em>, <em class="sig-param"><span class="n">longitude</span></em>, <em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Parameters: * latitude - decimal degrees</dt><dd><ul class="simple">
+<li><p>longitude - decimal degrees</p></li>
+<li><p>altitude - meters above sea level</p></li>
+<li><p>ut - time in seconds since start of game</p></li>
+</ul>
 </dd>
 </dl>
-<p>API call to retrieve climatological temperature given position and UT Time.</p>
+<p>Returns: Climatological temperature at a given point in space and time.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="the-weather-module">
 <h2>The “weather” module<a class="headerlink" href="#the-weather-module" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt>
-<code class="sig-name descname">public static double temperature(double altitude, double ut)</code></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Module</dt>
-<dd class="field-odd"><p>weather_api.temperature</p>
+<dt id="weather_api.temperature">
+<code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">temperature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Parameters: * altitude - meters above sea level</dt><dd><ul class="simple">
+<li><p>ut - time in seconds since start of game</p></li>
+</ul>
 </dd>
 </dl>
-<p>API call to retrieve temperature given height ASL and UT Time.</p>
+<p>Returns: temperature: Temperature (K) at a given time and height ASL.</p>
 </dd></dl>
 
 </div>
@@ -82,7 +86,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">KerbalWeatherProject API Documentation</a><ul>
+<li><a class="reference internal" href="#">API Documentation</a><ul>
 <li><a class="reference internal" href="#the-climate-module">The “climate” module</a></li>
 <li><a class="reference internal" href="#the-weather-module">The “weather” module</a></li>
 </ul>
@@ -90,8 +94,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="Tutorial.html"
-                        title="previous chapter">KerbalWeatherProjet API: Tutorial</a></p>
+  <p class="topless"><a href="tutorial.html"
+                        title="previous chapter">Tutorial</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="license.html"
                         title="next chapter">License</a></p>
@@ -126,10 +130,10 @@
           <a href="license.html" title="License"
              >next</a> |</li>
         <li class="right" >
-          <a href="Tutorial.html" title="KerbalWeatherProjet API: Tutorial"
+          <a href="tutorial.html" title="Tutorial"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">KerbalWeatherProject 1.0.2 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">KerbalWeatherProject API Documentation</a></li> 
+        <li class="nav-item nav-item-this"><a href="">API Documentation</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

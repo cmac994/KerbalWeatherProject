@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KerbalWeatherProjet API: Tutorial &#8212; KerbalWeatherProject 1.0.2 documentation</title>
+    <title>Tutorial &#8212; KerbalWeatherProject 1.0.2 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
@@ -16,7 +16,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="KerbalWeatherProject API Documentation" href="api.html" />
+    <link rel="next" title="API Documentation" href="api.html" />
     <link rel="prev" title="Guide" href="index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -26,13 +26,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="api.html" title="KerbalWeatherProject API Documentation"
+          <a href="api.html" title="API Documentation"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Guide"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">KerbalWeatherProject 1.0.2 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">KerbalWeatherProjet API: Tutorial</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Tutorial</a></li> 
       </ul>
     </div>  
 
@@ -41,21 +41,75 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="kerbalweatherprojet-api-tutorial">
-<h1>KerbalWeatherProjet API: Tutorial<a class="headerlink" href="#kerbalweatherprojet-api-tutorial" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <p>This module demonstrates how to instantiate the KerbalWeatherProject (KWP) API</p>
-<p>Add KerbalWeatherProject.dll to your KSP_x64_Data/Managed Folder in the KSP Game Directory. Add KerbalWeatherProject.dll as a project reference. In Visual Studio this can be accomplished by clicking <cite>Project</cite> then <cite>add Reference</cite>, after which you can browse for and select the KerbalWeatherProject.dll.</p>
-<p>With the reference added add an assembly dependency to your project</p>
+<p>Copy KerbalWeatherProject.dll to your KSP_x64_Data/Managed Folder in the KSP Game Directory.</p>
+<dl class="simple">
+<dt>Add KerbalWeatherProject.dll as a project reference.</dt><dd><ul class="simple">
+<li><p>In Visual Studio this can be accomplished by clicking <cite>Project</cite> then <cite>add Reference</cite>. Browse and select KerbalWeatherProject.dll.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Include KerbalWeatherProject as an assembly dependency in your project</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">assembly</span><span class="p">:</span> <span class="n">KSPAssemblyDependency</span><span class="p">(</span><span class="s2">&quot;KerbalWeatherProject&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
 </pre></div>
 </div>
-<p>Next open the class file in which you’d like to reference the KWP API. Add the following before the namespace.</p>
+<p>Open a class in which you’d like to reference the KWP API and add the following:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">using</span> <span class="n">KerbalWeatherProject</span>
 </pre></div>
 </div>
-<p>Add code to check whether KWP is available</p>
 <p>Utilize the API to retrieve climate data.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">Set</span> <span class="n">UT</span> <span class="n">Time</span>
+<span class="n">epoch</span> <span class="o">=</span> <span class="mi">3600</span><span class="p">;</span>
+
+<span class="o">//</span><span class="n">Set</span> <span class="n">position</span> <span class="k">for</span> <span class="n">climate</span> <span class="n">API</span> <span class="n">test</span>
+<span class="n">double</span> <span class="n">mlat</span> <span class="o">=</span> <span class="mf">25.0</span><span class="p">;</span> <span class="o">//</span> <span class="mi">25</span> <span class="n">N</span>
+<span class="n">double</span> <span class="n">mlng</span> <span class="o">=</span> <span class="o">-</span><span class="mf">60.0</span><span class="p">;</span> <span class="o">//</span> <span class="mi">60</span> <span class="n">W</span>
+<span class="n">double</span> <span class="n">malt</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">;</span> <span class="o">//</span> <span class="mi">5</span><span class="o">-</span><span class="n">km</span> <span class="n">ASL</span>
+
+<span class="n">double</span> <span class="n">uwind_climo</span> <span class="o">=</span> <span class="n">climate_api</span><span class="o">.</span><span class="n">uwind</span><span class="p">(</span><span class="n">mlat</span><span class="p">,</span> <span class="n">mlng</span><span class="p">,</span> <span class="n">malt</span><span class="p">,</span> <span class="n">epoch</span><span class="p">);</span>
+<span class="n">double</span> <span class="n">vwind_climo</span> <span class="o">=</span> <span class="n">climate_api</span><span class="o">.</span><span class="n">vwind</span><span class="p">(</span><span class="n">mlat</span><span class="p">,</span> <span class="n">mlng</span><span class="p">,</span> <span class="n">malt</span><span class="p">,</span> <span class="n">epoch</span><span class="p">);</span>
+<span class="n">double</span> <span class="n">zwind_climo</span> <span class="o">=</span> <span class="n">climate_api</span><span class="o">.</span><span class="n">zwind</span><span class="p">(</span><span class="n">mlat</span><span class="p">,</span> <span class="n">mlng</span><span class="p">,</span> <span class="n">malt</span><span class="p">,</span> <span class="n">epoch</span><span class="p">);</span>
+
+<span class="n">Debug</span><span class="o">.</span><span class="n">Log</span><span class="p">(</span><span class="s2">&quot;Climatological U-Wind &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">malt</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; km ASL at (&quot;</span> <span class="o">+</span> <span class="n">mlat</span> <span class="o">+</span> <span class="s2">&quot;N, &quot;</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">mlng</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;W) &quot;</span> <span class="o">+</span> <span class="n">uwind_climo</span><span class="p">);</span>
+<span class="n">Debug</span><span class="o">.</span><span class="n">Log</span><span class="p">(</span><span class="s2">&quot;Climatological V-Wind &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">malt</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; km ASL at (&quot;</span> <span class="o">+</span> <span class="n">mlat</span> <span class="o">+</span> <span class="s2">&quot;N, &quot;</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">mlng</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;W) &quot;</span> <span class="o">+</span> <span class="n">vwind_climo</span><span class="p">);</span>
+<span class="n">Debug</span><span class="o">.</span><span class="n">Log</span><span class="p">(</span><span class="s2">&quot;Climatological Z-Wind &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">malt</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; km ASL at (&quot;</span> <span class="o">+</span> <span class="n">mlat</span> <span class="o">+</span> <span class="s2">&quot;N, &quot;</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">mlng</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;W) &quot;</span> <span class="o">+</span> <span class="n">zwind_climo</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Climatological U-Wind 5 km ASL at (25N, 60W) 21.4549880545088
+Climatological V-Wind 5 km ASL at (25N, 60W) -1.55983404053068
+Climatological Z-Wind 5 km ASL at (25N, 60W) -0.0169466099952593
+</pre></div>
+</div>
 <p>Utilize the API to retrieve point weather data at select launch sites</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">//</span><span class="n">Altitude</span> <span class="n">above</span> <span class="n">sea</span> <span class="n">level</span>
+<span class="n">double</span> <span class="n">altitude</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+
+<span class="o">//</span><span class="n">Get</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">launch</span> <span class="n">sites</span> <span class="k">with</span> <span class="n">weather</span> <span class="n">data</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">lsites</span> <span class="o">=</span> <span class="n">weather_api</span><span class="o">.</span><span class="n">lsites</span><span class="p">;</span>
+
+<span class="o">//</span><span class="n">Loop</span> <span class="n">through</span> <span class="n">launch</span> <span class="n">sites</span>
+<span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">l</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+
+   <span class="o">//</span><span class="n">Set</span> <span class="n">launch</span> <span class="n">site</span>
+   <span class="n">lsite</span> <span class="o">=</span> <span class="n">lsites</span><span class="p">[</span><span class="n">l</span><span class="p">];</span>
+
+   <span class="o">//</span><span class="n">Read</span> <span class="n">weather</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">launch</span> <span class="n">site</span>
+   <span class="n">weather_api</span><span class="o">.</span><span class="n">set_datasource</span><span class="p">(</span><span class="n">lsite</span><span class="p">);</span>
+
+   <span class="o">//</span><span class="n">Get</span> <span class="n">temperature</span> <span class="n">data</span> <span class="k">for</span> <span class="n">launch</span> <span class="n">site</span>
+   <span class="n">double</span> <span class="n">tmp_ls</span> <span class="o">=</span> <span class="n">weather_api</span><span class="o">.</span><span class="n">temperature</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">epoch</span><span class="p">);</span>
+   <span class="n">Debug</span><span class="o">.</span><span class="n">Log</span><span class="p">(</span><span class="s2">&quot;Temperature at &quot;</span> <span class="o">+</span> <span class="n">lsite</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">altitude</span><span class="o">+</span><span class="s2">&quot; m ASL: &quot;</span> <span class="o">+</span> <span class="n">tmp_ls</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Temperature at KSC: 300.649475097656
+Temperature at DLS: 288.496887207031
+Temperature at WLS: 243.553863525391
+</pre></div>
+</div>
 </div>
 
 
@@ -70,11 +124,11 @@
                         title="previous chapter">Guide</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="api.html"
-                        title="next chapter">KerbalWeatherProject API Documentation</a></p>
+                        title="next chapter">API Documentation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/Tutorial.rst.txt"
+      <li><a href="_sources/tutorial.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -99,13 +153,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="api.html" title="KerbalWeatherProject API Documentation"
+          <a href="api.html" title="API Documentation"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Guide"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">KerbalWeatherProject 1.0.2 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">KerbalWeatherProjet API: Tutorial</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Tutorial</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

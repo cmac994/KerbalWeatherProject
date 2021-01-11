@@ -1,20 +1,25 @@
-KerbalWeatherProject API Documentation
-======================================
+API Documentation
+=================
 
 The “climate” module
 --------------------
 
-.. function:: public static double temperature(double latitude, double longitude, double altitude, double ut)
+.. function:: climate_api.temperature(latitude, longitude, altitude, ut)
 
-   :module: climate_api.temperature
+   Parameters: * latitude - decimal degrees
+               * longitude - decimal degrees
+               * altitude - meters above sea level
+               * ut - time in seconds since start of game
 
-   API call to retrieve climatological temperature given position and UT Time.
+   Returns: Climatological temperature at a given point in space and time.
 
 The “weather” module
 --------------------
 
-.. function::  public static double temperature(double altitude, double ut)
+.. function::  weather_api.temperature(altitude, ut)
+ 
+   Parameters: * altitude - meters above sea level
+               * ut - time in seconds since start of game 
 
-   :module: weather_api.temperature
-   
-   API call to retrieve temperature given height ASL and UT Time.
+   Returns: temperature: Temperature (K) at a given time and height ASL. 
+
