@@ -11,8 +11,10 @@ Guide
 ^^^^^
 
 .. toctree::
-   :maxdepth: 2
-
+   :maxdepth: 4
+   
+   Tutorial
+   api
    license
    help
 
