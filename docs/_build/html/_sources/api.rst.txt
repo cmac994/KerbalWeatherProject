@@ -12,13 +12,13 @@ Variable lists.
 
 .. function:: climate_api.get_vars3D()
 		
-	Returns (Dictionary<string,int>):
-		- 3D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)
+	Returns (Dictionary): 3D atmospheric variables accessible with the KWP climate API. 
+	(Key = variable name, Value = variable index)
 	
 .. function:: climate_api.get_vars2D()
 
-	Returns (Dictionary<string,int>)
-		- 2D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)
+	Returns (Dictionary) 2D atmospheric variables accessible with the KWP climate API.
+	(Key = variable name, Value = variable index)
 
 Wind
 ####
@@ -276,19 +276,20 @@ List of available launch sites and atmospheric variables
 	Returns (string): Nearest launch site.
 	
 .. function:: weather_api.get_vars3D()
-		
-	Returns (Dictionary<string,int>)
-		- 3D atmospheric variables accessible with the KWP weather API. (Key = variable name, Value = variable index)
-	
+
+        Returns (Dictionary): 3D atmospheric variables accessible with the KWP climate API.
+        (Key = variable name, Value = variable index)
+
 .. function:: weather_api.get_vars2D()
 
-	Returns (Dictionary<string,int>)
-		- 2D atmospheric variables accessible with the KWP weather API. (Key = variable name, Value = variable index)
+        Returns (Dictionary) 2D atmospheric variables accessible with the KWP climate API.
+        (Key = variable name, Value = variable index)
 
 Wind
 ####
 
 Retrieve atmospheric wind data
+******************************
 
 .. function:: weather_api.uwind(altitude, ut)
 
@@ -321,6 +322,7 @@ Ambient Conditions
 ##################
 
 Retrieve column (3D) atmospheric variables
+******************************************
 
 .. function:: weather_api.pressure(altitude, ut)
 
@@ -371,6 +373,7 @@ Surface Conditions
 ##################
 
 Retrieve surface (2D) atmospheric variables
+*******************************************
 
 .. function:: weather_api.OLR(ut)
 
@@ -424,6 +427,7 @@ Derivatives
 ###########
 
 Derive variables from weather API calls above.
+**********************************************
 
 .. function:: weather_api.density(pressure, temperature)
 

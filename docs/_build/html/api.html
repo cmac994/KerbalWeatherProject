@@ -52,23 +52,15 @@
 <dl class="py function">
 <dt id="climate_api.get_vars3D">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">get_vars3D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.get_vars3D" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Returns (Dictionary&lt;string,int&gt;):</dt><dd><ul class="simple">
-<li><p>3D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)</p></li>
-</ul>
-</dd>
-</dl>
+<dd><p>Returns (Dictionary): 3D atmospheric variables accessible with the KWP climate API.
+(Key = variable name, Value = variable index)</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="climate_api.get_vars2D">
 <code class="sig-prename descclassname">climate_api.</code><code class="sig-name descname">get_vars2D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#climate_api.get_vars2D" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Returns (Dictionary&lt;string,int&gt;)</dt><dd><ul class="simple">
-<li><p>2D atmospheric variables accessible with the KWP climate API. (Key = variable name, Value = variable index)</p></li>
-</ul>
-</dd>
-</dl>
+<dd><p>Returns (Dictionary) 2D atmospheric variables accessible with the KWP climate API.
+(Key = variable name, Value = variable index)</p>
 </dd></dl>
 
 </div>
@@ -420,29 +412,22 @@
 <dl class="py function">
 <dt id="weather_api.get_vars3D">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">get_vars3D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.get_vars3D" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Returns (Dictionary&lt;string,int&gt;)</dt><dd><ul class="simple">
-<li><p>3D atmospheric variables accessible with the KWP weather API. (Key = variable name, Value = variable index)</p></li>
-</ul>
-</dd>
-</dl>
+<dd><p>Returns (Dictionary): 3D atmospheric variables accessible with the KWP climate API.
+(Key = variable name, Value = variable index)</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="weather_api.get_vars2D">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">get_vars2D</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.get_vars2D" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Returns (Dictionary&lt;string,int&gt;)</dt><dd><ul class="simple">
-<li><p>2D atmospheric variables accessible with the KWP weather API. (Key = variable name, Value = variable index)</p></li>
-</ul>
-</dd>
-</dl>
+<dd><p>Returns (Dictionary) 2D atmospheric variables accessible with the KWP climate API.
+(Key = variable name, Value = variable index)</p>
 </dd></dl>
 
 </div>
 <div class="section" id="id2">
 <h3>Wind<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Retrieve atmospheric wind data</p>
+<div class="section" id="id3">
+<h4>Retrieve atmospheric wind data<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="weather_api.uwind">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">uwind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.uwind" title="Permalink to this definition">¶</a></dt>
@@ -483,9 +468,11 @@
 </dd></dl>
 
 </div>
-<div class="section" id="id3">
-<h3>Ambient Conditions<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>Retrieve column (3D) atmospheric variables</p>
+</div>
+<div class="section" id="id4">
+<h3>Ambient Conditions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h4>Retrieve column (3D) atmospheric variables<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="weather_api.pressure">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">pressure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.pressure" title="Permalink to this definition">¶</a></dt>
@@ -552,9 +539,11 @@
 </dd></dl>
 
 </div>
-<div class="section" id="id4">
-<h3>Surface Conditions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>Retrieve surface (2D) atmospheric variables</p>
+</div>
+<div class="section" id="id6">
+<h3>Surface Conditions<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h4>Retrieve surface (2D) atmospheric variables<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="weather_api.OLR">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">OLR</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.OLR" title="Permalink to this definition">¶</a></dt>
@@ -628,9 +617,11 @@
 </dd></dl>
 
 </div>
-<div class="section" id="id5">
-<h3>Derivatives<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>Derive variables from weather API calls above.</p>
+</div>
+<div class="section" id="id8">
+<h3>Derivatives<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="derive-variables-from-weather-api-calls-above">
+<h4>Derive variables from weather API calls above.<a class="headerlink" href="#derive-variables-from-weather-api-calls-above" title="Permalink to this headline">¶</a></h4>
 <dl class="py function">
 <dt id="weather_api.density">
 <code class="sig-prename descclassname">weather_api.</code><code class="sig-name descname">density</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pressure</span></em>, <em class="sig-param"><span class="n">temperature</span></em><span class="sig-paren">)</span><a class="headerlink" href="#weather_api.density" title="Permalink to this definition">¶</a></dt>
@@ -698,6 +689,7 @@
 </div>
 </div>
 </div>
+</div>
 
 
             <div class="clearer"></div>
@@ -734,10 +726,22 @@
 </li>
 <li><a class="reference internal" href="#weather-api">Weather API</a><ul>
 <li><a class="reference internal" href="#id1">Utility</a></li>
-<li><a class="reference internal" href="#id2">Wind</a></li>
-<li><a class="reference internal" href="#id3">Ambient Conditions</a></li>
-<li><a class="reference internal" href="#id4">Surface Conditions</a></li>
-<li><a class="reference internal" href="#id5">Derivatives</a></li>
+<li><a class="reference internal" href="#id2">Wind</a><ul>
+<li><a class="reference internal" href="#id3">Retrieve atmospheric wind data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">Ambient Conditions</a><ul>
+<li><a class="reference internal" href="#id5">Retrieve column (3D) atmospheric variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">Surface Conditions</a><ul>
+<li><a class="reference internal" href="#id7">Retrieve surface (2D) atmospheric variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">Derivatives</a><ul>
+<li><a class="reference internal" href="#derive-variables-from-weather-api-calls-above">Derive variables from weather API calls above.</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
