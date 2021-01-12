@@ -6,7 +6,7 @@ namespace KerbalWeatherProject_Lite
     public static class read_climo  
     { 
         //Path to Climatology binary data
-        private static string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherproject_Lite\\Binary\\Climatology";
+        private static string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherProject_Lite\\Binary\\Climatology";
 
         const int NT = 6; //Number of Times (0-6 hr)
         const int NZ = 17; //Number of vertical levels (0-17)

@@ -61,12 +61,6 @@ namespace KerbalWeatherProject_Lite
             }
             return true;
         }
-
-
-        public override bool Interactible(MemberInfo member, GameParameters parameters)
-        {
-            return true;
-        }
     }
 
     public class KerbalWxCustomParams_Sec2 : GameParameters.CustomParameterNode
@@ -131,12 +125,6 @@ namespace KerbalWeatherProject_Lite
 
             return true;
         }
-
-
-        public override bool Interactible(MemberInfo member, GameParameters parameters)
-        {
-            return true;
-        }
     }
 
     public class KerbalWxCustomParams_Sec3 : GameParameters.CustomParameterNode
@@ -185,11 +173,6 @@ namespace KerbalWeatherProject_Lite
 
         //Switch between wind profile booleans (only one can be selected at a time)
         public override bool Enabled(MemberInfo member, GameParameters parameters)
-        {
-            return true;
-        }
-
-        public override bool Interactible(MemberInfo member, GameParameters parameters)
         {
             return true;
         }

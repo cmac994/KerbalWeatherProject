@@ -110,6 +110,7 @@ namespace KerbalWeatherProject_Lite
 
         void Start()
         {
+
             //Read Kerbin Climatology data
             get_dims(); //Get coordinates of data
             //Retrieve meteorological data for the full atmosphere (3D) and at the surface (2D)
@@ -158,7 +159,7 @@ namespace KerbalWeatherProject_Lite
             double epoch_time = Util.getLocalTime_Wx(); //Get local time (i.e. UT time)
             Dictionary<string, int> idx = get_dim_idx(vheight,epoch_time);  //Get index of coordinates closest to vessel location
             int t = idx["t"]; int z = idx["z"];
-            double pp = bilinear_interp(4, t, z, epoch_time, vheight); //Get current ambient air temperature at vessel location
+            double pp = bilinear_interp(4, t, z, epoch_time, vheight); //Get current ambient air pressure at vessel location
             return pp;
         }
 
@@ -179,7 +180,9 @@ namespace KerbalWeatherProject_Lite
             Dictionary<string, int> idx = get_dim_idx(vheight, epoch_time);  //Get index of coordinates closest to vessel location
             int t = idx["t"]; int z = idx["z"];
             int vnum = Vars3d[vname];
-            double v3d = bilinear_interp(vnum, t, z, epoch_time, vheight); //Get current ambient air temperature at vessel location
+            double v3d = bilinear_interp(vnum, t, z, epoch_time, vheight); //Get 3D variable at specified time and height
+            //Util.Log("vname: "+vname+", V3d: " + v3d+", t: "+t+", z: "+z+", epoch time: "+epoch_time+", vheight: "+vheight);
+
             return v3d;
         }
 
@@ -189,7 +192,7 @@ namespace KerbalWeatherProject_Lite
             Dictionary<string, int> idx = get_dim_idx(0, epoch_time);  //Get index of coordinates closest to vessel location
             int t = idx["t"]; 
             int vnum = Vars2d[vname];
-            double v2d = linear_interp(vnum, t, epoch_time); //Retrieve outgoing longwave radiation (i.e. OLR) - (indicative of surface and cloud top temps)
+            double v2d = linear_interp(vnum, t, epoch_time); //Retrieve current 2D variable at specified time
             return v2d;
         }
 
@@ -246,6 +249,7 @@ namespace KerbalWeatherProject_Lite
             rh = bilinear_interp(5, t, z, epoch_time, vheight); //Retrieve relative humidity
             vis = bilinear_interp(6, t, z, epoch_time, vheight); //Retrieve visibility
             cldfrac = bilinear_interp(7, t, z, epoch_time, vheight); //Retrieve cloud fraction 
+            //Util.Log("ww: "+ww+", t: " + t + ", z: " + z + ", epoch time: " + epoch_time + ", vheight: " + vheight);
 
             //Perform validity checks
             /*if (cldfrac < 0)

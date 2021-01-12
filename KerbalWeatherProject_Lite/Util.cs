@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -20,8 +19,12 @@ namespace KerbalWeatherProject_Lite
         public static bool use_point = false;
         public static bool allow_aero = true;
         public static bool allow_thermo = true;
-        public static bool old_aero = false;
         public static bool use_mfi = false;
+
+        public static bool disable_surface_wind;
+        public static bool cnst_wnd;
+        public static int wspd_prof;
+        public static int wdir_prof;
 
         //Atmospheric Constants
         public static double g = 9.80665; //Gravitational constant m/s^2
@@ -56,20 +59,34 @@ namespace KerbalWeatherProject_Lite
 
         };
 
+        public static void check_settings()
+        {
+            //Get surface wind boolean
+            disable_surface_wind = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().disable_surface_wind;
+
+            //Retrieve wind profile booleans and parameters
+            cnst_wnd = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().use_cnstprofile;
+            wspd_prof = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().set_wspeed;
+            wdir_prof = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec2>().set_wdir;
+
+            //MFI Settings
+            allow_aero = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams>().allow_aero;
+            allow_thermo = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams>().allow_thermo;
+        }
 
         public static aero_stats aero_sdata;
         //Log functions: Adapted from Dynamic Battery Storage
         public static void Log(string toLog)
         {
-            Debug.Log(String.Format("[{0}]: {1}", logTag, toLog));
+            Debug.Log(string.Format("[{0}]: {1}", logTag, toLog));
         }
         public static void Warn(string toLog)
         {
-            Debug.LogWarning(String.Format("[{0}]: {1}", logTag, toLog));
+            Debug.LogWarning(string.Format("[{0}]: {1}", logTag, toLog));
         }
         public static void Error(string toLog)
         {
-            Debug.LogError(String.Format("[{0}]: {1}", logTag, toLog));
+            Debug.LogError(string.Format("[{0}]: {1}", logTag, toLog));
         }
 
         public static string get_wind_card(double wdir, string wstr)
@@ -379,16 +396,6 @@ namespace KerbalWeatherProject_Lite
             use_point = use_pnt;
         }
 
-        public static void setMFI(bool mfi_on)
-        {
-            use_mfi = mfi_on;
-        }
-
-        public static bool getMFI()
-        {
-            return use_mfi;
-        }
-
         public static bool allowAero()
         {
             return allow_thermo;
@@ -467,7 +474,7 @@ namespace KerbalWeatherProject_Lite
         //Adpated from FAR
         public static double StagnationPressureCalc(double M)
         {
-            double gamma = Util.CurrentBody.atmosphereAdiabaticIndex;
+            double gamma = CurrentBody.atmosphereAdiabaticIndex;
 
             double ratio;
             ratio = M * M;
@@ -543,7 +550,8 @@ namespace KerbalWeatherProject_Lite
         }
 
         //Get Kerbin cbody
-        public static CelestialBody getbody() {
+        public static CelestialBody getbody()
+        {
             List<CelestialBody> cbodies = PSystemManager.Instance.localBodies;
             return cbodies[1];
         }
@@ -599,8 +607,12 @@ namespace KerbalWeatherProject_Lite
         public static double getTime_Wx(double epoch_time)
         {
             epoch_time = (epoch_time + 3600 * ((((180.0 - 74.724375) / 15.0) / 24.0) * 6)); //Adjust for Local kerbin time @ KSC. 
-            double nrun = epoch_time / (NT * 3600);
+            int nrun = (int) (epoch_time / (NT * 3600));
             epoch_time = epoch_time - (NT * 3600) * nrun;
+            if (epoch_time == NT * 3600)
+            {
+                epoch_time = epoch_time - 1;
+            }
             return epoch_time;
         }
 
@@ -609,8 +621,12 @@ namespace KerbalWeatherProject_Lite
         {
             double epoch_time = Planetarium.GetUniversalTime();
             epoch_time = (epoch_time + 3600 * ((((180.0 - 74.724375) / 15.0) / 24.0) * 6)); //Adjust for Local kerbin time @ KSC.                    
-            double nrun = epoch_time / (NT * 3600);
+            int nrun = (int) (epoch_time / (NT * 3600));
             epoch_time = epoch_time - (NT * 3600) * nrun;
+            if (epoch_time == NT * 3600)
+            {
+                epoch_time = epoch_time - 1;
+            }
             return epoch_time;
         }
 

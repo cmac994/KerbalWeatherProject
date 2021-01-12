@@ -17,7 +17,7 @@ namespace KerbalWeatherProject_Lite
             };
 
         //Define location of launch sites
-        public static List<double> lsites_lat = new List<double>() { -0.0972, -6.5603, 45.290};
+        public static List<double> lsites_lat = new List<double>() { -0.0972, -6.5603, 45.290 };
         public static List<double> lsites_lng = new List<double>() { -74.5571, -143.95, 136.1101};
 
         //Get launch site closest to position (lat,lng)
@@ -42,7 +42,7 @@ namespace KerbalWeatherProject_Lite
         // Retrieve dictionary of atmospheric variables available in KWP //
 
         //Retrieve list of 3-D atmospheric variables (Key = Variable Name, Value = Index in Array)
-        public static Dictionary<string, int> get_vars3D()
+        public static Dictionary<string,int> get_vars3D() 
         {
             return weather_data.Vars3d;
         }
@@ -67,8 +67,7 @@ namespace KerbalWeatherProject_Lite
             if (lsites.Contains(launch_site))
             {
                 weather_data.get_wxdata(launch_site); //Set datasource to specified launch site
-            }
-            else
+            } else
             {
                 weather_data.get_wxdata("KSC"); //default datasource to KSC if launch site not found
             }
@@ -96,7 +95,7 @@ namespace KerbalWeatherProject_Lite
         public static double wspd(double uwind, double vwind, double zwind)
         {
             //Calculate wind speed
-            double wspd = Math.Sqrt(Math.Pow(uwind, 2) + Math.Pow(vwind, 2) + Math.Pow(zwind, 2));
+            double wspd = Math.Sqrt(Math.Pow(uwind,2) + Math.Pow(vwind,2) + Math.Pow(zwind, 2));
             return wspd;
         }
 
@@ -116,8 +115,7 @@ namespace KerbalWeatherProject_Lite
         }
 
         //Retrieve cardinal wind direction
-        public static string wdir_cardinal(double wdir_degrees)
-        {
+        public static string wdir_cardinal(double wdir_degrees) { 
 
             //Get cardinal wind direction from direction in degrees
             string wdir_str = Util.get_wind_card(wdir_degrees, "N,NNE,NE,ENE,...");
@@ -148,19 +146,40 @@ namespace KerbalWeatherProject_Lite
         //Retrieve atmospheric relative humidity (%)
         public static double relative_humidity(double altitude, double ut)
         {
-            return weather_data.get3DVar(altitude, ut, "rh");
+            double rh = weather_data.get3DVar(altitude, ut, "rh");
+            if (rh < 0)
+            {
+                rh = 0;
+            } else if (rh > 100)
+            {
+                rh = 100;
+            }
+            return rh;
         }
 
         //Retrieve visibility (km) 
         public static double visibility(double altitude, double ut)
         {
-            return weather_data.get3DVar(altitude, ut, "vis");
+            double vv = weather_data.get3DVar(altitude, ut, "vis");
+            if (vv < 0)
+            {
+                vv = 0.0;
+            }
+            return vv;
         }
 
         //Retrieve cloud cover (%) above a given altitude at a specific time.
         public static double cloud_cover(double altitude, double ut)
         {
-            return weather_data.get3DVar(altitude, ut, "cld");
+            double cc = weather_data.get3DVar(altitude, ut, "cld")*100.0;
+            if (cc < 0.0)
+            {
+                cc = 0.0;
+            } else if (cc > 100)
+            {
+                cc = 100;
+            }
+            return cc;
         }
 
         //Retrieve atmospheric density (hPa)
@@ -188,7 +207,15 @@ namespace KerbalWeatherProject_Lite
         //Retrieve total cloud cover: maximum cloud cover above the surface.
         public static double total_cloud_cover(double ut)
         {
-            return weather_data.get2DVar(ut, "tcld");
+            double tcc = weather_data.get2DVar(ut, "tcld") * 100;
+            if (tcc < 0.0)
+            {
+                tcc = 0;
+            } else if (tcc > 100)
+            {
+                tcc = 100;
+            }
+            return tcc;
         }
 
         //Retrieve percipitable water (mm): liquid water equivalent if all of the moisture in the atmospheric column above lat,lng was condensed.

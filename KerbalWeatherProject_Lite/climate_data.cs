@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace KerbalWeatherProject_Lite
 {
+
     [KSPAddon(KSPAddon.Startup.Instantly, false)]
     //API for accessing Kerbin climatogical data.
     public class climate_data : MonoBehaviour
@@ -12,6 +13,10 @@ namespace KerbalWeatherProject_Lite
         const int NZ = 17; //Height dimension (vertical levels) 
         const int NLAT = 46; //Latitude dimension (y-grid)
         const int NLON = 91; //Longitude dimension (x-grid)
+
+        //const int NLAT = 46; //Latitude dimension (y-grid)
+        //const int NLON = 91; //Longitude dimension (x-grid)
+        //const int NT = 2556; //Time dimension (length of weather time-series)
 
         private static double invKerbinSLDensity = 0.8319f;
 
@@ -181,6 +186,7 @@ namespace KerbalWeatherProject_Lite
             int t = idx["t"]; int z = idx["z"]; int x = idx["x"]; int y = idx["y"];
             int vnum = Vars3d[vname];
             double vv = interp_var3d(vnum, t, z, y, x, epoch_time, vheight, vlat, vlng); //Get climate data at vessel location
+            //Util.Log("vname: " + vname + ", V3d: " + vv + ", t: " + t + ", z: " + z + ", epoch time: " + epoch_time + ", ut: "+ut+", vheight: " + vheight);
             return vv;
         }
 

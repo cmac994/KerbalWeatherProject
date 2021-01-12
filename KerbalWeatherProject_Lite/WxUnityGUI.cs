@@ -28,7 +28,6 @@ namespace KerbalWeatherProject_Lite
         private ToolbarControl toolbarController;
         private bool toolbarButtonAdded = false;
         private bool guiIsUp = false;
-        public bool wx_enabled = true;
 
         //Unit strings
         private string wstr;
@@ -37,10 +36,6 @@ namespace KerbalWeatherProject_Lite
         private string pres_unit;
         private string precip_unit;
         private string vel_unit;
-
-        //Booleans for type of MPAS data to use
-        private bool use_point;
-        private bool use_climo;
 
         //Initialize booleans for GUI tabs
         private bool showAmbient = false;
@@ -176,7 +171,6 @@ namespace KerbalWeatherProject_Lite
             //Get primary celestial body (i.e. Kerbin)
             kerbin = Util.getbody();
             //Check to see if weather is enabled
-            wx_enabled = Util.getWindBool();
             //Util.Log("Wx Enabled, " + wx_enabled.ToString());
             Util.CacheKWPLocalization();
             //Initialize wind vector
@@ -197,19 +191,6 @@ namespace KerbalWeatherProject_Lite
             {
                 wx_list2d.Add(0);
             }
-            //Get wind direction specificity
-            wstr = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().windstrs;
-
-            //Get variable units
-            wind_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().windunit;
-            temp_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().tempunit;
-            pres_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().presunit;
-            precip_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().precipunit;
-            vel_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().velunit;
-
-            //Get Wx Type (Climatology or Point forecast)
-            use_climo = Util.useCLIM();
-            use_point = Util.useWX();
 
             //Initialize class instance based on Wx type
 
@@ -221,9 +202,22 @@ namespace KerbalWeatherProject_Lite
             //Util.Log("Instantiate Toolbar and KWP");
         }
 
+        //Check units
+        void Update()
+        {
+            //Get wind direction specificity
+            wstr = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().windstrs;
+
+            //Get variable units
+            wind_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().windunit;
+            temp_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().tempunit;
+            pres_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().presunit;
+            precip_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().precipunit;
+            vel_unit = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams_Sec3>().velunit;
+        }
         void FixedUpdate()
         {
-            if (use_climo)
+            if (Util.use_climo)
             {
                 //Retrieve climatological data
                 kwind = _kwx_climo.get3DWind();
@@ -231,7 +225,7 @@ namespace KerbalWeatherProject_Lite
                 wx_list3d = _kwx_climo.getWx3D();
                 wx_list2d = _kwx_climo.getWx2D();
             }
-            else if (use_point)
+            else if (Util.use_point)
             {
                 //Retrieve point forecast data
                 lsite = Util.get_last_lsite_short();
@@ -379,11 +373,11 @@ namespace KerbalWeatherProject_Lite
 
             //Define Weather Toggle button based on location (satellite outside atmosphere, vessel inside atmosphere, etc.)
             string tws;
-            if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (vessel.altitude >= 70000) && (use_climo))
+            if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (vessel.altitude >= 70000) && (Util.use_climo))
             {
                 tws = Util.KWPTags["#autoLOC_tglclim"];
             }
-            else if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (use_point))
+            else if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (Util.use_point))
             {
                 tws = Util.KWPTags["#autoLOC_tglpnt"] + " " + lsite;
             }
@@ -395,8 +389,8 @@ namespace KerbalWeatherProject_Lite
             //Add GUI button to disable or enable weather (i.e. toggle weather)
             if (GUILayout.Button(tws, buttonStyle))
             {
-                wx_enabled = !wx_enabled;
-                Util.setWindBool(wx_enabled);
+                Util.wx_enabled = !Util.wx_enabled;
+                //Util.setWindBool(Util.wx_enabled);
             }
             GUILayout.EndHorizontal();
             GUILayout.FlexibleSpace();
@@ -415,17 +409,17 @@ namespace KerbalWeatherProject_Lite
             if (GUILayout.Button(use_climo_str, buttonStyle))
             {
                 //Util.Log("Enable Climo");
-                use_climo = true;
-                use_point = false;
-                Util.setMAPSDtype(use_climo, use_point);
+                Util.use_climo = true;
+                Util.use_point = false;
+                Util.setMAPSDtype(Util.use_climo, Util.use_point);
             }
             //GUI Button to select MPAS Point Time-series (i.e. local weather at nearest launch site, which varies in height-time)
             if (GUILayout.Button(use_point_str, buttonStyle))
             {
                 //Util.Log("Enable Point");
-                use_climo = false;
-                use_point = true;
-                Util.setMAPSDtype(use_climo, use_point);
+                Util.use_climo = false;
+                Util.use_point = true;
+                Util.setMAPSDtype(Util.use_climo, Util.use_point);
             }
             GUILayout.EndHorizontal();
             GUILayout.FlexibleSpace();
@@ -574,7 +568,7 @@ namespace KerbalWeatherProject_Lite
             if (HighLogic.LoadedSceneIsFlight)
             {
                 //If weather is not enabled set wind to zero
-                if (!wx_enabled)
+                if (!Util.wx_enabled)
                 {
                     kwind = Vector3.zero;
                     /*for (int v = 0; v < vel_list.Count; v++)
@@ -636,7 +630,7 @@ namespace KerbalWeatherProject_Lite
                 tdrag_txt = string.Format("{0:F2} {1}", Util.round_down(aero_sdata.drag, 2), Localizer.Format("kN"));
                 ld_ratio_txt = string.Format("{0:F2} {1}", Util.round_down(aero_sdata.ldRatio, 2), Localizer.Format(""));
 
-                if (wx_enabled)
+                if (Util.wx_enabled)
                 {
 
                     //Format text for headwind, tailwind, and crosswind

@@ -2,10 +2,11 @@
 
 namespace KerbalWeatherProject_Lite
 {
+
     public static class read_wx
     {
         //Get Location of point weather data
-        private static string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherproject_Lite\\Binary\\Point";
+        private static string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherProject_Lite\\Binary\\Point";
 
         //Define dimensions of binary array
         const int NT = 2556; //Temporal dimension
