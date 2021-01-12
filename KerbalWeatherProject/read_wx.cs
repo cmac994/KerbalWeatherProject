@@ -2,6 +2,7 @@
 
 namespace KerbalWeatherProject
 {
+
     public static class read_wx
     {
         //Get Location of point weather data

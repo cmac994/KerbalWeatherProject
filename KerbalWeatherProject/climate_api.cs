@@ -5,7 +5,6 @@ namespace KerbalWeatherProject
 {
     public static class climate_api
     {
-
         // Retrieve dictionary of atmospheric variables available in KWP //
 
         //Retrieve list of 3-D atmospheric variables (Key = Variable Name, Value = Index in Array)
@@ -99,19 +98,42 @@ namespace KerbalWeatherProject
         //Retrieve atmospheric relative humidity (%)
         public static double relative_humidity(double latitude, double longitude, double altitude, double ut)
         {
-            return climate_data.get3DVar(latitude, longitude, altitude, ut, "rh");
+            double rh = climate_data.get3DVar(latitude, longitude, altitude, ut, "rh");
+            if (rh < 0)
+            {
+                rh = 0;
+            }
+            else if (rh > 100)
+            {
+                rh = 100;
+            }
+            return rh;
         }
 
         //Retrieve visibility (km) 
         public static double visibility(double latitude, double longitude, double altitude, double ut)
         {
-            return climate_data.get3DVar(latitude, longitude, altitude, ut, "vis");
+            double vv = climate_data.get3DVar(latitude, longitude, altitude, ut, "vis");
+            if (vv < 0)
+            {
+                vv = 0;
+            }
+            return vv;
         }
 
         //Retrieve cloud cover (%) above a given altitude at a specific time and position.
         public static double cloud_cover(double latitude, double longitude, double altitude, double ut)
         {
-            return climate_data.get3DVar(latitude, longitude, altitude, ut, "cld");
+            double cc = climate_data.get3DVar(latitude, longitude, altitude, ut, "cld") * 100;
+            if (cc < 0.0)
+            {
+                cc = 0.0;
+            }
+            else if (cc > 100)
+            {
+                cc = 100;
+            }
+            return cc;
         }
 
         //Retrieve atmospheric density (hPa)
@@ -139,7 +161,16 @@ namespace KerbalWeatherProject
         //Retrieve total cloud cover: maximum cloud cover above the surface.
         public static double total_cloud_cover(double latitude, double longitude, double ut)
         {
-            return climate_data.get2DVar(latitude, longitude, ut, "tcld");
+            double tcc = climate_data.get2DVar(latitude, longitude, ut, "tcld");
+            if (tcc < 0)
+            {
+                tcc = 0;
+            }
+            else if (tcc > 100)
+            {
+                tcc = 100;
+            }
+            return tcc;
         }
 
         //Retrieve percipitable water (mm): liquid water equivalent if all of the moisture in the atmospheric column above lat,lng was condensed.
@@ -171,6 +202,5 @@ namespace KerbalWeatherProject
         {
             return Math.Pow((olr / Util.sigma), 0.25);
         }
-
     }
 }

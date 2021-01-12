@@ -110,6 +110,7 @@ namespace KerbalWeatherProject
 
         void Start()
         {
+
             //Read Kerbin Climatology data
             get_dims(); //Get coordinates of data
             //Retrieve meteorological data for the full atmosphere (3D) and at the surface (2D)

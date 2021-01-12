@@ -15,15 +15,6 @@ namespace KerbalWeatherProject
         //Get Kerbin cbody
         CelestialBody kerbin;
 
-        //Set weather/climate boolean
-        public bool wx_enabled = true;
-
-        //Booleans for type of MPAS data to use
-        private bool use_climo;
-        private bool use_point;
-        private bool aero;
-        private bool thermo;
-
         //Detect if FAR is present
         bool RegisterWithFAR()
         {
@@ -62,48 +53,29 @@ namespace KerbalWeatherProject
             return false;
         }
 
-        internal void SetWindBool(bool wind_bool)
-        {
-            //Util.Log("Set WindBool: " + wind_bool);
-            wx_enabled = wind_bool;
-        }
-
         void Start()
         {
-            //Check if KWP is enabled by default
-            wx_enabled = HighLogic.CurrentGame.Parameters.CustomParams<KerbalWxCustomParams>().WxEnabled;
-            //Util.Log("MFI: wx_enabled: " + wx_enabled);
-            //Determine MPAS data set
-            use_climo = Util.useCLIM();
-            use_point = Util.useWX();
-            aero = Util.allowAero();
-            thermo = Util.allowThermo();
-
             //Check if FAR is available
             haveFAR = RegisterWithFAR();
 
+            Util.check_settings();
             //if (!haveFAR)
             //{
             Vessel v = FlightGlobals.ActiveVessel;
 
             //Override KSP's FlightIntegrator using the ModularFlightIntegrator 
             //Util.Log("Register Modular FlightIntegrator");
-            if (aero)
+            if (Util.allow_aero)
             {
                 //Util.Log("Register Aero");
                 ModularFI.ModularFlightIntegrator.RegisterUpdateAerodynamicsOverride(UpdateAerodynamicsWx);
             }
-            if (thermo)
+            if (Util.allow_thermo)
             {
                 //Util.Log("Register Thermo");
                 ModularFI.ModularFlightIntegrator.RegisterUpdateThermodynamicsPre(UpdateThermodynamicsPreWx);
             }
 
-            if ((aero) || (thermo))
-            {
-                //Util.Log("MFI On");
-                Util.setMFI(true);
-            }
             GameObject.Destroy(this);
         }
 
@@ -112,25 +84,27 @@ namespace KerbalWeatherProject
         void UpdateAerodynamicsWx(ModularFI.ModularFlightIntegrator fi, Part part)
         {
 
-            Vessel v = FlightGlobals.ActiveVessel;
-            wx_enabled = Util.getWindBool(); //Is weather enabled?
-            use_climo = Util.useCLIM(); //Are we using the climatology 
-            use_point = Util.useWX(); //Are we using MPAS point time-series
+            if (!Util.allow_aero)
+            {
+                return;
+            }
 
+            Vessel v = FlightGlobals.ActiveVessel;
             //Get main vessel and get reference to Kerbin (i.e. celestial body)
             kerbin = Util.getbody();
 
             //Get wind vector (initialize to zero)
             Vector3d windVec = Vector3d.zero;
-            if (use_climo)
+            if (Util.use_climo)
             {
                 //Retrieve wind vector from climatology
                 windVec = KerbalWxClimo.getWSWind(); // .GetWind(FlightGlobals.currentMainBody, part, rb.position);
-            } else if (use_point)
+            } else if (Util.use_point)
             {
                 //Retrieve wind vector from point forecast
                 windVec = KerbalWxPoint.getWSWind(); // .GetWind(FlightGlobals.currentMainBody, part, rb.position);
             }
+
             //Check to see if root part is in list. If not do not perform aero update. 
             //This avoids updating aerodynamics of parts that have been decoupled and are no longer part of the active vessel.
             bool hasPart = false;
@@ -160,9 +134,9 @@ namespace KerbalWeatherProject
             double gamma = 1.4;
             //Util.Log("MFI wx_enabled: " + wx_enabled+", use_point: "+use_point+", use_climo: "+use_climo);
             bool inatmos = false;
-            if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (v.altitude <= 70000) && (wx_enabled))
+            if ((FlightGlobals.ActiveVessel.mainBody == kerbin) && (v.altitude <= 70000) && (Util.wx_enabled))
             {
-                if (use_climo)
+                if (Util.use_climo)
                 {
                     //Retrieve air pressure/density at vessel location
                     climate_data.wx_aero ptd = climate_data.getPTD(vlat, vlng, vheight);
@@ -416,9 +390,10 @@ namespace KerbalWeatherProject
         public void UpdateThermodynamicsPreWx(ModularFI.ModularFlightIntegrator fi)
         {
 
-            wx_enabled = Util.getWindBool();
-            use_climo = Util.useCLIM();
-            use_point = Util.useWX();
+            if (!Util.allow_thermo)
+            {
+                return;
+            }
 
             //Get reference to Kerbin (i.e. celestial body)
             kerbin = Util.getbody();
@@ -461,13 +436,13 @@ namespace KerbalWeatherProject
                 return;
             }
             //Check if in atmosphere
-            if (wx_enabled)
+            if (Util.wx_enabled)
             {
                 //Define gamma (ratio of cp/cv)
                 double gamma = 1.4;
 
                 double sqrMag = v.srf_velocity.sqrMagnitude; //Square magnitude of vessel surface velocity
-                if (use_climo)
+                if (Util.use_climo)
                 {
                     climate_data.wx_aero ptd = climate_data.getPTD(vlat, vlng, vheight); //Retrieve pressure,temperature,and density from climate API
                     //Adjust atmospheric constants
