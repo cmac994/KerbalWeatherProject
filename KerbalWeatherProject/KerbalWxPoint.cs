@@ -49,9 +49,6 @@ namespace KerbalWeatherProject
                 //Define type methods
                 Type WindFunction2 = null;
                 Type FARAtm = null;
-                Type PresFunction = typeof(PropertyDelegate);
-                Type TempFunction = typeof(PropertyDelegate);
-                Type WindFunction = typeof(WindDelegate);
 
                 foreach (var assembly in AssemblyLoader.loadedAssemblies)
                 {
@@ -94,7 +91,7 @@ namespace KerbalWeatherProject
                         return false;
                     }
                     //Set FARWind function
-                    var del = Delegate.CreateDelegate(WindFunction2, this, typeof(KerbalWxClimo).GetMethod("GetTheWind"), true);
+                    var del = Delegate.CreateDelegate(WindFunction2, this, typeof(KerbalWxPoint).GetMethod("GetTheWind"), true);
                     SetWindFunction.Invoke(null, new object[] { del });
                     //Util.Log("SetWindFunc: " + SetWindFunction);
 
@@ -114,16 +111,14 @@ namespace KerbalWeatherProject
                     }
 
                     // Set FAR Atmosphere functions
-                    var del1 = Delegate.CreateDelegate(WindFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheWind"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);                                                                                                                                      //Util.Log("del1: " + del1);
+                    WindDelegate del1 = GetTheWind;
                     SetWindFunction.Invoke(null, new object[] { del1 });
 
-                    var del2 = Delegate.CreateDelegate(TempFunction, this, typeof(KerbalWxClimo).GetMethod("GetTheTemperature"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
+                    PropertyDelegate del2 = GetTheTemperature;
                     SetTempFunction.Invoke(null, new object[] { del2 });
 
-                    var del3 = Delegate.CreateDelegate(PresFunction, this, typeof(KerbalWxClimo).GetMethod("GetThePressure"), true); // typeof(KerbalWxPoint).GetMethod("GetTheWindPoint"), true);
+                    PropertyDelegate del3 = GetThePressure;
                     SetPresFunction.Invoke(null, new object[] { del3 });
-
-                    //Util.Log("SetWindFunc: " + SetWindFunction);
                 }
                 return true; // jump out
             }

@@ -40,6 +40,20 @@ namespace KerbalWeatherProject
             toolTip = "#autoLOC_024")]
         public bool allow_aero = true;
 
+        public override void SetDifficultyPreset(GameParameters.Preset preset)
+        {
+            switch (preset)
+            {
+                case GameParameters.Preset.Easy:
+                    break;
+                case GameParameters.Preset.Normal:
+                    break;
+                case GameParameters.Preset.Moderate:
+                    break;
+                case GameParameters.Preset.Hard:
+                    break;
+            }
+        }
 
         //Switch between climatology and point forecast booleans (only one can be selected at a time)
         public override bool Enabled(MemberInfo member, GameParameters parameters)
@@ -101,6 +115,21 @@ namespace KerbalWeatherProject
             toolTip = "#autoLOC_020")]
 
         public bool disable_surface_wind = false;
+
+        public override void SetDifficultyPreset(GameParameters.Preset preset)
+        {
+            switch (preset)
+            {
+                case GameParameters.Preset.Easy:
+                    break;
+                case GameParameters.Preset.Normal:
+                    break;
+                case GameParameters.Preset.Moderate:
+                    break;
+                case GameParameters.Preset.Hard:
+                    break;
+            }
+        }
 
         //Switch between wind profile booleans (only one can be selected at a time)
         public override bool Enabled(MemberInfo member, GameParameters parameters)
@@ -170,6 +199,21 @@ namespace KerbalWeatherProject
             toolTip = "#autoLOC_014")]
         public string precipunit = "mm";
 
+
+        public override void SetDifficultyPreset(GameParameters.Preset preset)
+        {
+            switch (preset)
+            {
+                case GameParameters.Preset.Easy:
+                    break;
+                case GameParameters.Preset.Normal:
+                    break;
+                case GameParameters.Preset.Moderate:
+                    break;
+                case GameParameters.Preset.Hard:
+                    break;
+            }
+        }
 
         //Switch between wind profile booleans (only one can be selected at a time)
         public override bool Enabled(MemberInfo member, GameParameters parameters)
