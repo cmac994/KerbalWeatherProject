@@ -65,7 +65,7 @@ namespace KerbalWeatherProject
 
             //Override KSP's FlightIntegrator using the ModularFlightIntegrator 
             //Util.Log("Register Modular FlightIntegrator");
-            if (Util.allow_aero)
+            if ((Util.allow_aero) && (!haveFAR))
             {
                 //Util.Log("Register Aero");
                 ModularFI.ModularFlightIntegrator.RegisterUpdateAerodynamicsOverride(UpdateAerodynamicsWx);
