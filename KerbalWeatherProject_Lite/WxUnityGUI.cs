@@ -216,7 +216,11 @@ namespace KerbalWeatherProject_Lite
                 {
                     //Retrieve climatological data
                     vel_list = _kwx_climo.getAero();
-                    if (showAmbient)
+                    if (showVelocity)
+                    {
+                        vel_list = _kwx_climo.getAero();
+                    }
+                    if (showWind || showWindRelative || showAmbient)
                     {
                         wx_list3d = _kwx_climo.getWx3D();
                     }
