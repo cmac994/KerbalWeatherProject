@@ -192,7 +192,8 @@ namespace KerbalWeatherProject
 
                 // Get rigid body
                 Rigidbody rb = part.rb;
-                if (rb)
+                //No aerodynamic updates for shielded parts.
+                if ((rb) && (!part.ShieldedFromAirstream))
                 {
                     if (part == v.rootPart)
                     {

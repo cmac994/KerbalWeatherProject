@@ -213,4 +213,4 @@ C:\Users\Conor M\source\repos\KerbalWeatherProject-Release\KerbalWeatherProject\
 C:\Users\Conor M\source\repos\KerbalWeatherProject-Release\KerbalWeatherProject\obj\Debug\KerbalWeatherProject.csproj.CopyComplete
 C:\Users\Conor M\source\repos\KerbalWeatherProject-Release\KerbalWeatherProject\obj\Debug\KerbalWeatherProject.dll
 C:\Users\Conor M\source\repos\KerbalWeatherProject-Release\KerbalWeatherProject\obj\Debug\KerbalWeatherProject.pdb
-C:\Users\Conor M\source\repos\KerbalWeatherProject-Release\KerbalWeatherProject\obj\Debug\KerbalWeatherProject.csprojAssemblyReference.cache
+C:\Users\Conor M\source\repos\KerbalWeatherProject-Release\KerbalWeatherProject\bin\Debug\UnityEngine.SubsystemsModule.dll
