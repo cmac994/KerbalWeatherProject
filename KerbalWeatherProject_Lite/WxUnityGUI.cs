@@ -14,7 +14,8 @@ namespace KerbalWeatherProject_Lite
         private static float ypos = 100f;
         private static float xwidth = 285.0f;
         private static float yheight = 60.0f;
-        public static Rect titleRect = new Rect(0, 0, 10000, 10000);
+        private int fontsize = 13;
+        public Rect titleRect = new Rect(0, 0, 10000, 10000);
         public Rect windowPos = new Rect(xpos, ypos, xwidth, yheight);
         public Rect wpos;
         //References to Climatology and Point Forecast classes
@@ -133,8 +134,8 @@ namespace KerbalWeatherProject_Lite
                     scenes,
                     KerbalWxClimo.MODID,
                     "368859",
-                    "KerbalWeatherProject_Lite/Textures/KWP_minimal_large",
-                    "KerbalWeatherProject_Lite/Textures/KWP_minimal_small",
+                    "KerbalWeatherProject_Lite/Textures/KWP_b_minimal_miniscule",
+                    "KerbalWeatherProject_Lite/Textures/KWP_b_minimal_miniscule",
                     Localizer.Format(KerbalWxClimo.MODNAME));
                 toolbarButtonAdded = true;
             }
@@ -171,6 +172,8 @@ namespace KerbalWeatherProject_Lite
             //Util.Log("Wx Enabled, " + wx_enabled.ToString());
             Util.CacheKWPLocalization();
 
+            UpdateUISizes();
+
             //Initialize variable lists
             for (int i = 0; i < 6; i++)
             {
@@ -193,6 +196,17 @@ namespace KerbalWeatherProject_Lite
             //Add to toolbar
             AddToolbarButton();
             //Util.Log("Instantiate Toolbar and KWP");
+        }
+
+        //Scale KWP UI with stock UI scale 
+        public void UpdateUISizes()
+        {
+            xwidth = xwidth * GameSettings.UI_SCALE;
+            yheight = yheight * GameSettings.UI_SCALE;
+            xpos = xpos * GameSettings.UI_SCALE;
+            ypos = ypos * GameSettings.UI_SCALE;
+            titleRect = new Rect(0, 0, 10000*(int) GameSettings.UI_SCALE, 10000* (int)GameSettings.UI_SCALE);
+            windowPos = new Rect(xpos, ypos, xwidth, yheight);
         }
 
         //Check units
@@ -359,7 +373,7 @@ namespace KerbalWeatherProject_Lite
         {
             if (guiIsUp)
             {
-                windowPos = GUILayout.Window("KerbalWeatherProject_Lite".GetHashCode(), windowPos, DrawWindow, "KerbalWeatherProject_Lite");
+                windowPos = GUILayout.Window("KerbalWeatherProject_Lite".GetHashCode(), windowPos, DrawWindow, "");
             }
         }
 
@@ -367,17 +381,20 @@ namespace KerbalWeatherProject_Lite
         public void DrawWindow(int windowID)
         {
 
+            int ui_scale = (int)GameSettings.UI_SCALE;
             //Define button style
             buttonStyle = new GUIStyle(GUI.skin.button);
-            buttonStyle.padding = new RectOffset(10, 10, 6, 0);
-            buttonStyle.margin = new RectOffset(2, 2, 2, 2);
+            buttonStyle.padding = new RectOffset(10* ui_scale, 10* ui_scale, 6* ui_scale, 0);
+            buttonStyle.margin = new RectOffset(2* ui_scale, 2* ui_scale, 2* ui_scale, 2* ui_scale);
             buttonStyle.stretchWidth = true;
             buttonStyle.stretchHeight = false;
+            buttonStyle.fontSize = fontsize * ui_scale;
 
             //Adust label style
             labelStyle = new GUIStyle(GUI.skin.label);
             labelStyle.alignment = TextAnchor.UpperLeft;
             labelStyle.wordWrap = false;
+            labelStyle.fontSize = fontsize * ui_scale;
 
             //Get current vessel
             Vessel vessel = FlightGlobals.ActiveVessel;
@@ -637,6 +654,8 @@ namespace KerbalWeatherProject_Lite
                 if (Util.wx_enabled)
                 {
 
+                    //Set label size
+                    GUI.skin.label.fontSize = fontsize * (int) GameSettings.UI_SCALE;
                     //Format text for headwind, tailwind, and crosswind
                     if ((vel_list[4]) < 0)
                     {

@@ -141,7 +141,7 @@ namespace KerbalWeatherProject_Lite
 
             //Check settings
             Util.check_settings();
-
+            
             //Register FAR
             CheckFAR();
 

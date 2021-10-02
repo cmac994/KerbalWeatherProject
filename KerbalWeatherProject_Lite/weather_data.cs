@@ -86,6 +86,7 @@ namespace KerbalWeatherProject_Lite
         //Retrieve coordinates of climatological data and adjust time.
         public static void get_dims()
         {
+
             //Read in coordinates from binary files
             heights = read_wx.getHeight();
             times = read_wx.getTime();

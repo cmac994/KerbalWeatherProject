@@ -119,7 +119,7 @@ namespace KerbalWeatherProject_Lite
             {
                 heights[j] = heights_3d[lat_idx, lng_idx, j];
             }
-            heights[NZ-1] = 70000;
+            heights[NZ - 1] = 70000;
             int hidx = Util.find_min(heights, vheight); //index of nearest height
                     
             if (hidx >= heights.Length)
@@ -172,7 +172,7 @@ namespace KerbalWeatherProject_Lite
         {
             //Read Kerbin Climatology data
             get_dims(); //Get coordinates of data
-            //Retrieve climatological data for the full atmosphere (3D) and at the surface (2D)
+            //Retrieve climatological data f  or the full atmosphere (3D) and at the surface (2D)
             climo_3d = read_climo.getMPAS_3D("year");
             climo_2d = read_climo.getMPAS_2D("year");
         }
