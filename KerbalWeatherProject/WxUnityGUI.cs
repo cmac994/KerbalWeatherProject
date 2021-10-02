@@ -14,7 +14,8 @@ namespace KerbalWeatherProject
         private static float ypos = 100f;
         private static float xwidth = 285.0f;
         private static float yheight = 60.0f;
-        public static Rect titleRect = new Rect(0, 0, 10000, 10000);
+        private int fontsize = 13;
+        public Rect titleRect = new Rect(0, 0, 10000, 10000);
         public Rect windowPos = new Rect(xpos, ypos, xwidth, yheight);
         public Rect wpos;
         //References to Climatology and Point Forecast classes
@@ -133,8 +134,8 @@ namespace KerbalWeatherProject
                     scenes,
                     KerbalWxClimo.MODID,
                     "368859",
-                    "KerbalWeatherProject/Textures/KWP_minimal_large",
-                    "KerbalWeatherProject/Textures/KWP_minimal_small",
+                    "KerbalWeatherProject/Textures/KWP_b_minimal_miniscule",
+                    "KerbalWeatherProject/Textures/KWP_b_minimal_miniscule",
                     Localizer.Format(KerbalWxClimo.MODNAME));
                 toolbarButtonAdded = true;
             }
@@ -273,6 +274,17 @@ namespace KerbalWeatherProject
             }
         }
 
+        //Scale KWP UI with stock UI scale 
+        public void UpdateUISizes()
+        {
+            xwidth = xwidth * GameSettings.UI_SCALE;
+            yheight = yheight * GameSettings.UI_SCALE;
+            xpos = xpos * GameSettings.UI_SCALE;
+            ypos = ypos * GameSettings.UI_SCALE;
+            titleRect = new Rect(0, 0, 10000 * (int)GameSettings.UI_SCALE, 10000 * (int)GameSettings.UI_SCALE);
+            windowPos = new Rect(xpos, ypos, xwidth, yheight);
+        }
+
         Util.aero_stats GetAeroStats()
         {
             //Get current vessel
@@ -359,7 +371,7 @@ namespace KerbalWeatherProject
         {
             if (guiIsUp)
             {
-                windowPos = GUILayout.Window("KerbalWeatherProject".GetHashCode(), windowPos, DrawWindow, "KerbalWeatherProject");
+                windowPos = GUILayout.Window("KerbalWeatherProject".GetHashCode(), windowPos, DrawWindow, "");
             }
         }
 
@@ -367,17 +379,20 @@ namespace KerbalWeatherProject
         public void DrawWindow(int windowID)
         {
 
+            int ui_scale = (int)GameSettings.UI_SCALE;
             //Define button style
             buttonStyle = new GUIStyle(GUI.skin.button);
-            buttonStyle.padding = new RectOffset(10, 10, 6, 0);
-            buttonStyle.margin = new RectOffset(2, 2, 2, 2);
+            buttonStyle.padding = new RectOffset(10 * ui_scale, 10 * ui_scale, 6 * ui_scale, 0);
+            buttonStyle.margin = new RectOffset(2 * ui_scale, 2 * ui_scale, 2 * ui_scale, 2 * ui_scale);
             buttonStyle.stretchWidth = true;
             buttonStyle.stretchHeight = false;
+            buttonStyle.fontSize = fontsize * ui_scale;
 
             //Adust label style
             labelStyle = new GUIStyle(GUI.skin.label);
             labelStyle.alignment = TextAnchor.UpperLeft;
             labelStyle.wordWrap = false;
+            labelStyle.fontSize = fontsize * ui_scale;
 
             //Get current vessel
             Vessel vessel = FlightGlobals.ActiveVessel;
@@ -636,7 +651,7 @@ namespace KerbalWeatherProject
 
                 if (Util.wx_enabled)
                 {
-
+                    GUI.skin.label.fontSize = fontsize * (int)GameSettings.UI_SCALE;
                     //Format text for headwind, tailwind, and crosswind
                     if ((vel_list[4]) < 0)
                     {
