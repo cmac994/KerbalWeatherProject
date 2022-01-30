@@ -5,8 +5,6 @@ namespace KerbalWeatherProject_Lite
 
     public static class read_wx
     {
-        //Get Location of point weather data
-        private static string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherProject_Lite\\Binary\\Point";
 
         //Define dimensions of binary array
         const int NT = 2556; //Temporal dimension
@@ -48,7 +46,7 @@ namespace KerbalWeatherProject_Lite
         {
             float[] vars1d = new float[arr1];
             // open the file
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\" + vvar + ".bin")))
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(Util.getPath("Point", vvar + ".bin"))))
             {
                 for (int i = 0; i < arr1; i++)
                 {
@@ -63,7 +61,7 @@ namespace KerbalWeatherProject_Lite
         public static void get_ts_3d_data(string mon)
         {
             // open the file
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\" + mon + "_wx.bin")))
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(Util.getPath("Point", mon + "_wx.bin"))))
             {
                 for (int v = 0; v < nvars; v++)
                 {
@@ -83,7 +81,7 @@ namespace KerbalWeatherProject_Lite
         public static void get_ts_2d_data(string mon)
         {
             // open the file
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\" + mon + "_wx.bin")))
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(Util.getPath("Point", mon + "_wx.bin"))))
             {
                 for (int v = 0; v < nsvars; v++)
                 {

@@ -143,3 +143,4 @@ C:\Users\Conor M\source\repos\KerbalWeatherProject_Lite\KerbalWeatherProject_Lit
 C:\Users\Conor M\source\repos\KerbalWeatherProject_Lite\KerbalWeatherProject_Lite\obj\Debug\KerbalWeatherProject_Lite.csproj.CopyComplete
 C:\Users\Conor M\source\repos\KerbalWeatherProject_Lite\KerbalWeatherProject_Lite\obj\Debug\KerbalWeatherProject_Lite.dll
 C:\Users\Conor M\source\repos\KerbalWeatherProject_Lite\KerbalWeatherProject_Lite\obj\Debug\KerbalWeatherProject_Lite.pdb
+C:\Users\Conor M\source\repos\KerbalWeatherProject_Lite\KerbalWeatherProject_Lite\obj\Debug\KerbalWeatherProject_Lite.csprojAssemblyReference.cache

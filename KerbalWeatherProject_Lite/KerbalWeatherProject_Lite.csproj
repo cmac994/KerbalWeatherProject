@@ -39,7 +39,7 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="ModularFlightIntegrator">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\ModularFlightIntegrator.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\GameData\ModularFlightIntegrator\ModularFlightIntegrator.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,7 +50,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="ToolbarControl">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\ToolbarControl.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\GameData\001_ToolbarControl\Plugins\ToolbarControl.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
@@ -88,7 +88,7 @@
   <ItemGroup>
     <Compile Include="bf\Serialize.cs" />
     <Compile Include="climate_api.cs" />
-	<Compile Include="climate_data.cs" />
+    <Compile Include="climate_data.cs" />
     <Compile Include="ModularFI_Registerer.cs" />
     <Compile Include="read_climo.cs" />
     <Compile Include="KerbalWxPoint.cs" />
