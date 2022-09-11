@@ -4,9 +4,7 @@ namespace KerbalWeatherProject
 {
     //Class to read climatological data from binary files
     public static class read_climo  
-    { 
-        //Path to Climatology binary data
-        private static string bin_path = KSPUtil.ApplicationRootPath + "\\GameData\\KerbalWeatherproject\\Binary\\Climatology";
+    {
 
         const int NT = 6; //Number of Times (0-6 hr)
         const int NZ = 17; //Number of vertical levels (0-17)
@@ -59,7 +57,7 @@ namespace KerbalWeatherProject
             Util.Log("Reading Binary 1-D data: " + vvar);
             float[] vars1d = new float[arr1];
             // open the file
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\" + vvar + ".bin")))
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(Util.getPath("Climatology", vvar + ".bin"))))
             {
                 for (int i = 0; i < arr1; i++)
                 {
@@ -76,7 +74,7 @@ namespace KerbalWeatherProject
         {
             Util.Log("Reading Binary CLIMO 3D data: " + mon);
             // open the binary file for reading
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\" + mon + "_wx.bin")))
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(Util.getPath("Climatology", mon + "_wx.bin"))))
             {
                 //Loop through atmospheric variablesc by variable, time, vertical level, latitude, and longitude
                 for (int v = 0; v < nvars; v++)
@@ -103,7 +101,7 @@ namespace KerbalWeatherProject
         {
             Util.Log("Reading Binary Height 3D data");
             // open the binary file for reading
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\height.bin")))
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(Util.getPath("Climatology", "height.bin"))))
             {
                 //Loop through height by vertical level, latitude, and longitude
                 for (int j = 0; j < NLAT; j++)
@@ -125,7 +123,7 @@ namespace KerbalWeatherProject
         {
             Util.Log("Reading Binary CLIMO 2D data: " + mon);
             // open the file binary file for reading
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(bin_path + "\\" + mon + "_wx.bin")))
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(Util.getPath("Climatology", mon + "_wx.bin"))))
             {
                 for (int v = 0; v < nsvars; v++)
                 {

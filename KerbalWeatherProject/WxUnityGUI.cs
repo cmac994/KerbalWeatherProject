@@ -14,15 +14,13 @@ namespace KerbalWeatherProject
         private static float ypos = 100f;
         private static float xwidth = 285.0f;
         private static float yheight = 60.0f;
-        public static Rect titleRect = new Rect(0, 0, 10000, 10000);
+        private int fontsize = 13;
+        public Rect titleRect = new Rect(0, 0, 10000, 10000);
         public Rect windowPos = new Rect(xpos, ypos, xwidth, yheight);
         public Rect wpos;
         //References to Climatology and Point Forecast classes
         public KerbalWxClimo _kwx_climo;
         public KerbalWxPoint _kwx_point;
-
-        //Initialize wind vector
-        Vector3d kwind;
 
         //Initialize toolbar controler
         private ToolbarControl toolbarController;
@@ -136,8 +134,8 @@ namespace KerbalWeatherProject
                     scenes,
                     KerbalWxClimo.MODID,
                     "368859",
-                    "KerbalWeatherProject/Textures/KWP_minimal_large",
-                    "KerbalWeatherProject/Textures/KWP_minimal_small",
+                    "KerbalWeatherProject/Textures/KWP_b_minimal_miniscule",
+                    "KerbalWeatherProject/Textures/KWP_b_minimal_miniscule",
                     Localizer.Format(KerbalWxClimo.MODNAME));
                 toolbarButtonAdded = true;
             }
@@ -173,10 +171,6 @@ namespace KerbalWeatherProject
             //Check to see if weather is enabled
             //Util.Log("Wx Enabled, " + wx_enabled.ToString());
             Util.CacheKWPLocalization();
-            //Initialize wind vector
-            kwind.x = 0.0f;
-            kwind.y = 0.0f;
-            kwind.z = 0.0f;
 
             //Initialize variable lists
             for (int i = 0; i < 6; i++)
@@ -217,22 +211,46 @@ namespace KerbalWeatherProject
         }
         void FixedUpdate()
         {
-            if (Util.use_climo)
+            if (!gui_removed)
             {
-                //Retrieve climatological data
-                kwind = _kwx_climo.get3DWind();
-                vel_list = _kwx_climo.getAero();
-                wx_list3d = _kwx_climo.getWx3D();
-                wx_list2d = _kwx_climo.getWx2D();
-            }
-            else if (Util.use_point)
-            {
-                //Retrieve point forecast data
-                lsite = Util.get_last_lsite_short();
-                kwind = _kwx_point.get3DWind();
-                vel_list = _kwx_point.getAero();
-                wx_list3d = _kwx_point.getWx3D();
-                wx_list2d = _kwx_point.getWx2D();
+                if (Util.use_climo)
+                {
+                    //Retrieve climatological data
+                    vel_list = _kwx_climo.getAero();
+                    if (showVelocity)
+                    {
+                        vel_list = _kwx_climo.getAero();
+                    }
+                    if (showWind || showWindRelative || showAmbient)
+                    {
+                        wx_list3d = _kwx_climo.getWx3D();
+                    }
+                    if (showSfc || showSat)
+                    {
+                        wx_list2d = _kwx_climo.getWx2D();
+                    }
+                }
+                else if (Util.use_point)
+                {
+                    //Retrieve point forecast data
+                    lsite = Util.get_last_lsite_short();
+                    if (showVelocity)
+                    {
+                        vel_list = _kwx_point.getAero();
+                    }
+                    if (showWind || showWindRelative || showAmbient)
+                    {
+                        wx_list3d = _kwx_point.getWx3D();
+                    }
+                    if (showSfc || showSat)
+                    {
+                        wx_list2d = _kwx_point.getWx2D();
+                    }
+                }
+                if (showAero)
+                {
+                    aero_sdata = GetAeroStats();
+                }
             }
 
             //Check to see if outside of Kerbin's SOI
@@ -254,7 +272,17 @@ namespace KerbalWeatherProject
                     gui_removed = false;
                 }
             }
-            aero_sdata = GetAeroStats();
+        }
+
+        //Scale KWP UI with stock UI scale 
+        public void UpdateUISizes()
+        {
+            xwidth = xwidth * GameSettings.UI_SCALE;
+            yheight = yheight * GameSettings.UI_SCALE;
+            xpos = xpos * GameSettings.UI_SCALE;
+            ypos = ypos * GameSettings.UI_SCALE;
+            titleRect = new Rect(0, 0, 10000 * (int)GameSettings.UI_SCALE, 10000 * (int)GameSettings.UI_SCALE);
+            windowPos = new Rect(xpos, ypos, xwidth, yheight);
         }
 
         Util.aero_stats GetAeroStats()
@@ -343,27 +371,28 @@ namespace KerbalWeatherProject
         {
             if (guiIsUp)
             {
-                windowPos = GUILayout.Window("KerbalWeatherProject".GetHashCode(), windowPos, DrawWindow, "KerbalWeatherProject");
+                windowPos = GUILayout.Window("KerbalWeatherProject".GetHashCode(), windowPos, DrawWindow, "");
             }
         }
-
-
 
         //Draw GUI
         public void DrawWindow(int windowID)
         {
 
+            int ui_scale = (int)GameSettings.UI_SCALE;
             //Define button style
             buttonStyle = new GUIStyle(GUI.skin.button);
-            buttonStyle.padding = new RectOffset(10, 10, 6, 0);
-            buttonStyle.margin = new RectOffset(2, 2, 2, 2);
+            buttonStyle.padding = new RectOffset(10 * ui_scale, 10 * ui_scale, 6 * ui_scale, 0);
+            buttonStyle.margin = new RectOffset(2 * ui_scale, 2 * ui_scale, 2 * ui_scale, 2 * ui_scale);
             buttonStyle.stretchWidth = true;
             buttonStyle.stretchHeight = false;
+            buttonStyle.fontSize = fontsize * ui_scale;
 
             //Adust label style
             labelStyle = new GUIStyle(GUI.skin.label);
             labelStyle.alignment = TextAnchor.UpperLeft;
             labelStyle.wordWrap = false;
+            labelStyle.fontSize = fontsize * ui_scale;
 
             //Get current vessel
             Vessel vessel = FlightGlobals.ActiveVessel;
@@ -432,7 +461,7 @@ namespace KerbalWeatherProject
                 windowPos0.width = xwidth;
                 windowPos0.height = yheight;
                 showPos = !showPos;
-                OnGUI();
+                //OnGUI();
                 windowPos = windowPos0;
             }
 
@@ -443,7 +472,7 @@ namespace KerbalWeatherProject
                 windowPos0.width = xwidth;
                 windowPos0.height = yheight;
                 showPos = !showPos; //Set showPos false on update (now that UI has been resized)
-                OnGUI();
+                //OnGUI();
                 windowPos = windowPos0;
             }
 
@@ -462,7 +491,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showPos = true; //Set showPos to true to fill in GUI when switching scenes (set showPos false on update)
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     inspace = false;
@@ -474,7 +503,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showVelocity = !showVelocity;
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     //Add wind info button
@@ -484,7 +513,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showWind = !showWind;
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     //Add button for cross/headwind info
@@ -494,7 +523,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showWindRelative = !showWindRelative;
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     //Add button to overlay ambient environmental data
@@ -504,7 +533,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showAmbient = !showAmbient;
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     //Add button for aero data (adapted from AeroGUI)
@@ -514,7 +543,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showAero = !showAero;
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     GUILayout.EndHorizontal();
@@ -531,7 +560,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showPos = true; //Set showPos to true to fill in GUI when switching scenes (set showPos false on update)
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     inspace = true;
@@ -543,7 +572,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showSfc = !showSfc;
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     //Add button to display satellite meteorological data (from space)
@@ -553,7 +582,7 @@ namespace KerbalWeatherProject
                         windowPos0.width = xwidth;
                         windowPos0.height = yheight;
                         showSat = !showSat;
-                        OnGUI();
+                        //OnGUI();
                         windowPos = windowPos0;
                     }
                     GUILayout.EndHorizontal();
@@ -567,18 +596,8 @@ namespace KerbalWeatherProject
 
             if (HighLogic.LoadedSceneIsFlight)
             {
-                //If weather is not enabled set wind to zero
-                if (!Util.wx_enabled)
-                {
-                    kwind = Vector3.zero;
-                    /*for (int v = 0; v < vel_list.Count; v++)
-                    {
-                        vel_list[v] = 0;
-                    }*/
-                }
-
                 //Convert wind components to wind direction
-                int wdir2 = (int)Math.Round(((180.0 / Math.PI) * Math.Atan2(-1.0 * kwind.z, -1.0 * kwind.x)), 0); // Direction wind is blowing from.
+                int wdir2 = (int)Math.Round(((180.0 / Math.PI) * Math.Atan2(-1.0 * wx_list3d[1], -1.0 * wx_list3d[0])), 0); // Direction wind is blowing from.
                 if (wdir2 < 0)
                 {
                     wdir2 += 360;
@@ -593,7 +612,7 @@ namespace KerbalWeatherProject
                 //Get cardinal wind direction from direction in degrees
                 string wdir_str = Util.get_wind_card(wdir2, wstr);
                 //Calculate wind speed
-                double wspd = Math.Sqrt(Math.Pow(kwind.x, 2) + Math.Pow(kwind.z, 2));
+                double wspd = Math.Sqrt(Math.Pow(wx_list3d[0], 2) + Math.Pow(wx_list3d[1], 2));
 
                 //Position text
                 biome_txt = Util.KWPTags["#autoLOC_biome"] + ": " + bname;
@@ -602,7 +621,7 @@ namespace KerbalWeatherProject
                 ter_txt = string.Format("{0:F2} {1}", ter_height, Localizer.Format("m"));
 
                 //Wind text formatting
-                wwind_txt = string.Format("{0:F2} {1}", kwind.y * 1000.0, Localizer.Format("mm/s"));
+                wwind_txt = string.Format("{0:F2} {1}", wx_list3d[2] * 1000.0, Localizer.Format("mm/s"));
                 wspd_txt = string.Format("{0:F2} {1}", Util.convert_wspeed(wspd, wind_unit), Localizer.Format(wind_unit));
                 wdir_txt = string.Format("{0:F1} {1}", wdir2, Localizer.Format("°") + "(" + wdir_str + ")");
                 wdir_txt = string.Format("{0:F1} {1}", wdir2, Localizer.Format("°"));
@@ -632,7 +651,7 @@ namespace KerbalWeatherProject
 
                 if (Util.wx_enabled)
                 {
-
+                    GUI.skin.label.fontSize = fontsize * (int)GameSettings.UI_SCALE;
                     //Format text for headwind, tailwind, and crosswind
                     if ((vel_list[4]) < 0)
                     {

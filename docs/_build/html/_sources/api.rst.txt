@@ -288,13 +288,13 @@ List of available launch sites and atmospheric variables
 	
 .. function:: weather_api.get_vars3D()
 
-        Returns (Dictionary): 3D atmospheric variables accessible with the KWP climate API.
+        Returns (Dictionary): 3D atmospheric variables accessible with the KWP weather API.
 
         (Key = variable name, Value = variable index)
 
 .. function:: weather_api.get_vars2D()
 
-        Returns (Dictionary) 2D atmospheric variables accessible with the KWP climate API.
+        Returns (Dictionary) 2D atmospheric variables accessible with the KWP weather API.
 
         (Key = variable name, Value = variable index)
 

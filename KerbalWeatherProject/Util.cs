@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -58,6 +60,14 @@ namespace KerbalWeatherProject
             public double shockTemp;
 
         };
+
+        public static string getPath(string data_type, string fname)
+        {
+            // Initialize path to file
+            string file_path = Path.Combine(KSPUtil.ApplicationRootPath, "GameData", logTag, "Binary", data_type, fname);
+            return file_path;
+        }
+
 
         public static void check_settings()
         {

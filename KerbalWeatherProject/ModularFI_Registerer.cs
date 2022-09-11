@@ -65,7 +65,7 @@ namespace KerbalWeatherProject
 
             //Override KSP's FlightIntegrator using the ModularFlightIntegrator 
             //Util.Log("Register Modular FlightIntegrator");
-            if (Util.allow_aero)
+            if ((Util.allow_aero) && (!haveFAR))
             {
                 //Util.Log("Register Aero");
                 ModularFI.ModularFlightIntegrator.RegisterUpdateAerodynamicsOverride(UpdateAerodynamicsWx);
@@ -192,7 +192,8 @@ namespace KerbalWeatherProject
 
                 // Get rigid body
                 Rigidbody rb = part.rb;
-                if (rb)
+                //No aerodynamic updates for shielded parts.
+                if ((rb) && (!part.ShieldedFromAirstream))
                 {
                     if (part == v.rootPart)
                     {
@@ -472,6 +473,14 @@ namespace KerbalWeatherProject
                 fi.backgroundRadiationTemp = CalculateBackgroundRadiationTemperature(fi.atmosphericTemperature, fi.DensityThermalLerp);
                 fi.backgroundRadiationTempExposed = CalculateBackgroundRadiationTemperature(fi.externalTemperature, fi.DensityThermalLerp);
             }
+
+            for (int i = 0; i < fi.PartThermalDataCount; i++)
+            {
+                PartThermalData pttd = fi.partThermalDataList[i];
+                Part part = pttd.part;
+                part.skinUnexposedExternalTemp = v.externalTemperature;
+            }
+
             /*else if (!wx_enabled)
             {
                 fi.BaseFIUpdateThermodynamics();
@@ -508,7 +517,6 @@ namespace KerbalWeatherProject
             double air_density = ptd.density;
             double air_temperature = ptd.temperature;
             double air_pressure = ptd.pressure;
-            double orig_temp = fi.atmosphericTemperature;
 
             //Set environmental data for current vessel
             v.staticPressurekPa = air_pressure / 1000.0;
@@ -516,7 +524,9 @@ namespace KerbalWeatherProject
             v.atmosphericTemperature = air_temperature;
             v.speedOfSound = Math.Sqrt(1.4 * (air_pressure / air_density)); //mach is updated in update aero
             v.atmosphericTemperature = air_temperature;
-            v.externalTemperature = Math.Max(air_temperature, fi.CalculateShockTemperature()); //Revision to temp calc from dkvalois 
+            v.externalTemperature = Math.Max(air_temperature, fi.CalculateShockTemperature()); //Revision to temp calc from dkvalois
+            fi.externalTemperature = v.externalTemperature;
+            fi.atmosphericTemperature = v.atmosphericTemperature;
             return air_temperature;
         }
 
@@ -528,7 +538,6 @@ namespace KerbalWeatherProject
             double air_density = ptd.density;
             double air_temperature = ptd.temperature;
             double air_pressure = ptd.pressure;
-            double orig_temp = fi.atmosphericTemperature;
 
             //Set environmental data for current vessel
             v.staticPressurekPa = air_pressure / 1000.0;
@@ -538,6 +547,8 @@ namespace KerbalWeatherProject
             v.atmosphericTemperature = air_temperature;
             v.externalTemperature = Math.Max(air_temperature, fi.CalculateShockTemperature()); //Revision to temp calc from dkvalois 
             //v.externalTemperature = (air_temperature + (fi.externalTemperature - orig_temp));
+            fi.externalTemperature = v.externalTemperature;
+            fi.atmosphericTemperature = v.atmosphericTemperature;
             return air_temperature;
         }
 
