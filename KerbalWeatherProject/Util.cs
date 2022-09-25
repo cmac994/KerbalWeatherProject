@@ -337,11 +337,13 @@ namespace KerbalWeatherProject
             return body.BiomeMap.Attributes[i];
         }
 
-        internal static string getBiomeName(CelestialBody body, double lon, double lat)
+        internal static string getBiomeName(CelestialBody body, double lon, double lat, bool getdisplayname=false)
         {
             CBAttributeMapSO.MapAttribute a = getBiome(body, lon, lat);
             if (a == null)
                 return "unknown";
+            if (getdisplayname)
+                return a.displayname;
             return a.name;
         }
 
