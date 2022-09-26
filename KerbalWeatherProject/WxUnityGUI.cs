@@ -607,7 +607,7 @@ namespace KerbalWeatherProject
                 double vlng = vessel.longitude;
                 double vlat = vessel.latitude;
                 double ter_height = vessel.terrainAltitude;
-                string bname = Util.getBiomeName(kerbin, vlng, vlat);
+                string bname = Util.getBiomeName(kerbin, vlng, vlat, true);
 
                 //Get cardinal wind direction from direction in degrees
                 string wdir_str = Util.get_wind_card(wdir2, wstr);
